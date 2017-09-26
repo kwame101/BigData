@@ -29,7 +29,6 @@ class Users extends Admin_Controller
  $this->form_validation->set_rules('first_name','First name','trim');
  $this->form_validation->set_rules('last_name','Last name','trim');
  $this->form_validation->set_rules('company','Company','trim');
- $this->form_validation->set_rules('phone','Phone','trim');
  $this->form_validation->set_rules('username','Username','trim|required|is_unique[users.username]');
  $this->form_validation->set_rules('email','Email','trim|required|valid_email|is_unique[users.email]');
  $this->form_validation->set_rules('password','Password','required');
@@ -52,10 +51,14 @@ class Users extends Admin_Controller
    $additional_data = array(
      'first_name' => $this->input->post('first_name'),
      'last_name' => $this->input->post('last_name'),
-     'company' => $this->input->post('company'),
-     'phone' => $this->input->post('phone')
+     'company' => $this->input->post('company')
    );
-   $this->ion_auth->register($username, $password, $email, $additional_data, $group_ids);
+   if(in_array('1',$group_ids,true)){
+    $this->ion_auth->register_admin($username, $password, $email, $additional_data, $group_ids);
+   }
+   else{
+     $this->ion_auth->register_others($username, $password, $email, $additional_data, $group_ids);
+   }
    $this->session->set_flashdata('message',$this->ion_auth->messages());
    redirect('admin/users','refresh');
  }
@@ -70,7 +73,6 @@ class Users extends Admin_Controller
   $this->form_validation->set_rules('first_name','First name','trim');
   $this->form_validation->set_rules('last_name','Last name','trim');
   $this->form_validation->set_rules('company','Company','trim');
-  $this->form_validation->set_rules('phone','Phone','trim');
   $this->form_validation->set_rules('username','Username','trim|required');
   $this->form_validation->set_rules('email','Email','trim|required|valid_email');
   $this->form_validation->set_rules('password','Password','min_length[6]');
@@ -109,8 +111,7 @@ class Users extends Admin_Controller
       'email' => $this->input->post('email'),
       'first_name' => $this->input->post('first_name'),
       'last_name' => $this->input->post('last_name'),
-      'company' => $this->input->post('company'),
-      'phone' => $this->input->post('phone')
+      'company' => $this->input->post('company')
     );
     if(strlen($this->input->post('password'))>=6) $new_data['password'] = $this->input->post('password');
 

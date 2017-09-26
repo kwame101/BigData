@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Password extends Public_Controller{
+class Password extends My_Controller{
 
   /*
     * Initialise functions

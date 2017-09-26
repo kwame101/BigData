@@ -54,11 +54,15 @@ class Admin_Controller extends MY_Controller
       //redirect them to the login page
       redirect('admin/user/login', 'refresh');
     }
+    elseif($this->ion_auth->logged_in() && !$this->ion_auth->in_group('admin'))
+    {
+      redirect('dashboard', 'refresh');
+    }
     $this->data['current_user'] = $this->ion_auth->user()->row();
     $this->data['current_user_menu'] = '';
     if($this->ion_auth->in_group('admin'))
     {
-      $this->data['current_user_menu'] = $this->load->view('templates/_parts/user_menu_admin_view.php', NULL, TRUE);
+      $this->data['current_user_menu'] = $this->load->view('templates/partial/user_menu_admin_view.php', NULL, TRUE);
     }
     $this->data['page_title'] = 'Big Data Corridor - Admin';
   }
@@ -67,7 +71,7 @@ class Admin_Controller extends MY_Controller
   *
   *
   */
-  protected function render($the_view = NULL, $template = 'master')
+  protected function render($the_view = NULL, $template = 'admin_master')
   {
     parent::render($the_view, $template);
   }
@@ -84,7 +88,11 @@ class Public_Controller extends MY_Controller
   function __construct()
   {
     parent::__construct();
-
+    if (!$this->ion_auth->logged_in())
+    {
+      //redirect them to the login page
+      redirect('user/login','refresh');
+    }
     $this->data['page_title'] = 'Big Data Corridor';
   }
 

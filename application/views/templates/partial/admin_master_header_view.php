@@ -4,14 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <?php
-            // Checks for, and assigns cookie to local variable:
-            if(!empty($_COOKIE['style'])) $style = $_COOKIE['style'];
-            // If no cookie is present then set style as "day" (default):
-            else $style = 'main';
-        ?>
-        <link id="stylesheet" href="<?php echo base_url(); ?>/assets/css/<?php echo $style ?>.css" title="main" rel="stylesheet" type="text/css" />
+        <link id="stylesheet" href="<?php echo base_url(); ?>/assets/css/main.css" title="main" rel="stylesheet" type="text/css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>/assets/js/styleswitcher.jquery.js"></script>
 
@@ -21,30 +14,6 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     </head>
     <body>
-		<div class="top-bar">
-			<div class="wrapper">
-				<div class="c-12 column text-right">
-					<div id="help-toolbar" class="accessibility-toolbar">
-                        <li class="menu-header-search">
-                            <form action="/" id="searchform" method="get">
-                                <input type="hidden" name="s" id="s" placeholder="Search">
-                                <input type="hidden" name="site_section" value="site-search">
-                                <button type="submit" name="search" class="fa fa-search button transparent search"></button>
-                            </form>
-                        </li>
-						<div class="add-contrast">
-                            <a href="<?php echo base_url(); ?>/assets/style-switcher.php?style=main" class="contrast default" title="Standard Theme">C</a>
-                            <a href="<?php echo base_url(); ?>/assets/style-switcher.php?style=high-contrast" class="contrast high" title="High Contrast">C</a>
-						</div>
-						<div class="add-fontsize" id="font-resizr">
-							<a href="#decrease" class="decrease-me">A</a>
-							<a href="#normal" class="reset-me">A</a>
-							<a href="#increase" class="increase-me">A</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
         <header id="header" class="primary-header">
             <div class="row">
                 <div class="column c-3 logowrap">Logo here</div>

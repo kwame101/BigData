@@ -1,12 +1,7 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
+<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
+<input type="text" id="search" placeholder="Search through Big Corridor Data"/>
 
-</head>
-<body>
- <p> faq page </p>
-</body>
-</html>
+
+<p>Can't find the answer to your question? </br>
+You can contact our customer support below.</p>
+<a href="#" > Get in touch </a>

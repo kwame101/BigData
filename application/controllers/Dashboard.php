@@ -17,6 +17,7 @@ class Dashboard extends Public_Controller{
 	 */
 	public function index()
 	{
-		$this->render('dashboard_view');
+
+		    $this->render('dashboard_view');
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User extends Public_Controller {
+class User extends My_Controller {
 
   /*
     * Initialise functions
@@ -234,14 +234,5 @@ class User extends Public_Controller {
 		}
 		return TRUE;
 	}
-
-
-  /*
-  * User can view their details such as , name, email etc.
-  */
-  public function profile()
-  {
-
-  }
 
 }

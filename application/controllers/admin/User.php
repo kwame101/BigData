@@ -11,6 +11,7 @@ class User extends MY_Controller
 
   public function index()
   {
+    redirect('admin/user/login', 'refresh');
   }
 
   public function login()
@@ -25,9 +26,15 @@ class User extends MY_Controller
     if($this->form_validation->run()===TRUE)
     {
       $remember = (bool) $this->input->post('remember');
-      if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
+      $user = $this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember);
+      if ($user)
       {
-        redirect('admin', 'refresh');
+        if($this->ion_auth->is_admin()){
+          redirect('admin', 'refresh');
+        }
+        else {
+            redirect('dashboard', 'refresh');
+        }
       }
       else
       {
@@ -37,7 +44,7 @@ class User extends MY_Controller
     }
   }
   $this->load->helper('form');
-  $this->render('admin/login_view','admin_master');
+  $this->render('admin/login_view','master');
 }
   public function logout()
   {
@@ -45,7 +52,7 @@ class User extends MY_Controller
     redirect('admin/user/login', 'refresh');
   }
 
-  public function profile()
+  public function settings()
 {
   if(!$this->ion_auth->logged_in())
   {
@@ -57,32 +64,30 @@ class User extends MY_Controller
   $this->data['current_user_menu'] = '';
   if($this->ion_auth->in_group('admin'))
   {
-    $this->data['current_user_menu'] = $this->load->view('templates/_parts/user_menu_admin_view.php', NULL, TRUE);
+    $this->data['current_user_menu'] = $this->load->view('templates/partial/user_menu_admin_view.php', NULL, TRUE);
   }
 
   $this->load->library('form_validation');
   $this->form_validation->set_rules('first_name','First name','trim');
   $this->form_validation->set_rules('last_name','Last name','trim');
   $this->form_validation->set_rules('company','Company','trim');
-  $this->form_validation->set_rules('phone','Phone','trim');
 
   if($this->form_validation->run()===FALSE)
   {
-    $this->render('admin/user/profile_view','admin_master');
+    $this->render('admin/user/admin_settings_view','master');
   }
   else
   {
     $new_data = array(
       'first_name' => $this->input->post('first_name'),
       'last_name' => $this->input->post('last_name'),
-      'company' => $this->input->post('company'),
-      'phone' => $this->input->post('phone')
+      'company' => $this->input->post('company')
     );
     if(strlen($this->input->post('password'))>=6) $new_data['password'] = $this->input->post('password');
     $this->ion_auth->update($user->id, $new_data);
 
     $this->session->set_flashdata('message', $this->ion_auth->messages());
-    redirect('admin/user/profile','refresh');
+    redirect('admin/user/settings','refresh');
   }
 }
 

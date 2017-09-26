@@ -27,13 +27,6 @@
       </div>
       <div class="form-group">
         <?php
-        echo form_label('Phone','phone');
-        echo form_error('phone');
-        echo form_input('phone',set_value('phone'),'class="form-control"');
-        ?>
-      </div>
-      <div class="form-group">
-        <?php
         echo form_label('Username','username');
         echo form_error('username');
         echo form_input('username',set_value('username'),'class="form-control"');

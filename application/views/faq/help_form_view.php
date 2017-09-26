@@ -1,12 +1,12 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
+<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
-</head>
-<body>
- <p> faq form page </p>
-</body>
-</html>
+<h2> Get in touch with... </h2>
+
+<div>
+<h3> Select topic </h3>
+
+
+
+
+
+</div>
