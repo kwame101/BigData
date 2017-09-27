@@ -44,7 +44,7 @@ class User extends MY_Controller
     }
   }
   $this->load->helper('form');
-  $this->render('admin/login_view','master');
+  $this->render('admin/login_view','admin_master');
 }
   public function logout()
   {
@@ -54,41 +54,69 @@ class User extends MY_Controller
 
   public function settings()
 {
-  if(!$this->ion_auth->logged_in())
-  {
-    redirect('admin');
-  }
-  $this->data['page_title'] = 'User Profile';
-  $user = $this->ion_auth->user()->row();
-  $this->data['user'] = $user;
-  $this->data['current_user_menu'] = '';
-  if($this->ion_auth->in_group('admin'))
-  {
-    $this->data['current_user_menu'] = $this->load->view('templates/partial/user_menu_admin_view.php', NULL, TRUE);
-  }
+      $this->form_validation->set_rules('old', $this->lang->line('change_password_validation_old_password_label'), 'required');
+  		$this->form_validation->set_rules('new', $this->lang->line('change_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
+  		$this->form_validation->set_rules('new_confirm', $this->lang->line('change_password_validation_new_password_confirm_label'), 'required');
 
-  $this->load->library('form_validation');
-  $this->form_validation->set_rules('first_name','First name','trim');
-  $this->form_validation->set_rules('last_name','Last name','trim');
-  $this->form_validation->set_rules('company','Company','trim');
+      if(!$this->ion_auth->logged_in())
+      {
+        redirect('admin/user/login','refresh');
+      }
 
-  if($this->form_validation->run()===FALSE)
-  {
-    $this->render('admin/user/admin_settings_view','master');
-  }
-  else
-  {
-    $new_data = array(
-      'first_name' => $this->input->post('first_name'),
-      'last_name' => $this->input->post('last_name'),
-      'company' => $this->input->post('company')
-    );
-    if(strlen($this->input->post('password'))>=6) $new_data['password'] = $this->input->post('password');
-    $this->ion_auth->update($user->id, $new_data);
+  		$user = $this->ion_auth->user()->row();
 
-    $this->session->set_flashdata('message', $this->ion_auth->messages());
-    redirect('admin/user/settings','refresh');
-  }
+  		if ($this->form_validation->run() == false)
+  		{
+  			// display the form
+  			// set the flash data error message if there is one
+  			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+
+  			$this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
+  			$this->data['old_password'] = array(
+  				'name' => 'old',
+  				'id'   => 'old',
+  				'type' => 'password',
+  			);
+  			$this->data['new_password'] = array(
+  				'name'    => 'new',
+  				'id'      => 'new',
+  				'type'    => 'password',
+  				'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
+  			);
+  			$this->data['new_password_confirm'] = array(
+  				'name'    => 'new_confirm',
+  				'id'      => 'new_confirm',
+  				'type'    => 'password',
+  				'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
+  			);
+  			$this->data['user_id'] = array(
+  				'name'  => 'user_id',
+  				'id'    => 'user_id',
+  				'type'  => 'hidden',
+  				'value' => $user->id,
+  			);
+
+  			// render
+  			$this->render('admin/user/admin_settings_view','admin_master', $this->data);
+  		}
+  		else
+  		{
+  			$identity = $this->session->userdata('identity');
+
+  			$change = $this->ion_auth->change_password($identity, $this->input->post('old'), $this->input->post('new'));
+
+  			if ($change)
+  			{
+  				//if the password was successfully changed
+  				$this->session->set_flashdata('message', $this->ion_auth->messages());
+  				redirect('admin/user/settings', 'refresh');
+  			}
+  			else
+  			{
+  				$this->session->set_flashdata('message', $this->ion_auth->errors());
+  				redirect('admin/user/settings', 'refresh');
+  			}
+  		}
 }
 
 }

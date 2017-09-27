@@ -26,4 +26,30 @@ class Help extends Public_Controller{
 		   $this->render('faq/help_view');
 	}
 
+  /*
+  *
+  */
+  public function contact()
+  {
+    $this->data['page_title'] = 'Help form';
+    $this->render('faq/help_form_view');
+  }
+
+  /*
+  *
+  */
+  public function display_upload()
+  {
+    if(isset($_FILES["image_file"]["name"]))
+    {
+      $config['upload_path'] = './assets/upload/';
+      $config['allowed_types'] = 'jpg|jpeg|png|gif';
+      $this->load->library('upload',$config);
+      if(!$this->upload->do_upload('image_file')){
+
+      }
+    }
+  }
+
+
 }

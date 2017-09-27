@@ -5,7 +5,7 @@
       <?php echo form_open('user/login',array('class'=>'form-horizontal'));?>
         <div class="form-group">
           <?php echo form_error('identity');?>
-          <?php echo form_input('identity','','class="form-control" placeholder="Name"');?>
+          <?php echo form_input('identity','','class="form-control" placeholder="Email"');?>
         </div>
         <div class="form-group">
           <?php echo form_error('password');?>

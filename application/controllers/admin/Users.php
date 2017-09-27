@@ -64,6 +64,38 @@ class Users extends Admin_Controller
  }
   }
 
+  public function members()
+  {
+    $this->data['page_title'] = 'BDC Members';
+    $this->load->library('form_validation');
+    $this->form_validation->set_rules('company','Company','trim|required');
+    $this->form_validation->set_rules('email','Email','trim|required|valid_email|is_unique[users.email]');
+
+    if($this->form_validation->run()===FALSE)
+    {
+      $this->data['users'] = $this->ion_auth->users(2)->result();
+      $this->load->helper('form');
+      $this->render('admin/users/list_members_view');
+    }
+    else
+    {
+      $username = $this->input->post('email');
+      $email = $this->input->post('email');
+      $password = 'default_user';
+      $group_ids = 2;
+
+      $additional_data = array(
+        'first_name' => 'null',
+        'last_name' => 'null',
+        'company' => $this->input->post('company')
+      );
+
+      $this->ion_auth->register_others($username, $password, $email, $additional_data, $group_ids);
+      $this->session->set_flashdata('message',$this->ion_auth->messages());
+      redirect('admin/users/members','refresh');
+    }
+  }
+
   public function edit($user_id = NULL)
 {
   $user_id = $this->input->post('user_id') ? $this->input->post('user_id') : $user_id;
@@ -144,7 +176,7 @@ else
   $this->ion_auth->delete_user($user_id);
   $this->session->set_flashdata('message',$this->ion_auth->messages());
 }
-redirect('admin/users','refresh');
+redirect('admin/users/members','refresh');
 }
 
 }

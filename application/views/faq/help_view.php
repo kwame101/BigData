@@ -1,5 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
-<input type="text" id="search" placeholder="Search through Big Corridor Data"/>
+<p> Advice and answers from the BigDataCorridor team </p>
+<input type="text" id="search" placeholder="Have a Question? Ask or enter a search term here"/>
+
 
 
 <p>Can't find the answer to your question? </br>

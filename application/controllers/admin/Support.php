@@ -103,7 +103,7 @@ class Support extends Admin_Controller
         redirect('admin/support', 'refresh');
       }
       $this->load->helper('form');
-      $this->render('admin/faq/edit_faq_view','master',$this->data);
+      $this->render('admin/faq/edit_faq_view','admin_master',$this->data);
     }
     else
     {
@@ -175,7 +175,7 @@ class Support extends Admin_Controller
          redirect('admin/support/listCategories', 'refresh');
        }
        $this->load->helper('form');
-       $this->render('admin/category/edit_category_view','master',$this->data);
+       $this->render('admin/category/edit_category_view','admin_master',$this->data);
      }
      else
      {
@@ -186,6 +186,32 @@ class Support extends Admin_Controller
        //need to add a message
        redirect('admin/support/listCategories','refresh');
      }
+   }
+
+
+   /*
+   *
+   */
+   public function enquiry($status = null)
+   {
+     $this->render('admin/faq/faq_enquiry_view');
+
+     //check if status is null load open as default
+
+     //check if status value is valid i.e closed..
+
+     //if status not valid load default - open
+
+   }
+
+   /*
+   *
+   */
+   public function display($enq_id = null)
+   {
+      //display if enquiry id is valid
+
+      //if invalid or null load back enquiry default
    }
 
 }

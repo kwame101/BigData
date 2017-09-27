@@ -6,4 +6,10 @@ $this->load->view('templates/partial/admin_master_header_view'); ?>
         <?php echo $the_view_content; ?>
     </div>
 </div>
-<?php $this->load->view('templates/partial/admin_master_footer_view');?>
+
+<script type="text/javascript">
+    $('.add-contrast a').styleSwitcher(); // Calling the plugin...
+</script>
+
+</body>
+</html>

@@ -27,11 +27,6 @@
       ?>
 
       <div class="form-group">
-<!--            <?php echo lang('create_user_company_label', 'company');?> <br />-->
-            <?php echo form_input($company,'','class="form-control" placeholder="Company"');?>
-      </div>
-
-      <div class="form-group">
 <!--            <?php echo lang('create_user_email_label', 'email');?> <br />-->
             <?php echo form_input($email,'','class="form-control" placeholder="Email"');?>
       </div>

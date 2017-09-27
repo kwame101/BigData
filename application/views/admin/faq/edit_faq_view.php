@@ -27,7 +27,7 @@
           <?php echo form_error('content');?>
           <?php echo form_textarea('content',set_value('content',$faq_info->text),'class="form-control"');?>
         </div>
-        <?php echo form_hidden('faq_id',set_value('faq_id',$faq_info->id));?>
+        <?php echo form_hidden('faq_id',set_value('faq_id',$faq_info->faq_id));?>
         <?php echo form_submit('submit', 'Save faq', 'class="btn btn-primary btn-lg btn-block"');?>
       <?php echo form_close();?>
     </div>

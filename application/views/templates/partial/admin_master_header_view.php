@@ -32,7 +32,7 @@
                             <?php
                             if($this->ion_auth->logged_in()) {
                             ?>
-                            <li><a href="<?php echo site_url('user/logout');?>">Logout</a></li>
+                            <li><a href="<?php echo site_url('admin/user/logout');?>">Logout</a></li>
                             <?php } ?>
                         </ul>
                     </nav>

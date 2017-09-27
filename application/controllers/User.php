@@ -100,7 +100,6 @@ class User extends My_Controller {
     {
         $this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email');
     }
-    $this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'trim');
     $this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]|callback_valid_password');
     $this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
     if ($this->form_validation->run() == true)
@@ -111,7 +110,6 @@ class User extends My_Controller {
         $additional_data = array(
             'first_name' => $this->input->post('first_name'),
             'last_name'  => $this->input->post('last_name'),
-            'company'    => $this->input->post('company'),
         );
     }
 
