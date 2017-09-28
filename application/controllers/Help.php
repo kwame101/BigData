@@ -9,6 +9,7 @@ class Help extends Public_Controller{
     function __construct()
     {
       parent::__construct();
+      $this->load->helper('url');
       if (!$this->ion_auth->logged_in())
       {
         //redirect them to the login page
@@ -40,15 +41,21 @@ class Help extends Public_Controller{
   */
   public function display_upload()
   {
-    if(isset($_FILES["image_file"]["name"]))
+    if(isset($_FILES['imagefile']['name']))
     {
       $config['upload_path'] = './assets/upload/';
       $config['allowed_types'] = 'jpg|jpeg|png|gif';
       $this->load->library('upload',$config);
-      if(!$this->upload->do_upload('image_file')){
-
+      $this->upload->initialize($config);
+      if($this->upload->do_upload('imagefile')){
+         $data = $this->upload->data();
+         echo '<img scr="'.base_url().'/assets/upload/'.$data["file_name"].'" width="300" height="225" class="img-thumbnail" />';
       }
+      else{
+          echo $this->upload->display_erros();
+        }
     }
+   echo 'notworking';
   }
 
 

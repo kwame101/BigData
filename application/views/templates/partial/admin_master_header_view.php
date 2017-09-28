@@ -16,8 +16,8 @@
     <body>
         <header id="header" class="primary-header">
             <div class="row">
-                <div class="column c-3 logowrap">Logo here</div>
-                <div class="column c-9">
+                <div class="c-3 logowrap">Logo here</div>
+                <div class="c-9">
                     <nav class="navwrap">
                         <ul id="menu" class="main menu">
                             <li><a href="#">Home</a></li>
@@ -32,7 +32,7 @@
                             <?php
                             if($this->ion_auth->logged_in()) {
                             ?>
-                            <li><a href="<?php echo site_url('admin/user/logout');?>">Logout</a></li>
+                            <li><a href="<?php echo site_url('user/logout');?>">Logout</a></li>
                             <?php } ?>
                         </ul>
                     </nav>

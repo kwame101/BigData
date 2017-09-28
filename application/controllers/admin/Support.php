@@ -42,16 +42,16 @@ class Support extends Admin_Controller
 
    if($this->form_validation->run()===FALSE)
   {
-   $this->data['category'] = $this->Support_desk_model->displayAllCategories();
+      $this->data['category'] = $this->Support_desk_model->displayAllCategories();
       //faq section
       $config["base_url"] = base_url() . "admin/support/faq";
       $config["total_rows"] = $this->Support_desk_model->record_count_faqs();
       $config["per_page"] = 5;
       $config["uri_segment"] = 4;
       $config["use_page_numbers"] = TRUE;
-      $config["next_tag_open"] = '<div class="next">';
-      $config["next_tag_close"] = '</div>';
-      $config["prev_tag_open"] = '<div class="prev">';
+      $config["next_tag_open"] = '<span class="next fa fa-arrow-right">';
+      $config["next_tag_close"] = '</span>';
+      $config["prev_tag_open"] = '<span class="prev fa fa-arrow-left">';
       $config["prev_tag_close"] = '</div>';
       $choice = $config["total_rows"] / $config["per_page"];
       $config["num_links"] = round($choice);
