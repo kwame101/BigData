@@ -57,14 +57,15 @@
                             <li><a href="#">Showcase</a></li>
                             <li><a href="#">Blog</a></li>
                             <li><a href="#">Contact Us</a></li>
-                            <li class="button orange"><a href="#">Help Desk</a></li>
-                            <li class="button"><a href="#">Log In</a></li>
-                            <li class="button border-left"><a href="#">Sign Up</a></li>
                             <?php
                             if($this->ion_auth->logged_in()) {
                             ?>
-                            <li><a href="<?php echo site_url('user/logout');?>">Logout</a></li>
-                            <?php } ?>
+                            <li class="button orange"><a href="<?php echo site_url('/help');?>">Help Desk</a></li>
+                            <li><a href="<?php echo site_url('user/logout');?>">Sign Out</a></li>
+                          <?php } else{ ?>
+                            <li class="button"><a href="<?php echo site_url('user/login')?>">Sign In</a></li>
+                            <li class="button border-left"><a href="<?php echo site_url('user/register_user')?>">Sign Up</a></li>
+                          <?php } ?>
                         </ul>
                     </nav>
                 </div>

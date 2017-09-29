@@ -64,6 +64,9 @@ class Users extends Admin_Controller
  }
   }
 
+  /*
+  *
+  */
   public function members()
   {
     $this->data['page_title'] = 'BDC Members';
@@ -82,7 +85,41 @@ class Users extends Admin_Controller
       $username = $this->input->post('email');
       $email = $this->input->post('email');
       $password = 'default_user';
-      $group_ids = 2;
+      $group_ids = array(2);
+      $additional_data = array(
+        'first_name' => 'null',
+        'last_name' => 'null',
+        'company' => $this->input->post('company')
+      );
+
+      $this->ion_auth->register_others($username, $password, $email, $additional_data,$group_ids);
+      $this->session->set_flashdata('message',$this->ion_auth->messages());
+      redirect('admin/users/members','refresh');
+    }
+  }
+
+  /*
+  *
+  */
+  public function admins()
+  {
+    $this->data['page_title'] = 'BDC Admin';
+    $this->load->library('form_validation');
+    $this->form_validation->set_rules('company','Company','trim|required');
+    $this->form_validation->set_rules('email','Email','trim|required|valid_email|is_unique[users.email]');
+
+    if($this->form_validation->run()===FALSE)
+    {
+      $this->data['users'] = $this->ion_auth->users(1)->result();
+      $this->load->helper('form');
+      $this->render('admin/users/list_admins_view');
+    }
+    else
+    {
+      $username = $this->input->post('email');
+      $email = $this->input->post('email');
+      $password = 'default_user';
+      $group_ids = array(1);
 
       $additional_data = array(
         'first_name' => 'null',
@@ -90,9 +127,9 @@ class Users extends Admin_Controller
         'company' => $this->input->post('company')
       );
 
-      $this->ion_auth->register_others($username, $password, $email, $additional_data, $group_ids);
+      $this->ion_auth->register_admin($username, $password, $email, $additional_data, $group_ids);
       $this->session->set_flashdata('message',$this->ion_auth->messages());
-      redirect('admin/users/members','refresh');
+      redirect('admin/users/admins','refresh');
     }
   }
 

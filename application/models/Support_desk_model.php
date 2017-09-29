@@ -51,6 +51,53 @@ class Support_desk_model extends CI_Model
   /*
   *
   */
+  public function displayRecentFaq()
+  {
+    $this->db->select('*');
+    $this->db->from('faq');
+    $this->db->join('faq_category','faq.id=faq_category.faq_id','left');
+    $this->db->join('category','faq_category.cat_id =category.id','left');
+    $this->db->order_by('created_on', 'desc');
+    $this->db->limit('5');
+    $query=$this->db->get();
+
+    if($query->num_rows() > 0) {
+            foreach($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
+
+  }
+
+  /**
+  *
+  */
+  public function searchFaq($value)
+  {
+    $this->db->select('*');
+    $this->db->from('faq');
+    $this->db->join('faq_category','faq.id=faq_category.faq_id','left');
+    $this->db->join('category','faq_category.cat_id =category.id','left');
+    $this->db->like('text',$value);
+    $this->db->or_like('name',$value);
+    $this->db->order_by('created_on', 'desc');
+    $query=$this->db->get();
+
+    if($query->num_rows() > 0) {
+            foreach($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
+
+  }
+
+  /*
+  *
+  */
   public function checkFaq($faq_id)
   {
     $this->db->select('*');

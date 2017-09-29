@@ -20,20 +20,29 @@
                 <div class="c-9">
                     <nav class="navwrap">
                         <ul id="menu" class="main menu">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Events</a></li>
-                            <li><a href="#">Showcase</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li class="button orange"><a href="#">Help Desk</a></li>
-                            <li class="button"><a href="#">Log In</a></li>
-                            <li class="button border-left"><a href="#">Sign Up</a></li>
-                            <?php
-                            if($this->ion_auth->logged_in()) {
-                            ?>
-                            <li><a href="<?php echo site_url('user/logout');?>">Logout</a></li>
-                            <?php } ?>
+                          <?php
+                          if($this->ion_auth->logged_in()) {
+                          ?>
+                            <li><a href="<?php echo site_url('admin/users')?>">Users</a></li>
+                            <li><a href="<?php echo site_url('admin/users/members');?>">Member</a></li>
+                            <li>Settings
+                              <ul>
+                              <li><a href="<?php echo site_url('admin/user/settings');?>">Change Password</a></li>
+                              <li><a href="<?php echo site_url('admin/users/admins');?>">Add Admin</a></li>
+                            </ul></li>
+                            <li><a href="#">Report</a></li>
+                            <li>FAQ's
+                              <ul>
+                              <li><a href="<?php echo site_url('admin/support/faq')?>">Add FAQ's</a></li>
+                              <li><a href="<?php echo site_url('admin/support/topic')?>">Add Topic</a></li>
+                             </ul></li>
+                            <li><a href="<?php echo site_url('admin/support/enquiry');?>">Enquires</a></li>
+                            <li class="button orange"><a href="<?php echo site_url('/help');?>">Help Desk</a></li>
+                            <li class="button "><a href="<?php echo site_url('admin/user/logout');?>">Sign Out</a></li>
+                          <?php } else { ?>
+                            <li class="button orange"><a href="<?php echo site_url('/help');?>">Help Desk</a></li>
+                            <li class="button "><a href="<?php echo site_url('admin/user/login')?>">Sign In</a></li>
+                        <?php  }?>
                         </ul>
                     </nav>
                 </div>

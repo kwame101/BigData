@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
-<div class="container" style="margin-top: 60px;">
+<div class="container" style="background-color: #f9f9f9; min-height: 100vh;">
   <script type="text/javascript">
   function hideShow() {
-    var tog = document.getElementById('adduser');
+    var tog = document.getElementById('adduser-form');
     if (tog.style.display === 'none') {
         tog.style.display = 'block';
     } else {
@@ -10,45 +10,53 @@
     }
   }
   </script>
-  <div class="row">
-    <div class="col-lg-12">
-      <p>Add a new member </p> <button onclick="hideShow()">Create new account</button>
-      <div id="adduser" style="display:none;">
-      <?php echo form_open('',array('class'=>'form-horizontal'));?>
-        <div class="form-group">
-          <?php echo form_error('company');?>
-          <?php echo form_input('company','','class="form-control" placeholder="Company Name"');?>
-        </div>
-        <div class="form-group">
-          <?php echo form_error('email');?>
-          <?php echo form_input('email','','class="form-control" placeholder="Email"');?>
-        </div>
-        <div class="form-group">
-            <?php echo form_submit('submit', 'Add user', 'class="btn"');?>
-        </div>
-      <?php echo form_close();?>
+    <div class="wrapper members-title">
+    <h1>BDC Members</h1>
     </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-12" style="margin-top: 10px;">
-    <?php
-    if(!empty($users))
-    {
-      echo '<table class="top_view">';
-      echo '<tr><th>Email</th><th>Company</th><th></th> </tr>';
-      foreach($users as $user)
-      {
-        echo '<tr class="user_view">';
-        echo '<td>'.$user->email.'</td><td>'.$user->company.'</td>'; ?>
+    <section class="members-form-wrapper">
+        <div class="wrapper">
+                <div class="col-lg-12">
+                    <span>Add a new member </span> <button onclick="hideShow()">Create new account</button>
+                </div>
+            </div>
+        </section>
+        <section class="members-list">
+            <div class="wrapper">
+                <div class="col-lg-12">
+                <div id="adduser-form" style="display:none;">
+                    <?php echo form_open('',array('class'=>'form-horizontal'));?>
+                    <div class="form-group">
+                      <?php echo form_error('company');?>
+                      <?php echo form_input('company','','class="form-control" placeholder="Company Name"');?>
+                    </div>
+                    <div class="form-group">
+                      <?php echo form_error('email');?>
+                      <?php echo form_input('email','','class="form-control" placeholder="Email"');?>
+                    </div>
+                    <div class="form-group admin-member-submit">
+                        <?php echo form_submit('submit', 'Add user', 'class="btn"');?>
+                    </div>
+                    <?php echo form_close();?>
+                </div>
+                <?php
+                if(!empty($users))
+                {
+                  echo '<div class="top_view" style="width: 680px; text-align: left;">';
+                  echo '<div class="flex"><span style="font-weight: bold; margin-top: 50px;">Company</span><span style="font-weight: bold; margin-top: 50px;">Email</span><span style="font-weight: bold; margin-top: 50px; width: 140px;"></span> </div>';
+                  foreach($users as $user)
+                  {
+                    echo '<div class="user_view flex" style="padding: 30px 0px; border-bottom: 2px solid #acacac; width: 680px;">';
+                    echo '<span>'.$user->company.'</span><span>'.$user->email.'</span>'; ?>
 
-        <td><a href="<?php echo site_url('admin/users/delete/'.$user->id);?>"> Delete User </a></td>
-        <?php
-        echo '</tr>';
-      }
-     echo '</table>';
-    }
-    ?>
+                    <div class="user-delete-button"><a href="<?php echo site_url('admin/users/delete/'.$user->id);?>"> Delete User </a></span>
+                    <?php
+                    echo '</div>';
+                  }
+                 echo '</div>';
+                }
+                ?>
+                </div>
+            </div>
+        </section>
     </div>
-  </div>
 </div>

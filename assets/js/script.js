@@ -40,4 +40,12 @@ $(document).ready(function() {
         $("#myNav").animate({"height":"0px"}, 100);
     });
 
+
+    $('.showMoreFaq').click(function(){
+        console.log('test');
+        if ($(this).closest('.admin-faq').find('.faq-text').css({'display': 'none'})){
+            $(this).closest('.admin-faq').find('.faq-text').css({'display': 'block'});
+        }
+    });
+
 });

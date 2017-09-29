@@ -2,7 +2,7 @@
 <div class="container" style="margin-top: 60px;">
   <div class="row">
     <div class="col-lg-12">
-      <a href="<?php echo site_url('admin/users/create');?>" class="btn btn-primary">Create user</a>
+      <h1>Users Profile </h1>
     </div>
   </div>
   <div class="row">

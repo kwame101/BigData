@@ -15,7 +15,7 @@ body
     background: #fff;
     font-family: WhitneyHTF-Medium,sans-serif;
     font-weight: 400;
-    line-height: 1.5;
+    line-height: 1.2rem;
     color: #1c191a;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -45,7 +45,7 @@ button:focus {
 
 h1, h2, h3, h4, h5, a, p
 {
-    line-height: 1.5em;
+    line-height: 1.2em;
 }
 
 a {
@@ -1977,10 +1977,20 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
 /* DASHBOARD END */
 
 /* FAQs */
-.faq-title {
+.faq-header-title {
     margin-top: -40px;
     padding: 60px 0px 50px 0px;
     color: #0e1d34;
+}
+
+.faq-title {
+    /*padding: 15px;
+    background: #0e1d34;
+    color: white;*/
+    display: inline-block;
+    padding: 20px 40px;
+    box-sizing: border-box;
+    font-weight: bold;
 }
 
 .addFaq-form {
@@ -2012,6 +2022,11 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
     padding: 10px 20px;
     vertical-align: top;
     width:100%;
+    height: 100%;
+    border: 0px;
+    font-size: 14px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
 }
 
 .addFaq-form .form-group select.form-control option {
@@ -2058,7 +2073,10 @@ ul.admin-faq {
 }
 
 span.faq-edits {
-    float: right;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
 }
 
 span.faq-edits button {
@@ -2082,8 +2100,9 @@ li.faq-title a {
 }
 
 li.faq-text {
-    padding: 20px;
+    padding: 20px 40px;
     box-sizing: border-box;
+    display: none;
 }
 
 .faq-paginate {
@@ -2102,6 +2121,94 @@ li.faq-text {
     }
 }
  /* FAQs END */
+
+ /* MEMBERS */
+ .members-title {
+     margin-top: -40px;
+     padding: 60px 0px 50px 0px;
+     color: #0e1d34;
+ }
+
+ .members-form-wrapper {
+     padding: 60px 0px 50px 0px;
+     background: white;
+ }
+
+ .members-form-wrapper span {
+    font-size: 18px;
+    color: #0e1d34;
+    margin-right: 40px;
+    font-weight: bold;
+}
+
+ .members-form-wrapper button {
+    padding: 15px 60px;
+    background: #ec5310;
+    color: white;
+    font-size: 12px;
+    font-family: Montserrat, sans-serif;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.user_view .user-delete-button {
+    padding: 6px 30px;
+    background: #ec5310;
+    color: white;
+    font-size: 12px;
+    font-family: Montserrat, sans-serif;
+    display: inline-block;
+    border-radius: 5px;
+    width: 140px;
+    text-align: center;
+}
+
+.user_view .user-delete-button a {
+    color: white;
+    font-size: 12px;
+    font-family: Montserrat, sans-serif;
+}
+
+.members-list span {
+    display: inline-block;
+    width: 240px;
+}
+
+.user_view:last-child {
+    border: none;
+}
+
+#adduser-form .form-horizontal {
+    background: #e5e5e5;
+    padding: 20px;
+    width: 680px;
+    border: none;
+    border-radius: 0px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0px;
+}
+
+#adduser-form .form-horizontal .form-group {
+    width: 37%;
+    height: auto;
+    border: none;
+}
+
+#adduser-form .form-horizontal .form-group.admin-member-submit {
+    width: 20%;
+}
+
+#adduser-form .form-horizontal .form-group input {
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.flex {
+    justify-content: space-between;
+    display: flex;
+}
+ /* MEMBERS END */
 
 /* FOOTER */
 .primary-footer {
@@ -2130,7 +2237,7 @@ li.faq-text {
     font-size: 16px;
     color: #fff;
     text-align: center;
-    line-height: 1.5;
+    line-height: 1.2;
     margin-bottom: 20px
 }
 .primary-footer .footer-section.search .search-form .ssform form {

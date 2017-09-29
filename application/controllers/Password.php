@@ -9,6 +9,10 @@ class Password extends My_Controller{
     function __construct()
     {
       parent::__construct();
+      if($this->ion_auth->logged_in())
+        {
+          redirect('dashboard','refresh');
+       }
     }
 
     /*

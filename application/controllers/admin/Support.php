@@ -119,7 +119,7 @@ class Support extends Admin_Controller
   /*
   *
   */
-  public function addCategory()
+  public function topic()
   {
     $this->data['page_title'] = 'Create category';
     $this->load->library('form_validation');
@@ -129,6 +129,7 @@ class Support extends Admin_Controller
     if($this->form_validation->run()===FALSE)
     {
       $this->load->helper('form');
+      $this->data['category'] = $this->Support_desk_model->displayAllCategories();
       $this->render('admin/category/create_category_view');
     }
     else
@@ -136,7 +137,7 @@ class Support extends Admin_Controller
       $group_name = $this->input->post('category_name');
       $group_description = $this->input->post('category_email');
       $this->Support_desk_model->create_category($group_name, $group_description);
-      redirect('admin/support/listCategories','refresh');
+      redirect('admin/support/topic','refresh');
     }
   }
 
@@ -153,7 +154,7 @@ class Support extends Admin_Controller
    /*
    *
    */
-   public function editCategory($category_id = null)
+   public function editTopic($category_id = null)
    {
      $category_id = $this->input->post('category_id') ? $this->input->post('category_id') : $category_id;
      $this->data['page_title'] = 'Edit category';
@@ -172,7 +173,7 @@ class Support extends Admin_Controller
        else
        {
          $this->session->set_flashdata('message', 'The category doesn\'t exist.');
-         redirect('admin/support/listCategories', 'refresh');
+         redirect('admin/support/topic', 'refresh');
        }
        $this->load->helper('form');
        $this->render('admin/category/edit_category_view','admin_master',$this->data);
@@ -184,7 +185,7 @@ class Support extends Admin_Controller
        $category_id = $this->input->post('category_id');
        $this->Support_desk_model->update_category($category_id, $category_name, $category_email);
        //need to add a message
-       redirect('admin/support/listCategories','refresh');
+       redirect('admin/support/topic','refresh');
      }
    }
 

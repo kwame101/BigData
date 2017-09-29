@@ -16,3 +16,20 @@
     <?php echo form_submit('submit', 'Create category', 'class="btn btn-primary btn-lg btn-block"');?>
   <?php echo form_close();?>
 </div>
+<div class="row">
+  <div class="col-lg-12" style="margin-top: 10px;">
+    <?php
+  if(!empty($category))
+    {
+      echo '<table class="table table-hover table-bordered table-condensed">';
+      foreach($category as $cat)
+      {
+        echo '<tr>';
+        echo '<td>'.$cat->name.'</td><td>'.$cat->email.'</td><td>'?> <a href="<?php echo site_url('admin/support/editTopic/'.$cat->id)?>">Edit</a>
+      <?php  echo '</tr>';
+      }
+      echo '</table>';
+     }
+    ?>
+  </div>
+</div>
