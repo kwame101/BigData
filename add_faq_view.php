@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div class="container" style="background-color: #f9f9f9;">
-    <div class="wrapper faq-title">
+    <div class="wrapper faq-header-title">
       <h1>Create faqs</h1>
     </div>
     <div class="addFaq-form">
@@ -47,13 +47,13 @@
             {
                 foreach ($faq_info as $faq){ ?>
                   <ul class="admin-faq">
-                    <li class="faq-title">
-                      <!-- <a href="#" style="float:left" > <?php echo $faq->title; ?> </a> -->
-                      <a href="#" > <?php echo $faq->name; ?> </a>
+                    <li>
+                      <a href="#" class="faq-title"> <?php echo $faq->title; ?> </a>
+                      <!-- <a href="#" > <?php echo $faq->name; ?> </a> -->
+                      <span class="faq-edits"><span class="showMoreFaq"> + </span> <a href="<?php echo site_url('admin/support/editFaq/'.$faq->faq_id) ?>">Edit</a></span>
                     </li>
                     <li class="faq-text">
                         <?php echo $faq->text; ?>
-                        <span class="faq-edits"><button> + </button> <a href="<?php echo site_url('admin/support/editFaq/'.$faq->faq_id) ?>">Edit</a></span>
                     </li>
                     </li>
                   </ul>
