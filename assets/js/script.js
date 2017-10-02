@@ -50,6 +50,16 @@ $(document).ready(function() {
     });
 
 
+    $('.enquiry-more').click(function(){
+        alert('test');
+        if ($(this).closest('.enquiry-faq').find('.faq-text').is(':hidden')){
+            $(this).closest('.enquiry-faq').find('.faq-text').css({'display': 'block'});
+        } else {
+            $(this).closest('.enquiry-faq').find('.faq-text').css({'display': 'none'});
+        }
+    });
+
+
     $('.view-user-profile').click(function(){
         if ($(this).closest('.user_view_container').find('.tryout').is(':hidden')){
             $(this).closest('.user_view_container').find('.tryout').css({'display': 'block'});
@@ -58,7 +68,8 @@ $(document).ready(function() {
         }
     });
 
-
-    //tryout
+    $('.topic').click(function(){
+        alert(this);
+    });
 
 });
