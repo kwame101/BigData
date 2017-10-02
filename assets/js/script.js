@@ -42,10 +42,23 @@ $(document).ready(function() {
 
 
     $('.showMoreFaq').click(function(){
-        console.log('test');
-        if ($(this).closest('.admin-faq').find('.faq-text').css({'display': 'none'})){
+        if ($(this).closest('.admin-faq').find('.faq-text').is(':hidden')){
             $(this).closest('.admin-faq').find('.faq-text').css({'display': 'block'});
+        } else {
+            $(this).closest('.admin-faq').find('.faq-text').css({'display': 'none'});
         }
     });
+
+
+    $('.view-user-profile').click(function(){
+        if ($(this).closest('.user_view_container').find('.tryout').is(':hidden')){
+            $(this).closest('.user_view_container').find('.tryout').css({'display': 'block'});
+        } else {
+            $(this).closest('.user_view_container').find('.tryout').css({'display': 'none'});
+        }
+    });
+
+
+    //tryout
 
 });

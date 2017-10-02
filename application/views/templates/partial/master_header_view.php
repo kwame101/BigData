@@ -61,8 +61,11 @@
                             if($this->ion_auth->logged_in()) {
                             ?>
                             <li class="button orange"><a href="<?php echo site_url('/help');?>">Help Desk</a></li>
+                            <?php if($this->ion_auth->in_group('admin')){ ?>
+                            <li><a href="<?php echo site_url('/admin');?>">Admin dashboard</a></li>
+                          <?php } else { ?>
                             <li><a href="<?php echo site_url('user/logout');?>">Sign Out</a></li>
-                          <?php } else{ ?>
+                          <?php } } else{ ?>
                             <li class="button"><a href="<?php echo site_url('user/login')?>">Sign In</a></li>
                             <li class="button border-left"><a href="<?php echo site_url('user/register_user')?>">Sign Up</a></li>
                           <?php } ?>

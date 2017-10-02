@@ -15,16 +15,40 @@
       <p>Add a new admin </p> <button onclick="hideShow()">Create new account</button>
       <div id="adduser" style="display:none;">
       <?php echo form_open('',array('class'=>'form-horizontal'));?>
-        <div class="form-group">
-          <?php echo form_error('company');?>
-          <?php echo form_input('company','','class="form-control" placeholder="Company Name"');?>
-        </div>
+      <div class="form-group">
+        <?php
+        echo form_label('First name','first_name');
+        echo form_error('first_name');
+        echo form_input('first_name',set_value('first_name'),'class="form-control"');
+        ?>
+      </div>
+      <div class="form-group">
+        <?php
+        echo form_label('Last name','last_name');
+        echo form_error('last_name');
+        echo form_input('last_name',set_value('last_name'),'class="form-control"');
+        ?>
+      </div>
         <div class="form-group">
           <?php echo form_error('email');?>
           <?php echo form_input('email','','class="form-control" placeholder="Email"');?>
         </div>
         <div class="form-group">
-            <?php echo form_submit('submit', 'Add user', 'class="btn"');?>
+          <?php
+          echo form_label('Password','password');
+          echo form_error('password');
+          echo form_password('password','','class="form-control"');
+          ?>
+        </div>
+        <div class="form-group">
+          <?php
+          echo form_label('Confirm password','password_confirm');
+          echo form_error('password_confirm');
+          echo form_password('password_confirm','','class="form-control"');
+          ?>
+        </div>
+        <div class="form-group">
+            <?php echo form_submit('submit', 'Add admin', 'class="btn"');?>
         </div>
       <?php echo form_close();?>
     </div>

@@ -1,6 +1,10 @@
-<div class="wrapper w-480">
-    <div class="login-form">
+<div class="wrapper w-480" style="margin-top: 40px;">
+    <div class="text-center">
       <h1>Sign in to your <span class="orange-text">BigDataCorridor</span> account</h1>
+  </div>
+</div>
+<section class="grey-background">
+    <div class="wrapper w-480 text-center" style="top: -100px;">
       <?php echo $this->session->flashdata('message');?>
       <?php echo form_open('user/login',array('class'=>'form-horizontal'));?>
         <div class="form-group">
@@ -28,4 +32,4 @@
       <div class="forgot-pass"> <a href="<?php echo base_url('password/forgot_password'); ?>"> <?php echo lang('login_forgot_password');?> </a></div>
 
     </div>
-</div>
+</section>

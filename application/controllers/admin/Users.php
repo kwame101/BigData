@@ -87,8 +87,8 @@ class Users extends Admin_Controller
       $password = 'default_user';
       $group_ids = array(2);
       $additional_data = array(
-        'first_name' => 'null',
-        'last_name' => 'null',
+        'first_name' => null,
+        'last_name' => null,
         'company' => $this->input->post('company')
       );
 
@@ -105,8 +105,11 @@ class Users extends Admin_Controller
   {
     $this->data['page_title'] = 'BDC Admin';
     $this->load->library('form_validation');
-    $this->form_validation->set_rules('company','Company','trim|required');
+    $this->form_validation->set_rules('first_name','First name','trim');
+    $this->form_validation->set_rules('last_name','Last name','trim');
     $this->form_validation->set_rules('email','Email','trim|required|valid_email|is_unique[users.email]');
+    $this->form_validation->set_rules('password','Password','required');
+    $this->form_validation->set_rules('password_confirm','Password confirmation','required|matches[password]');
 
     if($this->form_validation->run()===FALSE)
     {
@@ -118,13 +121,13 @@ class Users extends Admin_Controller
     {
       $username = $this->input->post('email');
       $email = $this->input->post('email');
-      $password = 'default_user';
+      $password = $this->input->post('password');;
       $group_ids = array(1);
 
       $additional_data = array(
-        'first_name' => 'null',
-        'last_name' => 'null',
-        'company' => $this->input->post('company')
+        'first_name' => $this->input->post('first_name'),
+        'last_name' => $this->input->post('last_name'),
+        'company' => null
       );
 
       $this->ion_auth->register_admin($username, $password, $email, $additional_data, $group_ids);

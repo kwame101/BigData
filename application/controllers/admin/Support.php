@@ -195,14 +195,23 @@ class Support extends Admin_Controller
    */
    public function enquiry($status = null)
    {
-     $this->render('admin/faq/faq_enquiry_view');
-
      //check if status is null load open as default
-
-     //check if status value is valid i.e closed..
-
-     //if status not valid load default - open
-
+     if($status == null)
+     {
+       $this->data['enq_info'] = $this->Support_desk_model->retrieveEnquiry('open');
+       $this->render('admin/faq/faq_enquiry_view');
+     }
+     else{
+       if($status=='open'||$status=='pending'||$status=='closed'){
+          //check if status value is valid i.e closed..
+          $this->data['enq_info'] = $this->Support_desk_model->retrieveEnquiry($status);
+          $this->render('admin/faq/faq_enquiry_view');
+        }
+        else {
+          //if status not valid load default
+          redirect('admin/support/enquiry','refresh');
+      }
+     }
    }
 
    /*
@@ -210,9 +219,21 @@ class Support extends Admin_Controller
    */
    public function display($enq_id = null)
    {
+      $this->data['enq_info'] = $this->Support_desk_model->retrieveEnquiryById($enq_id);
+      $this->render('admin/faq/faq_enquiry_id_view');
       //display if enquiry id is valid
 
       //if invalid or null load back enquiry default
+   }
+
+   /*
+   *
+   */
+   public function doUpdateStatus()
+   {
+     $enq_id = $this->input->post('enquiryid');
+     $value = $this->input->post('status');
+     $this->Support_desk_model->updateStatus($enq_id,$value);
    }
 
 }
