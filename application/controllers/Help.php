@@ -54,6 +54,7 @@ class Help extends Public_Controller{
   {
 
     $term = $this->input->post('search',TRUE);
+    //if(strln($term>3))
     $rows = $this->Support_desk_model->searchFaqResult($term);
      echo json_encode($rows);
   }

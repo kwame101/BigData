@@ -19,8 +19,23 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+        <script type="text/javascript">
+           var auto_refresh = setInterval(function (){
+             var key = '<?php echo $this->session->userdata('auth_key')?>';
+            $.ajax({
+              url:'<?php echo base_url();?>dashboard/ping',
+              method:"post",
+              data:{'session_key':key},
+              success: function(data){
+              //alert('updated');
+             }
+           });
+         }, 10000); // refresh every 10000 milliseconds(10s)
+      </script>
+
     </head>
     <body>
+
 		<div class="top-bar">
 			<div class="wrapper">
 				<div class="c-12 column text-right">

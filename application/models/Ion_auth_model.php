@@ -2085,6 +2085,44 @@ class Ion_auth_model extends CI_Model
 		$this->errors = array();
 		return TRUE;
 	}
+
+	/*
+	*
+	*/
+	public function generateRandomString($length = 10) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+				$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
+
+	/*
+	*
+	*/
+	public function set_user_activity($user_id,$gen_key)
+	{
+		$data = array(
+			'user_id'=> $user_id,
+			 'ses_key' => $gen_key,
+			 'logged_in' => time(),
+			 'last_seen'=> time()
+		);
+		$this->db->insert('user_activity',$data);
+	}
+
+	/*
+	*
+	*/
+	public function update_user_activity($session_key)
+	{
+		$this->db->set('last_seen',time());
+		$this->db->where('ses_key',$session_key);
+		$this->db->update('user_activity');
+	}
+
 	protected function _filter_data($table, $data)
 	{
 		$filtered_data = array();

@@ -48,6 +48,10 @@ h1, h2, h3, h4, h5, a, p
     line-height: 1.2em;
 }
 
+h2 {
+    font-weight: 400;
+}
+
 a {
     outline: 0;
     -webkit-transition: all .3s;
@@ -88,6 +92,18 @@ a {
 
 @media screen and (max-width:500px){
     .w-480{
+        width: calc(100% - 40px);
+        margin: 0 auto;
+    }
+}
+
+.w-380{
+    width: 380px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width:400px){
+    .w-380{
         width: calc(100% - 40px);
         margin: 0 auto;
     }
@@ -2068,6 +2084,7 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
     height: 100%;
     border-radius: 5px;
     border: none;
+    font-family: Montserrat, sans-serif;
 }
 
 .faq-submit-wrapper {
@@ -2268,6 +2285,226 @@ li.faq-text {
  }
  /* USER PROFILE END */
 
+/* FAQ FORM */
+.faq-form-title {
+    padding: 60px 0px 50px 0px;
+    color: #0e1d34;
+    background: #fff;
+}
+
+.faq-form-title h2 {
+    margin-bottom: 20px;
+}
+
+.faq-form {
+    background: #f9f9f9;
+}
+
+.faq-form .form-horizontal {
+    border: none;
+    border-radius: 0px;
+    margin-top: 60px;
+}
+
+.faq-form .form-horizontal .form-group {
+    border: none;
+    border-radius: 0px;
+    margin-top: 60px;
+}
+
+.faq-form .form-horizontal h3 {
+    color: #0e1d33;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.checkbox {
+    margin-bottom: 15px;
+    margin-right:15px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.checkbox:hover span {
+    background: #ec5210;
+    border: 2px solid #ec5210;
+    color: white;
+}
+
+.checkbox label {
+    display: block;
+}
+
+.checkbox label span {
+    text-align:center;
+    border-radius: 5px;
+    color: black;
+    border: 2px solid #0e1d33;
+    padding: 5px 20px;
+    display: block;
+    overflow: hidden;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.checkbox label input {
+    position:absolute;
+    top:-20px;
+}
+
+.checkbox input:checked + span {
+    background: #ec5210;
+    border: 2px solid #ec5210;
+    color: white;
+}
+
+.question-summary label {
+    color: #0e1d33;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.question-summary input {
+    padding: 15px 30px;
+    width: 100%;
+    height: auto;
+    border: 1px solid #a5a5a5;
+    border-radius: 5px;
+}
+
+.faq-message label {
+    color: #0e1d33;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.faq-message textarea {
+    padding: 15px 30px;
+    width: 100%;
+    height: auto;
+    border: 1px solid #a5a5a5;
+    border-radius: 5px;
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+}
+
+.choose-file {
+    display: block;
+    margin-bottom: 10px;
+    background: #d7d7d7;
+    border-radius: 5px;
+    padding: 2px 2px;
+    font-weight: bold;
+    color: #323232;
+}
+
+.upload-btn {
+    background: #d7d7d7;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+    color: #323232;
+}
+
+.faq_req {
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.faq_req a {
+    color: #ec5210;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.faq-send {
+    margin: 0 auto;
+    display: block;
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width:400px){
+    .faq-send {
+        width: 100% !important;
+    }
+}
+
+#jax_req h3 {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0e1d33;
+}
+
+#jax_req .faq-text {
+    display: block;
+}
+
+#jax_req ul {
+    background-color: #fff;
+    border: 2px solid #f9f9f9;
+    box-sizing: border-box;
+}
+
+.enquiry-more {
+    font-weight: bold;
+    color: #ec5210;
+    cursor: pointer;
+}
+
+.faq-topic {
+    margin-top: 0px;
+    padding: 15px;
+    box-sizing: border-box;
+    background: #0e1d34;
+    display: inline-block;
+}
+
+.faq-topic a {
+    color: white;
+}
+
+.loading {
+    background-color: #ffffff;
+    background-image: url("http://loadinggif.com/images/image-selection/3.gif");
+    background-size: 25px 25px;
+    background-position:right 25px center;
+    background-repeat: no-repeat;
+}
+/* FAQ FORM END */
+
+/* FAQ FRONTEND */
+.front-faq-title {
+    padding: 60px 0px 50px 0px;
+    color: #0e1d34;
+    background: #fff;
+}
+
+#search_faq {
+    border-radius: 10px;
+    border: 1px solid #a7a7a7;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+#search_faq #search {
+    padding: 0px 30px;
+    width: 100%;
+    font-size: 14px;
+}
+
+#search_faq #submit_search {
+    padding: 15px 40px;
+    background: #ec5310;
+    color: white;
+    font-family: montserrat;
+    font-size: 14px;
+}
+/* FAQ FRONTEND END */
+
 /* FOOTER */
 /*.primary-footer {
     margin-top: 100px;
@@ -2454,13 +2691,5 @@ li.faq-text {
     .primary-footer .footer-section.credentials cite p {
         text-align: right
     }
-}
-/* enquiry form loading gif*/
-.loading {
-    background-color: #ffffff;
-    background-image: url("http://loadinggif.com/images/image-selection/3.gif");
-    background-size: 25px 25px;
-    background-position:right center;
-    background-repeat: no-repeat;
 }
 /* FOOTER END */

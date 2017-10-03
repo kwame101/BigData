@@ -6,7 +6,6 @@
        </div>
   </div>
   <div class="wrapper">
-    <div class="col-lg-12">
       <script type="text/javascript">
       $(document).ready(function () {
         $(".top_view tr.tryout").hide();
@@ -54,8 +53,7 @@
         echo '</div>';
         echo '<div class="clearFix"></div>';
         echo '</div>';
-        echo '</div></div></div>';
-        echo '</div>';
+        echo '</div></div>';
       }
      echo '</div>';
     }

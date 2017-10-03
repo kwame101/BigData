@@ -23,6 +23,7 @@ class User extends My_Controller {
     redirect('user/login','refresh');
 	}
 
+
   /*
   * User will login - take post information
   */
@@ -40,6 +41,14 @@ class User extends My_Controller {
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
 			{
 				//if the login is successful
+        $session_key = $this->ion_auth->generateRandomString();
+        $new_data = array (
+          'auth_key' => $session_key,
+          'ses_key' => true
+        );
+        $this->session->set_userdata($new_data);
+        $user_id = $this->ion_auth->get_user_id();
+        $this->ion_auth->set_user_activity($user_id,$session_key);
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				redirect('dashboard', 'refresh');
@@ -57,7 +66,7 @@ class User extends My_Controller {
 			// the user is not logging in so display the login page
 			// set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->data['identity'] = array('name' => 'identity',
+      $this->data['identity'] = array('name' => 'identity',
 				'id'    => 'identity',
 				'type'  => 'text',
 				'value' => $this->form_validation->set_value('identity'),
@@ -76,6 +85,8 @@ class User extends My_Controller {
   public function logout()
   {
     $this->data['title'] = "Logout";
+    $this->session->unset_userdata('auth_key');
+    $this->session->unset_userdata('ses_key');
     // log the user out
     $logout = $this->ion_auth->logout();
     // redirect them to the login page

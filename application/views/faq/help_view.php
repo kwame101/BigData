@@ -39,12 +39,16 @@ $(document).ready(function(){
 });
 </script>
 <!-- css can be changes -->
-<div class="page_con" style="text-align: center;">
-<p> Advice and answers from the BigDataCorridor team </p>
-<form method="post" id="search_faq">
-<input type="text" name="search" id="search" placeholder="Have a Question? Ask or enter a search term here"/>
-<input type="submit" value="Search"/>
-</form>
+<div class="container">
+<section class="front-faq-title">
+    <div class="wrapper">
+        <h2 style="margin-bottom: 25px;"> Advice and answers from the <span class="orange-text">BigDataCorridor</span> team</h2>
+        <form method="post" id="search_faq">
+            <input type="text" name="search" id="search" placeholder="Have a Question? Ask or enter a search term here"/>
+            <input type="submit" value="Search" id="submit_search"/>
+        </form>
+    </div>
+</section>
 </div>
 <div class="faqs">
   <div class="main_info wrapper">
