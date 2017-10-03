@@ -1426,6 +1426,18 @@ screen and (min-width: 40em) {
     text-decoration: none;
 }
 
+.drop-down:hover ul {
+    display: block;
+}
+
+.drop-down ul {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    background: #0e1d34;
+    text-align: left;
+}
+
 .primary-header .navwrap .main.menu li:not([class*=button]) a
 {
     color: #fff;
@@ -2028,7 +2040,7 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
     display: inline-block;
     padding: 20px 40px;
     box-sizing: border-box;
-    font-weight: bold;
+    font-size: 14px;
 }
 
 .addFaq-form {
@@ -2143,6 +2155,7 @@ li.faq-text {
     padding: 20px 40px;
     box-sizing: border-box;
     display: none;
+    font-size: 12px;
 }
 
 .faq-paginate {
@@ -2345,6 +2358,7 @@ li.faq-text {
     display: block;
     overflow: hidden;
     font-weight: bold;
+    font-size: 12px;
     text-transform: capitalize;
 }
 
@@ -2448,10 +2462,11 @@ li.faq-text {
     box-sizing: border-box;
 }
 
-.enquiry-more {
+.enquiry-more, .front-faq-more, .showMoreFaq {
     font-weight: bold;
     color: #ec5210;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .faq-topic {
@@ -2503,7 +2518,98 @@ li.faq-text {
     font-family: montserrat;
     font-size: 14px;
 }
+
+.front-faq-main {
+    background-color: #f6f6f6;
+    padding: 40px 0px;
+}
+
+.front-faq-main .front-mainfaq-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.front-faq-main .front-mainfaq-title h1 {
+}
+
+.front-faq-main .front-mainfaq-title a {
+    padding: 5px 10px;
+    border: 2px solid #0e1d34;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.front-faq-bottom p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 40px 0px;
+}
+
+.front-faq-bottom a {
+    padding: 20px 60px;
+    height: 100%;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: white;
+    background: #ec5210;
+    border: none;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 400px) {
+    .front-faq-bottom a {
+        width: 100% !important;
+    }
+}
 /* FAQ FRONTEND END */
+
+/* ADD ADMIN */
+.admin-view-title {
+    padding: 60px 0px 50px 0px;
+    background: white;
+}
+
+.admin-view-title span {
+   font-size: 18px;
+   color: #0e1d34;
+   margin-right: 40px;
+   font-weight: bold;
+}
+
+.admin-view-title button {
+   padding: 15px 60px;
+   background: #ec5310;
+   color: white;
+   font-size: 12px;
+   font-family: Montserrat, sans-serif;
+   display: inline-block;
+   border-radius: 5px;
+}
+
+#adduser .form-horizontal{
+    width: 270px;
+    border: 0px;
+    border-radius: 0px;
+    margin: 0px;
+}
+
+#adduser .form-horizontal .form-group {
+    height: auto;
+    border: 0px;
+    margin-bottom: 15px;
+}
+
+#adduser .form-horizontal input {
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 12px;
+}
+/* ADD ADMIN END */
 
 /* FOOTER */
 /*.primary-footer {

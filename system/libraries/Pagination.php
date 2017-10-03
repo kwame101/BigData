@@ -123,14 +123,14 @@ class CI_Pagination {
 	 *
 	 * @var	string
 	 */
-	protected $next_link = '&gt;';
+	protected $next_link = '<span class="next fa fa-arrow-right"></span>';
 
 	/**
 	 * Previous link
 	 *
 	 * @var	string
 	 */
-	protected $prev_link = '&lt;';
+	protected $prev_link = '<span class="next fa fa-arrow-left"></span>';
 
 	/**
 	 * Last link

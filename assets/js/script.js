@@ -60,6 +60,15 @@ $(document).ready(function() {
     });
 
 
+    $('.front-faq-more').click(function(){
+        if ($(this).closest('.front-faq').find('.faq-text').is(':hidden')){
+            $(this).closest('.front-faq').find('.faq-text').css({'display': 'block'});
+        } else {
+            $(this).closest('.front-faq').find('.faq-text').css({'display': 'none'});
+        }
+    });
+
+
     $('.view-user-profile').click(function(){
         if ($(this).closest('.user_view_container').find('.tryout').is(':hidden')){
             $(this).closest('.user_view_container').find('.tryout').css({'display': 'block'});
