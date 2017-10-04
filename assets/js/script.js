@@ -81,4 +81,12 @@ $(document).ready(function() {
         alert(this);
     });
 
+    // $('.admin-enquiry li').click(function(){
+    //     if($(this).hasClass('admin-enquiry-li-active')){
+    //         $(this).removeClass('admin-enquiry-li-active');
+    //     } else {
+    //         $(this).addClass('admin-enquiry-li-active')
+    //     }
+    // });
+
 });
