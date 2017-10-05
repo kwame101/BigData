@@ -20,11 +20,27 @@
             foreach($enq_info as $enq){ ?>
                 <div class="enquiry-table-row">
                     <div class="enquiry-table-row-info">
-                      <span style="padding: 0px 25px;"><span class="bold-text">User:</br><?php echo $enq['full_name'],'</span></br>',date("d/m/y - H:ia",$enq['created_on']);?> </span>
-                      <span><span class="bold-text">Summary:</span></br><?php echo $enq['summary'];?> </span>
-                      <span class="topic_name" style="padding: 0px 25px;"><div class="topics"><span class="bold-text">Topics:</span></br><?php echo $enq['category_name'];?></div></span>
-                      <span class="topic_email"><span class="bold-text">For:</span></br><?php echo $enq['category_email'];?> </span>
-                      <span style="width: auto; text-align: center;font-weight:bold;"><?php echo ucfirst($enq['status']),'</br>';
+                      <span style="padding: 0px 25px;" class="enquiry-user">
+                          <div class="bold-text title14">User:</div>
+                          <div class="text12"><?php echo $enq['full_name'],'</div>
+                          <div class="text12" style="font-style: italic;">',
+                            date("d/m/y - H:ia",$enq['created_on']);
+                            ?>
+                        </div>
+                      </span>
+                      <span>
+                          <div class="bold-text title14">Summary:</div>
+                          <div class="text12"><?php echo $enq['summary'];?></div>
+                      </span>
+                      <span class="topic_name" style="padding: 0px 25px;">
+                          <div class="topics"><div class="bold-text">Topics:</div><div class="topic-cat"><?php echo $enq['category_name'];?></div></div>
+                      </span>
+                      <span class="topic_email">
+                          <div class="bold-text title14">For:</div>
+                          <div class="text12"><?php echo $enq['category_email'];?></div>
+                      </span>
+                      <span style="width: auto; text-align: center;font-weight:bold;">
+                          <?php echo ucfirst($enq['status']),'</br>';
                       $stat = $enq['status'];
                       if($stat == 'open'){
                         echo '<div class="open_tag"style="width:30px;height:30px;background:red;display:inline-block;"></div>';
@@ -37,7 +53,9 @@
                       }
                       ?></span>
                      </div>
-                      <span class="enq_view"><a href="<?php echo site_url('admin/support/display/'.$enq['id']) ?>">View </a> </span>
+                      <span class="enq_view">
+                          <a href="<?php echo site_url('admin/support/display/'.$enq['id']) ?>">View </a>
+                      </span>
                 </div>
             </div>
          <?php } } ?>

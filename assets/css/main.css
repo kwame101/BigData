@@ -13,7 +13,7 @@ body
     margin: 0;
     padding: 0;
     background: #fff;
-    font-family: WhitneyHTF-Medium,sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     line-height: 1.2rem;
     color: #1c191a;
@@ -2098,6 +2098,8 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
     border-radius: 5px;
     border: none;
     font-family: Montserrat, sans-serif;
+    padding: 20px;
+    font-size: 12px;
 }
 
 .faq-submit-wrapper {
@@ -2633,6 +2635,9 @@ li.faq-text {
     margin-top: 20px;
     padding: 25px 25px 30px 25px;
     background: #fff;
+}
+
+.admin-enquiry-li-active a {
     font-weight: bold;
     font-size: 14px;
     color: #ec5310;
@@ -2689,7 +2694,7 @@ li.faq-text {
     font-weight: bold;
 }
 
-.topics div {
+.topic-cat div {
     background: #ec510f;
     color: white;
     font-size: 10px;
@@ -2777,7 +2782,86 @@ li.faq-text {
 .enquiry-info-content {
     padding: 40px 0px;
 }
+
+.title14 {
+    font-size: 14px;
+}
+
+.text12 {
+    font-size: 12px;
+}
+
+.enquiry-user-title {
+    font-size: 14px;
+}
+
+.enquiry-user-name {
+    font-size: 12px;
+}
+
+.enquiry-user-date {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.enquiry-summary-title {
+    font-size: 14px;
+}
+
+.enquiry-summary-content {
+    font-size: 12px;
+}
+
+.enquiry-for-title {
+    font-size: 14px;
+}
+
+.enquiry-for-content {
+    font-size: 12px;
+}
+
+.enquiry-topics-title {
+    font-size: 14px;
+}
+
+.enquiry-states-title {
+    font-size: 14px;
+}
+
+.enquiry-details-title {
+    font-size: 14px;
+}
 /* ADMIN ENQUIRY END */
+.cat-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    margin-top: 50px;
+}
+
+.cat-row {
+    flex-basis: 50%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.cat-name {
+    width: 20%;
+}
+
+.cat-email, .cat-edits {
+    width: 40%;
+}
+
+.cat-edits a {
+    padding: 5px 20px;
+    display: inline-block;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    background: grey;
+}
 
 /* FOOTER */
 /*.primary-footer {
