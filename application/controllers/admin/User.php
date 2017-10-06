@@ -17,6 +17,12 @@ class User extends MY_Controller
   public function login()
 {
   $this->data['page_title'] = 'Login';
+  //if user logged in
+  if($this->ion_auth->logged_in())
+  {
+    redirect('admin','refresh');
+  }
+
   if($this->input->post())
   {
     $this->load->library('form_validation');

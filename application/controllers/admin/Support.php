@@ -49,10 +49,10 @@ class Support extends Admin_Controller
       $config["per_page"] = 5;
       $config["uri_segment"] = 4;
       $config["use_page_numbers"] = TRUE;
-      $config["next_tag_open"] = '<span class="next fa fa-arrow-right">';
-      $config["next_tag_close"] = '</span>';
-      $config["prev_tag_open"] = '<span class="prev fa fa-arrow-left">';
-      $config["prev_tag_close"] = '</div>';
+      $config["next_tag_open"] = '';
+      $config["next_tag_close"] = '';
+      $config["prev_tag_open"] = '';
+      $config["prev_tag_close"] = '';
       $choice = $config["total_rows"] / $config["per_page"];
       $config["num_links"] = round($choice);
 

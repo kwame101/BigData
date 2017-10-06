@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
-<h1> Category </h1>
+<h1> Topics </h1>
 <div class="container" style="margin-top:20px;">
   <div class="row">
     <div class="col-lg-12">

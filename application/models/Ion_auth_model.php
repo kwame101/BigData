@@ -2123,6 +2123,36 @@ class Ion_auth_model extends CI_Model
 		$this->db->update('user_activity');
 	}
 
+	/*
+	*
+	*/
+	public function usersProfile($group_id)
+	{
+		$this->db->select('users.id,CONCAT_WS(" ",users.first_name,users.last_name) as user_full_name,
+		users.email,users.company');
+		$this->db->from('users');
+		$this->db->join('users_groups','users.id=users_groups.user_id','left');
+		$this->db->join('groups','users_groups.group_id=groups.id','left');
+		$this->db->where('groups.id',$group_id);
+		//$this->db->group_by('users.id');
+		$this->db->order_by('users.id', 'asc');
+
+		$query=$this->db->get();
+    return $query;
+	}
+
+	/*
+	*
+	*/
+	public function activityDetails()
+	{
+		$this->db->select('user_activity.user_id,user_activity.logged_in,user_activity.last_seen');
+		$this->db->from('user_activity');
+		//$this->db->join('user_activity','users.id=user_activity.user_id','left');
+		$query=$this->db->get();
+    return $query;
+	}
+
 	protected function _filter_data($table, $data)
 	{
 		$filtered_data = array();

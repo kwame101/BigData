@@ -1,3 +1,4 @@
+
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div class="container" style="background-color: #f9f9f9; min-height: 100vh;">
   <script type="text/javascript">
@@ -15,14 +16,14 @@
     </div>
     <section class="members-form-wrapper">
         <div class="wrapper">
-                <div class="col-lg-12">
-                    <span>Add a new member </span> <button onclick="hideShow()">Create new account</button>
-                </div>
+            <div class="col-lg-12">
+                <span>Add a new member </span> <button onclick="hideShow()">Create new account</button>
             </div>
-        </section>
-        <section class="members-list">
-            <div class="wrapper">
-                <div class="col-lg-12">
+        </div>
+    </section>
+    <section class="members-list">
+        <div class="wrapper">
+            <div class="col-lg-12">
                 <div id="adduser-form" style="display:none;">
                     <?php echo form_open('',array('class'=>'form-horizontal'));?>
                     <div class="form-group">
@@ -48,15 +49,14 @@
                     echo '<div class="user_view flex" style="padding: 30px 0px; border-bottom: 2px solid #acacac; width: 680px;">';
                     echo '<span>'.$user->company.'</span><span>'.$user->email.'</span>'; ?>
 
-                    <div class="user-delete-button"><a href="<?php echo site_url('admin/users/delete/'.$user->id);?>"> Delete User </a></span>
+                    <div class="user-delete-button"><a href="<?php echo site_url('admin/users/delete/'.$user->id);?>"> Delete User </a></div>
                     <?php
                     echo '</div>';
                   }
                  echo '</div>';
                 }
                 ?>
-                </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
 </div>

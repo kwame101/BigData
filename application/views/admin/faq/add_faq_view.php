@@ -40,24 +40,26 @@
             </div>
         </div>
     </div>
-    <div class="faqs">
-        <div class="wrapper">
-            <?php
-            if(isset($faq_info))
-            {
-                foreach ($faq_info as $faq){ ?>
-                  <ul class="admin-faq">
-                    <li>
-                      <a href="#" class="faq-title"> <?php echo $faq->title; ?> </a>
-                      <!-- <a href="#" > <?php echo $faq->name; ?> </a> -->
-                      <span class="faq-edits"><span class="showMoreFaq"> + </span> <a href="<?php echo site_url('admin/support/editFaq/'.$faq->faq_id) ?>">Edit</a></span>
-                    </li>
-                    <li class="faq-text">
-                        <?php echo $faq->text; ?>
-                    </li>
-                    </li>
-                  </ul>
-              <?php  } ?>
+        <div class="wrapper" id="topic_view">
+            <div class="faqs">
+              <?php
+                 if(isset($faq_info))
+                 {
+                     foreach ($faq_info as $faq){ ?>
+              <ul class="front-faq">
+                 <li class="faq-topic">
+                    <a href="#" > <?php echo $faq->name; ?> </a>
+                 </li>
+                 <li>
+                    <a href="#" class="faq-title"> <?php echo $faq->title; ?> </a>
+                    <span class="faq-edits">
+                        <span class="front-faq-more"> &#43; </span>
+                        <a style="margin-left:20px;" href="<?php echo site_url('admin/support/editFaq/'.$faq->faq_id) ?>">Edit</a>
+                   </span>
+                 </li>
+                 <li class="faq-text"> <?php echo $faq->text; ?> </li>
+              </ul>
+              <?php  }  ?>
 
               <div class="faq-paginate">
                 <?php echo $paginate; ?>

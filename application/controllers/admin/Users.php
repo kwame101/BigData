@@ -17,7 +17,10 @@ class Users extends Admin_Controller
   public function index($group_id = NULL)
 {
   $this->data['page_title'] = 'Users';
-  $this->data['users'] = $this->ion_auth->users($group_id)->result();
+  //$this->data['users'] = $this->ion_auth->users($group_id)->result();
+  if($group_id == null){$group_id = 2;}
+  $this->data['users'] = $this->ion_auth->usersProfile($group_id)->result();
+  $this->data['logged_info'] = $this->ion_auth->activityDetails()->result();
   $this->render('admin/users/list_users_view');
 }
 
@@ -205,18 +208,175 @@ class Users extends Admin_Controller
   }
 }
 
-public function delete($user_id = NULL)
+/*
+*
+*/
+public function reports()
 {
-if(is_null($user_id))
-{
-  $this->session->set_flashdata('message','There\'s no user to delete');
+  $this->data['users'] = $this->ion_auth->usersProfile(2)->result();
+  $this->data['logged_info'] = $this->ion_auth->activityDetails()->result();
+  $this->render('admin/users/list_reports_view');
 }
-else
-{
-  $this->ion_auth->delete_user($user_id);
-  $this->session->set_flashdata('message',$this->ion_auth->messages());
-}
-redirect('admin/users/members','refresh');
-}
+
+
+  /*
+  *
+  */
+  public function exportReportCSV()
+  {
+    $this->load->library("Excel");
+    date_default_timezone_set('Europe/London');
+    $currentdate = date("d_m_Y");
+
+    // Create new PHPExcel object
+    $objPHPExcel = new PHPExcel();
+
+    // Set document properties
+    $objPHPExcel->getProperties()->setCreator("Test test")
+    ->setLastModifiedBy("System")
+    ->setTitle("System")
+    ->setSubject("Test System")
+    ->setDescription("Test Report")
+    ->setKeywords("office 2007")
+    ->setCategory("Test");
+
+    // Create the worksheet
+    $objPHPExcel->setActiveSheetIndex(0);
+
+    $objPHPExcel->getActiveSheet()->setCellValue('A1', "Dummy message for later");
+  /* ->setCellValue('B1', "Email")
+   ->setCellValue('C1', "Company")
+   ->setCellValue('D1', "Total Time");
+
+   $objPHPExcel->getActiveSheet()->setCellValue('A4', "Date")
+  ->setCellValue('B4', "Time in")
+  ->setCellValue('C4', "Time out")
+  ->setCellValue('D4', "Time spent");
+  */
+
+   function addTime($times) {
+    $seconds = 0;
+      foreach ($times as $time)
+      {
+        list($hour,$minute,$second) = explode(':', $time);
+          $seconds += $hour*3600;
+          $seconds += $minute*60;
+          $seconds += $second;
+        }
+        $hours = floor($seconds/3600);
+        $seconds -= $hours*3600;
+        $minutes  = floor($seconds/60);
+        $seconds -= $minutes*60;
+        return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+    }
+
+
+    $result = $this->ion_auth->usersProfile(2)->result_array();
+    $logged =  $this->ion_auth->activityDetails()->result_array();
+    $dataArray= array();
+    $countRes = sizeof($result);
+    //for($i=0;$i <=$countRes;$i++)
+  //  {
+      foreach($result as $row) {
+        $sumTotal = null;
+        $new_date = array();
+      //$uid = $row['id'];
+
+
+      //{
+      	$tn = $row['user_full_name'];
+        $dataArray= array();
+      	$objWorksheet = new PHPExcel_Worksheet($objPHPExcel);
+      	$objPHPExcel->addSheet($objWorksheet);
+      	$objWorksheet->setTitle(''. $tn);
+      	//$uid = $row['id'];
+    //  }
+         $row_array['user_full_name'] = $row['user_full_name'];
+         $row_array['email'] = $row['email'];
+         $row_array['company'] = $row['company'];
+         //iterate over times
+         $i = 5;
+         foreach($logged as $log ){
+           $dataSes = array();
+           $total = null;
+       if ($row['id'] == $log['user_id']) {
+        // if($log['last_seen'] != $log['logged_in'] && isset($log['last_seen'])){
+           $loggedout = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$log['last_seen']));
+           $loggedin = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$log['logged_in']));
+           $total =  $loggedout->diff($loggedin);
+           $sumTotal = sprintf(
+             '%d:%02d:%02d',
+            ($total->d * 24) + $total->h,
+            $total->i,
+            $total->s
+           );
+           $datainfo['date'] = date('d/m/y',$log['logged_in']).'  -  '.date('d/m/y',$log['last_seen']);
+           $datainfo['time in'] = date('H:i:s',$log['logged_in']);
+           $datainfo['time out'] =date('H:i:s',$log['last_seen']);
+           $datainfo['time spent'] = $sumTotal;
+
+           array_push($dataSes,$datainfo);
+
+           $objWorksheet->fromArray($dataSes, NULL, 'A'.$i);
+
+           array_push($new_date, $sumTotal);
+          //}
+         }
+          $row_array['id'] = addTime($new_date);
+          $i++;
+         }
+         array_push($dataArray,$row_array);
+
+         $objWorksheet->setCellValue('A1', "Name")
+        ->setCellValue('B1', "Email")
+        ->setCellValue('C1', "Company")
+        ->setCellValue('D1', "Total Time");
+
+        $objWorksheet->setCellValue('A4', "Date")
+       ->setCellValue('B4', "Time in")
+       ->setCellValue('C4', "Time out")
+       ->setCellValue('D4', "Time spent");
+
+         $objWorksheet->fromArray($dataArray, NULL, 'A2');
+
+     }
+    //}
+
+    //$objPHPExcel->getActiveSheet()->fromArray($dataArray, NULL, 'A2');
+
+    // Save Excel 2007 file
+    #echo date('H:i:s') . " Write to Excel2007 format\n";
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+    ob_end_clean();
+    // We'll be outputting an excel file
+    header('Content-type: application/vnd.ms-excel');
+    // It will be called file.xls
+    header('Content-Disposition: attachment; filename="test_'.$currentdate.'.xls"');
+    $objWriter->save('php://output');
+    //SaveViaTempFile($objWriter);
+    Exit;
+  }
+
+  /*
+  *
+  */
+  public function exportReportPDF()
+  {
+
+  }
+
+  public function delete($user_id = NULL)
+  {
+    if(is_null($user_id))
+  {
+    $this->session->set_flashdata('message','There\'s no user to delete');
+  }
+    else
+  {
+    $this->ion_auth->delete_user($user_id);
+    $this->session->set_flashdata('message',$this->ion_auth->messages());
+   }
+   redirect('admin/users/members','refresh');
+  }
 
 }

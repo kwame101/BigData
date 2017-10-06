@@ -13,7 +13,7 @@ body
     margin: 0;
     padding: 0;
     background: #fff;
-    font-family: WhitneyHTF-Medium,sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     line-height: 1.2rem;
     color: #1c191a;
@@ -46,6 +46,7 @@ button:focus {
 h1, h2, h3, h4, h5, a, p
 {
     line-height: 1.2em;
+    color: #0e1d34;
 }
 
 h2 {
@@ -1426,6 +1427,18 @@ screen and (min-width: 40em) {
     text-decoration: none;
 }
 
+.drop-down:hover ul {
+    display: block;
+}
+
+.drop-down ul {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    background: #0e1d34;
+    text-align: left;
+}
+
 .primary-header .navwrap .main.menu li:not([class*=button]) a
 {
     color: #fff;
@@ -2028,7 +2041,7 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
     display: inline-block;
     padding: 20px 40px;
     box-sizing: border-box;
-    font-weight: bold;
+    font-size: 14px;
 }
 
 .addFaq-form {
@@ -2085,6 +2098,8 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
     border-radius: 5px;
     border: none;
     font-family: Montserrat, sans-serif;
+    padding: 20px;
+    font-size: 12px;
 }
 
 .faq-submit-wrapper {
@@ -2143,6 +2158,7 @@ li.faq-text {
     padding: 20px 40px;
     box-sizing: border-box;
     display: none;
+    font-size: 12px;
 }
 
 .faq-paginate {
@@ -2345,6 +2361,7 @@ li.faq-text {
     display: block;
     overflow: hidden;
     font-weight: bold;
+    font-size: 12px;
     text-transform: capitalize;
 }
 
@@ -2448,10 +2465,11 @@ li.faq-text {
     box-sizing: border-box;
 }
 
-.enquiry-more {
+.enquiry-more, .front-faq-more, .showMoreFaq {
     font-weight: bold;
     color: #ec5210;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .faq-topic {
@@ -2503,7 +2521,347 @@ li.faq-text {
     font-family: montserrat;
     font-size: 14px;
 }
+
+.front-faq-main {
+    background-color: #f6f6f6;
+    padding: 40px 0px;
+}
+
+.front-faq-main .front-mainfaq-title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.front-faq-main .front-mainfaq-title h1 {
+}
+
+.front-faq-main .front-mainfaq-title a {
+    padding: 5px 10px;
+    border: 2px solid #0e1d34;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.front-faq-bottom p {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 40px 0px;
+}
+
+.front-faq-bottom a {
+    padding: 20px 60px;
+    height: 100%;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: white;
+    background: #ec5210;
+    border: none;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 400px) {
+    .front-faq-bottom a {
+        width: 100% !important;
+    }
+}
 /* FAQ FRONTEND END */
+
+/* ADD ADMIN */
+.admin-view-title {
+    padding: 60px 0px 50px 0px;
+    background: white;
+}
+
+.admin-view-title span {
+   font-size: 18px;
+   color: #0e1d34;
+   margin-right: 40px;
+   font-weight: bold;
+}
+
+.admin-view-title button {
+   padding: 15px 60px;
+   background: #ec5310;
+   color: white;
+   font-size: 12px;
+   font-family: Montserrat, sans-serif;
+   display: inline-block;
+   border-radius: 5px;
+}
+
+#adduser .form-horizontal{
+    width: 270px;
+    border: 0px;
+    border-radius: 0px;
+    margin: 0px;
+}
+
+#adduser .form-horizontal .form-group {
+    height: auto;
+    border: 0px;
+    margin-bottom: 15px;
+}
+
+#adduser .form-horizontal input {
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 12px;
+}
+/* ADD ADMIN END */
+
+/* ADMIN ENQUIRY */
+.admin-enquiry ul {
+    background: #dfdfdf;
+    margin-bottom: 15px;
+}
+
+.admin-enquiry li {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 25px 25px 35px 25px;
+    background: #dfdfdf;
+    font-weight: bold;
+    font-size: 14px;
+    color: #0e1d34;
+}
+
+.admin-enquiry-li-active {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 25px 25px 30px 25px;
+    background: #fff;
+}
+
+.admin-enquiry-li-active a {
+    font-weight: bold;
+    font-size: 14px;
+    color: #ec5310;
+}
+
+.enquiry-table-row {
+    display: flex;
+    justify-content: space-between;
+    background: #f9f9f9;
+    margin-bottom: 5px;
+}
+
+.enquiry-table-row span {
+    width: 200px;
+    font-size: 14px;
+}
+
+.enquiry-table-row-info {
+    display: flex;
+    justify-content: space-between;
+    background: #f9f9f9;
+    padding: 20px 30px;
+    width: 80%;
+    border-right: 5px solid white;
+}
+
+.topic_name .topics {
+    width: auto;
+    max-width: 200px;
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.enq_view {
+    width: 20%;
+}
+
+.enq_view a {
+        padding: 10px 50px;
+        background: #0E1D33;
+        color: white;
+        font-size: 12px;
+        border-radius: 2px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.topic-cat div {
+    background: #ec510f;
+    color: white;
+    font-size: 10px;
+    padding: 0px 15px;
+    border-radius: 2px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: inline-block;
+    text-align: center;
+}
+
+.enquiry-header-title {
+    padding: 60px 0px 50px 0px;
+    color: #0e1d34;
+    background: #f9f9f9;
+}
+
+.enquiry-header-title h1 {
+    display: inline-block;
+}
+
+.enquiry-header-title a {
+    position: absolute;
+    right: 0px;
+    font-weight: bold;
+    color: #0e1d34;
+}
+
+.enquiry-info-table {
+    display: flex;
+    justify-content: space-between;
+}
+
+.enquiry-info-row {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    border-right: 3px solid #d8d8d8;
+    padding: 40px 0px;
+    padding-right: 40px;
+}
+
+.enquiry-topics-content div {
+    background: #ec510f;
+    color: white;
+    font-size: 12px;
+    padding: 0px 15px;
+    border-radius: 2px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: inline-block;
+    text-align: center;
+}
+
+.enquiry-info-states {
+    width: 30%;
+    padding: 40px 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.enquiry-info-state {
+    display: inline-block;
+    color: #0e1d34;
+    font-weight: bold;
+}
+
+.state-checkbox {
+	-webkit-appearance: none;
+	padding: 15px 20px;
+	display: block;
+    margin: 0 auto;
+	position: relative;
+    background-image: none;
+    margin-top: 10px;
+}
+
+.state-checkbox:checked {
+    background-image: url('../img/check.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.enquiry-info-content {
+    padding: 40px 0px;
+}
+
+.title14 {
+    font-size: 14px;
+}
+
+.text12 {
+    font-size: 12px;
+}
+
+.enquiry-user-title {
+    font-size: 14px;
+}
+
+.enquiry-user-name {
+    font-size: 12px;
+}
+
+.enquiry-user-date {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.enquiry-summary-title {
+    font-size: 14px;
+}
+
+.enquiry-summary-content {
+    font-size: 12px;
+}
+
+.enquiry-for-title {
+    font-size: 14px;
+}
+
+.enquiry-for-content {
+    font-size: 12px;
+}
+
+.enquiry-topics-title {
+    font-size: 14px;
+}
+
+.enquiry-states-title {
+    font-size: 14px;
+}
+
+.enquiry-details-title {
+    font-size: 14px;
+}
+/* ADMIN ENQUIRY END */
+.cat-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    margin-top: 50px;
+}
+
+.cat-row {
+    flex-basis: 50%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.cat-name {
+    width: 20%;
+}
+
+.cat-email, .cat-edits {
+    width: 40%;
+}
+
+.cat-edits a {
+    padding: 5px 20px;
+    display: inline-block;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    background: grey;
+}
 
 /* FOOTER */
 /*.primary-footer {
