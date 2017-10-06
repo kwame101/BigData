@@ -54,7 +54,10 @@
    <div class="wrapper">
        <div class="front-mainfaq-title">
          <h1>Browse FAQ's</h1>
-         <a href="<?php echo site_url('help/contact')?>">Contact Us </a>
+         <div class="extra-buttons">
+             <a href="<?php echo site_url('help/contact')?>">User guide </a>
+             <a href="<?php echo site_url('help/contact')?>">Contact Us </a>
+        </div>
      </div>
    </div>
   <div class="wrapper" id="topic_view" >
@@ -78,10 +81,10 @@
          <?php  } } ?>
       </div>
       <div class="front-faq-bottom">
-          <p>Can't find the answer to your question? </br>
+          <p>Can't find what you're after? </br>
              You can contact our customer support below.
           </p>
-          <a href="<?php echo site_url('help/contact'); ?>" class="btn faq-touch" style="width:350px;" > Get in touch </a>
+          <a href="<?php echo site_url('help/contact'); ?>" class="btn faq-touch" style="width:350px; margin-bottom: 100px;" > Get in touch </a>
       </div>
   </div>
 </section>

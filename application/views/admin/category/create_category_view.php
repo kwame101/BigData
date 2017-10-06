@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="faq-submit-wrapper" style="margin-top: 20px; width: calc(50% - 10px)">
-                <?php echo form_submit('submit', 'Create category', 'class="faq-submit btn btn-primary btn-lg btn-block""');?>
+                <?php echo form_submit('submit', 'Create category', 'class="faq-submit btn btn-primary btn-lg btn-block" style="font-size: 14px;"');?>
             </div>
             <?php echo form_close();?>
         </div>

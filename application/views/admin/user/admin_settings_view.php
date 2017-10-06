@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
-<div class="container" style="margin-top: 40px;">
+<div class="container">
     <div class="col-lg-4 col-lg-offset-4">
       <div class="wrapper">
-        <div class="change-password-title">
+        <div class="change-password-title" style="margin-top: 60px;">
             <h1>Change Password</h1>
         </div>
     </div>

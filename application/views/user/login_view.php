@@ -1,6 +1,6 @@
-<div class="wrapper w-480" style="margin-top: 40px;">
+<div class="wrapper w-480" style="margin-top: 100px;">
     <div class="text-center">
-      <h1>Sign in to your <span class="orange-text">BigDataCorridor</span> account</h1>
+      <h1 style="font-size:32px;" >Sign in to your </br > <span class="orange-text">BigDataCorridor</span> account</h1>
   </div>
 </div>
 <section class="grey-background">

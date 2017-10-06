@@ -1,3 +1,4 @@
+
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div class="container" style="background-color: #f9f9f9; min-height: 100vh;">
   <script type="text/javascript">
@@ -34,7 +35,7 @@
                       <?php echo form_input('email','','class="form-control" placeholder="Email"');?>
                     </div>
                     <div class="form-group admin-member-submit">
-                        <?php echo form_submit('submit', 'Add user', 'class="btn"');?>
+                        <?php echo form_submit('submit', 'Add user', 'class="btn" style="font-size: 13px;"');?>
                     </div>
                     <?php echo form_close();?>
                 </div>
@@ -42,10 +43,10 @@
                 if(!empty($users))
                 {
                   echo '<div class="top_view" style="width: 680px; text-align: left;">';
-                  echo '<div class="flex"><span style="font-weight: bold; margin-top: 50px;">Company</span><span style="font-weight: bold; margin-top: 50px;">Email</span><span style="font-weight: bold; margin-top: 50px; width: 140px;"></span> </div>';
+                  echo '<div class="flex" style="margin-bottom: 20px;"><span style="font-weight: bold; margin-top: 50px;">Company</span><span style="font-weight: bold; margin-top: 50px;">Email</span><span style="font-weight: bold; margin-top: 50px; width: 140px;"></span> </div>';
                   foreach($users as $user)
                   {
-                    echo '<div class="user_view flex" style="padding: 30px 0px; border-bottom: 2px solid #acacac; width: 680px;">';
+                    echo '<div class="user_view flex" style="padding: 30px 0px; padding-bottom: 20px; border-bottom: 2px solid #acacac; width: 680px;">';
                     echo '<span>'.$user->company.'</span><span>'.$user->email.'</span>'; ?>
 
                     <div class="user-delete-button"><a href="<?php echo site_url('admin/users/delete/'.$user->id);?>"> Delete User </a></div>

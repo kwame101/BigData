@@ -34,37 +34,36 @@
                 ?>
               </div>
               <div class="faq-submit-wrapper">
-                  <?php echo form_submit('submit', 'Add Post', 'class="faq-submit btn btn-primary btn-lg btn-block"');?>
+                  <?php echo form_submit('submit', 'Add Post', 'class="faq-submit btn btn-primary btn-lg btn-block" style="font-size: 14px;"');?>
             </div>
               <?php echo form_close();?>
             </div>
         </div>
     </div>
-   <div class="wrapper" id="topic_view" >
-     <div class="faqs">
-          <?php
-             if(isset($faq_info))
-             {
-                 foreach ($faq_info as $faq){ ?>
-          <ul class="front-faq">
-             <li class="faq-topic">
-                <a href="#" > <?php echo $faq->name; ?> </a>
-             </li>
-             <li>
-                <a href="#" class="faq-title"> <?php echo $faq->title; ?> </a>
-                <span class="faq-edits">
-                    <span class="front-faq-more"> &#43; </span>
-                    <a href="<?php echo site_url('admin/support/editFaq/'.$faq->faq_id) ?>">Edit</a>
-               </span>
-             </li>
-             <li class="faq-text"> <?php echo $faq->text; ?> </li>
-          </ul>
-          <?php  } } ?>
-       </div>
-       <div class="front-faq-bottom">
-           <p>Can't find the answer to your question? </br>
-              You can contact our customer support below.
-           </p>
-           <a href="<?php echo site_url('help/contact'); ?>" class="btn faq-touch" style="width:350px;" > Get in touch </a>
-       </div>
-   </div>
+        <div class="wrapper" id="topic_view">
+            <div class="faqs">
+              <?php
+                 if(isset($faq_info))
+                 {
+                     foreach ($faq_info as $faq){ ?>
+              <ul class="front-faq">
+                 <li class="faq-topic">
+                    <a href="#" > <?php echo $faq->name; ?> </a>
+                 </li>
+                 <li>
+                    <a href="#" class="faq-title"> <?php echo $faq->title; ?> </a>
+                    <span class="faq-edits">
+                        <span class="front-faq-more"> &#43; </span>
+                        <a style="margin-left:20px;" href="<?php echo site_url('admin/support/editFaq/'.$faq->faq_id) ?>">Edit</a>
+                   </span>
+                 </li>
+                 <li class="faq-text"> <?php echo $faq->text; ?> </li>
+              </ul>
+              <?php  }  ?>
+
+              <div class="faq-paginate">
+                <?php echo $paginate; ?>
+              </div>
+            <?php } ?>
+        </div>
+    </div>

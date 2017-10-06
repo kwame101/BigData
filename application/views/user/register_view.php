@@ -1,6 +1,6 @@
-<div class="wrapper w-480" style="margin-top: 40px;">
+<div class="wrapper w-480" style="margin-top: 100px;">
     <div class="text-center">
-      <h1>Sign up to create your <span class="orange-text">BigDataCorridor</span> account</h1>
+      <h1>Sign up to create your </br > <span class="orange-text">BigDataCorridor</span> account</h1>
     </div>
 </div>
 

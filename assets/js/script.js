@@ -63,8 +63,11 @@ $(document).ready(function() {
     $('.front-faq-more').click(function(){
         if ($(this).closest('.front-faq').find('.faq-text').is(':hidden')){
             $(this).closest('.front-faq').find('.faq-text').css({'display': 'block'});
+            $(this).html('-');
+
         } else {
             $(this).closest('.front-faq').find('.faq-text').css({'display': 'none'});
+            $(this).html('+');
         }
     });
 
