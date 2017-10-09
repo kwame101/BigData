@@ -34,7 +34,7 @@
                 ?>
               </div>
               <div class="faq-submit-wrapper">
-                  <?php echo form_submit('submit', 'Add Post', 'class="faq-submit btn btn-primary btn-lg btn-block"');?>
+                  <?php echo form_submit('submit', 'Add Post', 'class="faq-submit btn btn-primary btn-lg btn-block" style="font-size: 14px;"');?>
             </div>
               <?php echo form_close();?>
             </div>

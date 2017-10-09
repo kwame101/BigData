@@ -17,7 +17,8 @@
                 cache:false,
                 processData:false,
                 success: function(data){
-                  $('#uploaded_image').html(data);
+                  //$('#uploaded_image').html(data);
+                  $(data).appendTo('#uploaded_image');
                 }
               });
           }
@@ -63,12 +64,27 @@
         });
       }
     });
+    //remove image after uploading it
+    $(document).on('click', '.del_img', function(event){
+        var removed = $(this).parent(".up_image").children('.img_thumb').val();
+        //alert(removed);
+        $(this).parent(".up_image").remove();
+        $.ajax({
+          //delete selected file
+          url:"<?php echo base_url();?>help/delete_upload",
+          method:"post",
+          data: {'filename': removed},
+          success: function(data){
+            //message info later
+          }
+        });
+    });
 </script>
 <div class="container">
 <section class="faq-form-title">
     <div class="wrapper w-380 text-center">
-        <h2 style="margin-bottom: "> Get in touch with out <span class="orange-text">BigDataCorridor</span> team </h2>
-        <p> Fill in the form below to help us understand what you are looking for </p>
+        <h1 style="margin-bottom: 20px;"> Get in touch with our </br> <span class="orange-text">BigDataCorridor</span> team </h1>
+        <p> Fill in the form below to help us understand </br> what you are looking for </p>
     </div>
 </section>
 <section class="faq-form">
@@ -90,32 +106,31 @@
             <?php
                 echo form_label('Question Summary','summary');
                 echo form_error('summary');
-                echo form_input('summary','','id="search_sum", class="form-control"');
+                echo form_input('summary','','id="search_sum", class="form-control" placeholder="Please enter a short summary of the problem"');
                 ?>
         </div>
-        <div class="faq-message" style="margin-bottom: 40px;">
+        <div class="faq-message" style="margin-bottom: 20px;">
             <?php
-                echo form_label('Message','message');
+                echo form_label('Details','message');
                 echo form_error('message');
-                echo form_textarea('message','','class="form-control"');
+                echo form_textarea('message','','class="form-control" placeholder="Please give a full description"');
                 ?>
         </div>
-        <div id="jax_req">
-            <!-- Ajax request here to display faqs -->
+        <div  id="uploaded_image">
         </div>
-        <?php echo form_close();?>
-        <form enctype="multipart/form-data" method="post" id="form_upload">
             <div class="form_upload">
                 <?php
                     echo form_error('userfile');
-                    echo form_upload('userfile','','id="userfile" class="choose-file"'); ?>
-                <input type="submit" class="upload-btn" value="+ Upload Attachment" >
+                    echo form_upload('userfile','','form="form_upload" id="userfile" class="choose-file" data-multiple-caption="{count} files selected" multiple');
+                    echo form_label('Choose file','userfile','','for="userfile"'); ?>
+                <input type="submit" class="upload-btn" form="form_upload" value="+ Upload Attachment" >
             </div>
-        </form>
-        <div  id="uploaded_image">
-            <!-- <img src="<?php// echo base_url().'assets/upload/7606fdacd2847517fd0ffd40a01441d3.jpg';?>" /> -->
+        <div id="jax_req">
+            <!-- Ajax request here to display faqs -->
         </div>
         <?php echo form_submit('submit', 'Send', 'class="btn faq-send" style="width:350px;"');?>
+        <?php echo form_close();?>
+        <form enctype="multipart/form-data" method="post" id="form_upload"></form>
         <div class="faq_req"> <a href="<?php echo base_url('help'); ?>"> Go back to FAQs </a></div>
     </div>
 </section>

@@ -18,7 +18,7 @@
         <script src="<?php echo base_url(); ?>/assets/js/script.js"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
         <script type="text/javascript">
            var auto_refresh = setInterval(function (){
              var key = '<?php echo $this->session->userdata('auth_key')?>';
@@ -61,8 +61,9 @@
 			</div>
 		</div>
         <header id="header" class="primary-header">
+            <div class="wrapper">
             <div class="row">
-                <div class="c-3 logowrap">Logo here</div>
+                <div class="c-3 logowrap"><img src="<?php echo base_url(); ?>/assets/img/logo.png"></div>
                 <div class="c-9">
                     <nav class="navwrap">
                         <ul id="menu" class="main menu">
@@ -171,4 +172,5 @@
 				</aside>
                 <div class="clearFix"></div>
             </div>
+        </div>
         </header>

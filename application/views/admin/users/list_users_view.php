@@ -25,9 +25,8 @@
             return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
           }
       date_default_timezone_set("Europe/London");
-
       echo '<div class="top_view">';
-      echo '<div class="flex"> <span style="font-weight: bold; margin-top: 50px; width: 250px;">Name</span> <span style="font-weight: bold; margin-top: 50px; width: 250px;">Email</span><span style="font-weight: bold; margin-top: 50px; width: 250px;">Company</span><span style="font-weight: bold; margin-top: 50px; width: 250px;"></span> </div>';
+      echo '<div class="flex" style="margin-top: 50px; margin-bottom: 20px;"> <span style="font-weight: bold; width: 250px;">Name</span> <span style="font-weight: bold; width: 250px;">Email</span><span style="font-weight: bold; width: 250px;">Company</span><span style="font-weight: bold; width: 250px;"></span> </div>';
       foreach($users as $user)
       {
         $sumTotal = null;
@@ -47,10 +46,6 @@
           {
             $total = null;
             if($user->id == $logged->user_id) {
-              if($logged->last_seen == $logged->logged_in){
-                $value='00:00:00';
-              }
-              else {
                 $loggedout = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$logged->last_seen));
                 $loggedin = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$logged->logged_in));
                 $total =  $loggedout->diff($loggedin);
@@ -61,14 +56,12 @@
                     $total->s
                   );
                   array_push($new_date, $value);
-               }
           echo '<div class="user-view" style="padding: 0px 100px; background: #fff;">';
-          echo '<div class="user_row flex" style="padding: 5px 0px;">';
+          echo '<div class="user_row flex" style="padding: 7px 0px;">';
           echo '<span style="width: 150px;">'.date('d/m/y',$logged->logged_in),'  -  '.date('d/m/y',$logged->last_seen).'</span><span style="width: 150px;">'.date('H:i:s',$logged->logged_in).'</span><span style="width: 150px;">'.date('H:i:s',$logged->last_seen).'</span><span style="width: 150px;">'.$value.'</span>';
           echo '</div>';
           echo '</div>';
             } }
-
         echo '<div style="padding: 20px 100px" text-align="right">';
         echo '<div style="float: right;">';
         echo '<span style="text-align:right; font-weight: bold; margin-right: 30px;">Total:</span><span style="color: #EC5310;">'.addTime($new_date).'</span>';

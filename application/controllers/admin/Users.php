@@ -205,8 +205,26 @@ class Users extends Admin_Controller
 
     $this->session->set_flashdata('message',$this->ion_auth->messages());
     redirect('admin/users','refresh');
+    }
   }
-}
+
+  /*
+  *
+  */
+  public function delete($user_id = NULL)
+  {
+    if(is_null($user_id))
+  {
+    $this->session->set_flashdata('message','There\'s no user to delete');
+  }
+    else
+  {
+    $this->ion_auth->delete_user($user_id);
+    $this->session->set_flashdata('message',$this->ion_auth->messages());
+   }
+   redirect('admin/users/members','refresh');
+  }
+
 
 /*
 *
@@ -254,23 +272,6 @@ public function reports()
   ->setCellValue('D4', "Time spent");
   */
 
-   function addTime($times) {
-    $seconds = 0;
-      foreach ($times as $time)
-      {
-        list($hour,$minute,$second) = explode(':', $time);
-          $seconds += $hour*3600;
-          $seconds += $minute*60;
-          $seconds += $second;
-        }
-        $hours = floor($seconds/3600);
-        $seconds -= $hours*3600;
-        $minutes  = floor($seconds/60);
-        $seconds -= $minutes*60;
-        return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
-    }
-
-
     $result = $this->ion_auth->usersProfile(2)->result_array();
     $logged =  $this->ion_auth->activityDetails()->result_array();
     $dataArray= array();
@@ -295,7 +296,7 @@ public function reports()
          $row_array['email'] = $row['email'];
          $row_array['company'] = $row['company'];
          //iterate over times
-         $i = 5;
+         $i = 2;
          foreach($logged as $log ){
            $dataSes = array();
            $total = null;
@@ -310,19 +311,19 @@ public function reports()
             $total->i,
             $total->s
            );
-           $datainfo['date'] = date('d/m/y',$log['logged_in']).'  -  '.date('d/m/y',$log['last_seen']);
+           $datainfo['date'] = date('d/m/YY',$log['logged_in']);
            $datainfo['time in'] = date('H:i:s',$log['logged_in']);
            $datainfo['time out'] =date('H:i:s',$log['last_seen']);
            $datainfo['time spent'] = $sumTotal;
 
            array_push($dataSes,$datainfo);
 
-           $objWorksheet->fromArray($dataSes, NULL, 'A'.$i);
+           $objWorksheet->fromArray($dataSes, NULL, 'E'.$i);
 
            array_push($new_date, $sumTotal);
           //}
          }
-          $row_array['id'] = addTime($new_date);
+          $row_array['id'] = $this->addTime($new_date);
           $i++;
          }
          array_push($dataArray,$row_array);
@@ -332,10 +333,10 @@ public function reports()
         ->setCellValue('C1', "Company")
         ->setCellValue('D1', "Total Time");
 
-        $objWorksheet->setCellValue('A4', "Date")
-       ->setCellValue('B4', "Time in")
-       ->setCellValue('C4', "Time out")
-       ->setCellValue('D4', "Time spent");
+        $objWorksheet->setCellValue('E1', "Date")
+       ->setCellValue('F1', "Time in")
+       ->setCellValue('G1', "Time out")
+       ->setCellValue('H1', "Time spent");
 
          $objWorksheet->fromArray($dataArray, NULL, 'A2');
 
@@ -357,26 +358,152 @@ public function reports()
     Exit;
   }
 
+
+  /*
+  *
+  */
+   protected function addTime($times) {
+   $seconds = 0;
+     foreach ($times as $time)
+     {
+       list($hour,$minute,$second) = explode(':', $time);
+         $seconds += $hour*3600;
+         $seconds += $minute*60;
+         $seconds += $second;
+       }
+       $hours = floor($seconds/3600);
+       $seconds -= $hours*3600;
+       $minutes  = floor($seconds/60);
+       $seconds -= $minutes*60;
+       return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+   }
+
+
   /*
   *
   */
   public function exportReportPDF()
   {
+    $this->load->library("Pdf_report");
+    date_default_timezone_set('Europe/London');
+    $currentdate = date("d_m_Y");
+    $getDate = date("l, jS F, Y");
 
-  }
+    // create new PDF document
+    $pdf = new Pdf_report(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
-  public function delete($user_id = NULL)
-  {
-    if(is_null($user_id))
-  {
-    $this->session->set_flashdata('message','There\'s no user to delete');
-  }
-    else
-  {
-    $this->ion_auth->delete_user($user_id);
-    $this->session->set_flashdata('message',$this->ion_auth->messages());
-   }
-   redirect('admin/users/members','refresh');
+    // set document information
+    $pdf->SetCreator('Admin tester');
+    $pdf->SetAuthor('Admin tester');
+    $pdf->SetTitle('BigDataCorridor Report');
+    $pdf->SetSubject('BigDataCorridor report');
+    $pdf->SetKeywords('PDF, report, bigdata, form, html, data');
+
+    $PDF_HEADER_LOGO = 'logo_example.jpg';
+    $pdf->Image('@' . $PDF_HEADER_LOGO);
+    $PDF_HEADER_LOGO_WIDTH = '20';
+    $PDF_HEADER_TITLE = 'BigDataCorridor Report';
+    // set default header data
+    $pdf->SetHeaderData($PDF_HEADER_LOGO, $PDF_HEADER_LOGO_WIDTH, $PDF_HEADER_TITLE,NULL);
+
+    // set header and footer fonts
+    $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+    $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+    // set default monospaced font
+    $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+    // set margins
+    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+    $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+    $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+    // set auto page breaks
+    $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+    // set image scale factor
+    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+    // set some language-dependent strings (optional)
+    if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+    	require_once(dirname(__FILE__).'/lang/eng.php');
+    	$pdf->setLanguageArray($l);
+    }
+
+    // ---------------------------------------------------------
+
+    // set font
+    $pdf->SetFont('times', '', 11);
+
+    // add a page
+    $pdf->AddPage();
+
+    $pdf->Ln(30);
+    // Page title
+    $page_info = '<div style="font-weight:bold;font-size:48px;">BigDataCorridor Report</div>';
+
+    $pdf->writeHTML($page_info, true, false, true, false, '');
+
+    $pdf->Ln(30);
+
+    //date info
+    $date_info = '<span style="color:black;font-size:24px;">'.$getDate.'</span>';
+    $pdf->writeHTML($date_info, true, false, true, false, '');
+
+    $result = $this->ion_auth->usersProfile(2)->result_array();
+    $logged =  $this->ion_auth->activityDetails()->result_array();
+    foreach($result as $row){
+      $new_date = array();
+      // add a page
+      $pdf->AddPage();
+      $pdf->Ln(10);
+
+      $html_info = '<h1>'.$row['company'].'</h1><table><tr>
+                    <th style="font-weight:bold;color:#8ba5c3;">Name: <span style="color:black;">'.$row['user_full_name'].'</span></th>
+                    <th style="font-weight:bold;color:#8ba5c3;">Email: <span style="color:black;">'.$row['email'].'</span></th>';
+      $table_info = '<h1></h1><table style="border:1px solid #000; padding:6px;">';
+      $table_info .= '<tr> <th style="border:1px solid #000; padding:6px; font-weight: bold; width: 150px;">
+                      Date</th> <th style="border:1px solid #000; padding:6px;font-weight: bold; width: 150px;">Time in</th><th
+                      style="border:1px solid #000; padding:6px;font-weight: bold; width: 150px;">Time out</th><th style="font-weight: bold;
+                       width: 150px;border:1px solid #000; padding:6px;">Time spent</th></tr>';
+
+      foreach($logged as $log){
+        if ($row['id'] == $log['user_id']) {
+            $loggedout = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$log['last_seen']));
+            $loggedin = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$log['logged_in']));
+            $total =  $loggedout->diff($loggedin);
+            $sumTotal = sprintf(
+              '%d:%02d:%02d',
+             ($total->d * 24) + $total->h,
+             $total->i,
+             $total->s
+            );
+            $table_info .= '<tr>
+                          <td style="border:1px solid #000; padding:6px;">'
+                          .date('d/m/y',$log['logged_in']).'</td><td style="border:1px solid #000; padding:6px;">'.date('H:i:s',$log['logged_in']).
+                          '</td><td style="border:1px solid #000; padding:6px;">'.date('H:i:s',$log['last_seen']).'</td>
+                            <td style="border:1px solid #000; padding:6px;">'.$sumTotal.'</td></tr>';
+            array_push($new_date, $sumTotal);
+          }
+
+      }
+
+      $table_info .= '</table>';
+
+      $html_info .=  '<th style="font-weight:bold;color:#8ba5c3;">Total time: <span style="color:black;">'.$this->addTime($new_date).'</span></th></tr></table>';
+
+      // output the HTML content
+      $pdf->writeHTML($html_info, true, false, true, false, '');
+      // output the HTML content
+      $pdf->writeHTMLCell(0 , 0,'','',$table_info, 0, 1, 0, true, 'C', true);
+
+    }
+
+    //Close and output PDF document
+    $pdf->Output('Report_'.$currentdate.'pdf', 'I');
+
+    //force download pdf
+    //$pdf->Output('Report_'.$currentdate.'pdf','D');
   }
 
 }

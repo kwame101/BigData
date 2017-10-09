@@ -12,7 +12,7 @@
         <script src="<?php echo base_url(); ?>/assets/js/idle.js"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
         <script type="text/javascript">
       <?php if($this->ion_auth->logged_in()) {
       ?>
@@ -27,7 +27,6 @@
          }
      });
     };
-
     var awayBackCallback = function(){
       console.log(new Date().toTimeString() + ": back");
        document.body.style.opacity = 1;
@@ -35,7 +34,6 @@
     var onVisibleCallback = function(){
       console.log(new Date().toTimeString() + ": now looking at page");
     };
-
     var onHiddenCallback = function(){
       console.log(new Date().toTimeString() + ": not looking at page");
     };
@@ -61,7 +59,7 @@
     <body>
         <header id="header" class="primary-header">
             <div class="row">
-                <div class="c-3 logowrap">Logo here</div>
+                <div class="c-3 logowrap"><img style="width: 60%;" src="<?php echo base_url(); ?>/assets/img/logo.png"></div>
                 <div class="c-9">
                     <nav class="navwrap">
                         <ul id="menu" class="main menu">

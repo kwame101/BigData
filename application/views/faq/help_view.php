@@ -25,11 +25,13 @@
                    var raw ='',strdata;
                    for(var i = 0;i<data.length;i++){
                      strdata = data[i];
-                     raw += '<ul class="admin-faq"><li class="faq-title"><a href="#" style="float:left" >'+
-                       strdata.title + '</a><a href="#" >'+ strdata.name + '</a></li><li class="faq-text">'+
-                       strdata.text+'<span class="faq-edits"><button>'+ "&#43;" +'</button></span></li></li></ul>'
+                     raw += '<ul class="front-faq"><li class="faq-topic"><a href="#" >'+
+                       strdata.name + '</a></li><li><a href="#" class="faq-title" >'+ strdata.title +
+                       '</a><span class="faq-edits"><span class="front-faq-more">'+ "&#43;" +
+                       '</span></span></li><li class="faq-text">'+strdata.text+'</li></ul>'
                    }
                    $('#topic_view').html(raw);
+
                    //  $('#topic_view').append(JSON.stringify(data));
                  }
                }
@@ -54,11 +56,14 @@
    <div class="wrapper">
        <div class="front-mainfaq-title">
          <h1>Browse FAQ's</h1>
-         <a href="<?php echo site_url('help/contact')?>">Contact Us </a>
+         <div class="extra-buttons">
+             <a href="<?php echo site_url('help/contact')?>">User guide </a>
+             <a href="<?php echo site_url('help/contact')?>">Contact Us </a>
+        </div>
      </div>
    </div>
-  <div class="wrapper" id="topic_view" >
-    <div class="faqs">
+  <div class="wrapper"  >
+    <div class="faqs" id="topic_view">
          <?php
             if(isset($faq_info))
             {
@@ -78,10 +83,10 @@
          <?php  } } ?>
       </div>
       <div class="front-faq-bottom">
-          <p>Can't find the answer to your question? </br>
+          <p>Can't find what you're after? </br>
              You can contact our customer support below.
           </p>
-          <a href="<?php echo site_url('help/contact'); ?>" class="btn faq-touch" style="width:350px;" > Get in touch </a>
+          <a href="<?php echo site_url('help/contact'); ?>" class="btn faq-touch" style="width:350px; margin-bottom: 100px;" > Get in touch </a>
       </div>
   </div>
 </section>

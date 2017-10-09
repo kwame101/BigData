@@ -4,7 +4,6 @@
         <h1> FAQ Enquires </h1>
     </div>
 </div>
-
 <section class="admin-enquiry">
     <ul>
         <div class="wrapper">
@@ -16,7 +15,7 @@
     <div class="wrapper">
         <div class="enquiry-table">
           <?php
-          if(isset($enq_info)){
+          if(!empty($enq_info)){
             foreach($enq_info as $enq){ ?>
                 <div class="enquiry-table-row">
                     <div class="enquiry-table-row-info">
@@ -57,8 +56,8 @@
                           <a href="<?php echo site_url('admin/support/display/'.$enq['id']) ?>">View </a>
                       </span>
                 </div>
-            </div>
          <?php } } ?>
+         </div>
         </div>
     </div>
 </section>

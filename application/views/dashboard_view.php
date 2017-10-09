@@ -1,8 +1,24 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
-<div class="wrapper" style="margin-top: 40px;">
+<script type="text/javascript">
+$(document).ready(function () {
+    $(".iframe").hide();
+    $(".open_web").click(function (e) {
+        e.preventDefault();
+        $("iframe").attr("src", $(this).attr('href'));
+        $(".link").fadeOut('slow');
+        $(".iframe").fadeIn('slow');
+    });
+
+    $(document).on('click', '.fclose', function(event){
+        $(this).parent().fadeOut("slow");
+        $(".link").fadeIn("slow");
+    });
+});
+</script>
+<div class="wrapper" style="margin-top: 100px;">
     <div class="dashboard-title w-480">
-        <h1><span class="orange-text">BigDataCorridor</span> Dashboard Select data platform below</h1>
-        <p>The platform is suitable for knowledge-base projects, gathering and crunhing data from Birmingham and the surrounding areas</p>
+        <h1><span class="orange-text">BigDataCorridor</span> Toolkit Select Below</h1>
+        <p>The platform is suitable for knowledge-base projects, gathering and crunching data from Birmingham and the surrounding areas</p>
     </div>
 </div>
 
@@ -14,14 +30,14 @@
                     <img src="http://via.placeholder.com/450x250" />
                 </div>
                 <div class="dashboard-text">
-                    <h2>Visualisation</h2>
+                    <h2>Data</h2>
                     <ul>
                         <li>The Big Data Corridor is a 3 year long project co-funded by the European Structural.</li>
                         <li>The Big Data Corridor is a 3 year long project co-funded by the European Structural and Investment Funds (ESIF).</li>
                     </ul>
                 </div>
-                <div class="dashboard-article-btn">
-                    Open Platform
+                <div class="dashboard-article-btn link">
+                  <a class="open_web" href="http://bigdatacorridor.com" style="color:#fff"> Go to Data </a>
                 </div>
             </div>
 
@@ -36,10 +52,19 @@
                         <li>The Big Data Corridor is a 3 year long project co-funded by the European Structural and Investment Funds (ESIF).</li>
                     </ul>
                 </div>
-                <div class="dashboard-article-btn orange-background">
-                    Open Platform
+                <div class="dashboard-article-btn orange-background link">
+                    <a class="open_web" href="http://example.com" style="color:#fff">Go to Visualisation</a>
                 </div>
             </div>
         </div>
     </div>
+    <div class="iframe">
+    <?php  //iframe style
+          //style="position:fixed; top:0px; left:0px; bottom:0px; right:0px; width:100%;
+          //height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" ?>
+    <iframe src="" >
+        <p>Your browser does not support iframes.</p>
+    </iframe>
+    <span class="fclose">close</span>
+  </div>
 </section>

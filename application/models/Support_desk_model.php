@@ -236,6 +236,19 @@ class Support_desk_model extends CI_Model
   /**
   *
   */
+  public function getTopicEmail($topics = array())
+  {
+    $this->db->select('email');
+    $this->db->from('category');
+    $this->db->where_in('id', $topics);
+    $query = $this->db->get();
+
+    return $query;
+  }
+
+  /**
+  *
+  */
   public function enquiryForm($topics = array(), $summary, $message, $images = array())
   {
     $user_id = $this->ion_auth->get_user_id();
@@ -255,7 +268,10 @@ class Support_desk_model extends CI_Model
     }
     //loop and insert images seperately
     if(!empty($images)){
-      // perform an action here
+      foreach($images as $image)
+      {
+        $this->db->insert('image_attachment',array('enq_id'=>$id,'image'=>$image));
+      }
     }
   }
 
@@ -265,8 +281,8 @@ class Support_desk_model extends CI_Model
   public function retrieveEnquiry($status)
   {
     $this->db->select('CONCAT_WS(" ",users.first_name,users.last_name) as full_name,
-    GROUP_CONCAT(CONCAT("<div>",category.name,"</div>") SEPARATOR " ") as category_name,
-    GROUP_CONCAT(CONCAT("<div>",category.email,"</div>") SEPARATOR " ") as category_email,
+    GROUP_CONCAT(DISTINCT CONCAT("<div>",category.name,"</div>") SEPARATOR " ") as category_name,
+    GROUP_CONCAT(DISTINCT CONCAT("<div>",category.email,"</div>") SEPARATOR " ") as category_email,
     enquiry.id,enquiry.summary,enquiry.created_on,enquiry.status');
     $this->db->from('enquiry');
     $this->db->join('enquiry_topic','enquiry.id=enquiry_topic.enq_id','left');
@@ -274,7 +290,7 @@ class Support_desk_model extends CI_Model
     $this->db->join('users','enquiry.user_id=users.id','left');
     $this->db->where('enquiry.status',$status);
     $this->db->order_by('created_on', 'desc');
-    //$this->db->group_by('enquiry.id');
+    $this->db->group_by('enquiry.id');
     $query=$this->db->get();
     if($query->num_rows() > 0) {
           return $query->result_array();
@@ -289,10 +305,10 @@ class Support_desk_model extends CI_Model
     public function retrieveEnquiryById($enqid)
     {
       $this->db->select('CONCAT_WS(" ",uid.first_name,uid.last_name) as user_full_name,
-      GROUP_CONCAT(CONCAT("<div>",category.name,"</div>") SEPARATOR " ") as category_name,
-      GROUP_CONCAT(CONCAT("<div>",category.email,"</div>") SEPARATOR " ") as category_email,
+      GROUP_CONCAT(DISTINCT CONCAT("<div>",category.name,"</div>") SEPARATOR " ") as category_name,
+      GROUP_CONCAT(DISTINCT CONCAT("<div>",category.email,"</div>") SEPARATOR " ") as category_email,
       CONCAT_WS(" ",rid.first_name,rid.last_name) as res_full_name,rid.email,
-      enquiry.*');
+      GROUP_CONCAT(DISTINCT image_attachment.image SEPARATOR ",") as images,enquiry.*');
       $this->db->from('enquiry');
       $this->db->join('enquiry_topic','enquiry.id=enquiry_topic.enq_id','left');
       $this->db->join('category','enquiry_topic.cat_id=category.id','left');

@@ -49,26 +49,6 @@ $(document).ready(function() {
         }
     });
 
-
-    $('.enquiry-more').click(function(){
-        alert('test');
-        if ($(this).closest('.enquiry-faq').find('.faq-text').is(':hidden')){
-            $(this).closest('.enquiry-faq').find('.faq-text').css({'display': 'block'});
-        } else {
-            $(this).closest('.enquiry-faq').find('.faq-text').css({'display': 'none'});
-        }
-    });
-
-
-    $('.front-faq-more').click(function(){
-        if ($(this).closest('.front-faq').find('.faq-text').is(':hidden')){
-            $(this).closest('.front-faq').find('.faq-text').css({'display': 'block'});
-        } else {
-            $(this).closest('.front-faq').find('.faq-text').css({'display': 'none'});
-        }
-    });
-
-
     $('.view-user-profile').click(function(){
         if ($(this).closest('.user_view_container').find('.tryout').is(':hidden')){
             $(this).closest('.user_view_container').find('.tryout').css({'display': 'block'});
@@ -89,4 +69,26 @@ $(document).ready(function() {
     //     }
     // });
 
+});
+
+  //trigger pre and post events for faqs
+  $(document).on('click', '.front-faq-more', function(event){
+    if ($(this).closest('.front-faq').find('.faq-text').is(':hidden')){
+        $(this).closest('.front-faq').find('.faq-text').css({'display': 'block'});
+        $(this).html('-');
+
+    } else {
+        $(this).closest('.front-faq').find('.faq-text').css({'display': 'none'});
+        $(this).html('+');
+    }
+});
+//trigger pre and post events for faqs forms
+$(document).on('click', '.enquiry-more', function(event){
+  if ($(this).closest('.enquiry-faq').find('.faq-text').is(':hidden')){
+      $(this).closest('.enquiry-faq').find('.faq-text').css({'display': 'block'});
+      $(this).html('-');
+  } else {
+      $(this).closest('.enquiry-faq').find('.faq-text').css({'display': 'none'});
+      $(this).html('+');
+  }
 });

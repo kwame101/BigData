@@ -7,7 +7,13 @@
             <div class="small-11 medium-7 large-5 small-centered medium-centered large-centered columns">
                 <h4>Still haven't found what you are looking for?...</h4>
                 <div class="search-form">
-                    search form here
+                  <div class="ssform">
+                  <form class="search-form" action="http://bigdatacorridor.com/" method="get" target="_blank">
+                <input type="search" placeholder="Type to search this website..." name="s" id="search" value="">
+                <input type="hidden" name="site_section" value="site-search">
+                <button type="submit" name="search" class="fa fa-search button transparent"></button>
+              </form>
+              </div>
                 </div>
             </div>
         </div>

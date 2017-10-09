@@ -8,6 +8,10 @@
     box-sizing:border-box;
 }
 
+html {
+    font-size: 14px;
+}
+
 body
 {
     margin: 0;
@@ -19,6 +23,30 @@ body
     color: #1c191a;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+    font-family: Whitney;
+    font-weight: 400;
+    src: url("../fonts/WhitneyHTF-Medium.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Whitney;
+    font-weight: 300;
+    src: url("../fonts/WhitneyHTF-Light.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Whitney;
+    font-weight: 600;
+    src: url("../fonts/WhitneyHTF-SemiBold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Whitney;
+    font-weight: bold;
+    src: url("../fonts/WhitneyHTF-Bold.otf") format("opentype");
 }
 
 input
@@ -47,6 +75,11 @@ h1, h2, h3, h4, h5, a, p
 {
     line-height: 1.2em;
     color: #0e1d34;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 32px;
 }
 
 h2 {
@@ -1443,7 +1476,8 @@ screen and (min-width: 40em) {
 {
     color: #fff;
     padding: .4rem 0;
-    font-family: WhitneyHTF-SemiBold,sans-serif;
+    font-family: Whitney ,sans-serif;
+    font-weight: 600;
     font-size: 14px;
     text-transform: capitalize;
     margin: .2rem .4rem;
@@ -1860,11 +1894,11 @@ form.form-horizontal {
     border: 1px solid #d6d6d6;
     border-radius: 20px;
     overflow: hidden;
-    margin-top: 30px;
+    margin-top: 0px;
 }
 
 .form-group {
-    height: 110px;
+    height: 100px;
     border-bottom: 1px solid #d6d6d6;
 }
 
@@ -1891,6 +1925,7 @@ input.btn {
     color: white;
     background: #ec5210;
     border: none;
+    font-weight: bold;
 }
 
 .forgot-pass {
@@ -1899,25 +1934,42 @@ input.btn {
 
 .forgot-pass a {
     font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
+    font-size: 12px;
     color: #ec5210;
 }
 
 input.form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #2d2d2d;
+  color: #bfbfbf;
 }
 input.form-control::-moz-placeholder { /* Firefox 19+ */
-  color: #2d2d2d;
+  color: #bfbfbf;
 }
 input.form-control:-ms-input-placeholder { /* IE 10+ */
-  color: #2d2d2d;
+  color: #bfbfbf;
 }
 input.form-control:-moz-placeholder { /* Firefox 18- */
-  color: #2d2d2d;
+  color: #bfbfbf;
+}
+
+textarea.form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #bfbfbf;
+}
+textarea.form-control::-moz-placeholder { /* Firefox 19+ */
+  color: #bfbfbf;
+}
+textarea.form-control:-ms-input-placeholder { /* IE 10+ */
+  color: #bfbfbf;
+}
+textarea.form-control:-moz-placeholder { /* Firefox 18- */
+  color: #bfbfbf;
 }
 /* LOGIN END */
 
 /* FORGOT PASSWORD */
+.forgot-password {
+    margin: 100px 0px;
+}
+
 .forgot-password h1
 {
     font-size: 32px;
@@ -1930,7 +1982,6 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
 {
     font-size: 14px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
     color: #0e1d33;
     padding-bottom: 30px;
 }
@@ -1979,10 +2030,15 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
 .dashboard-text h2 {
     text-align: center;
     margin-bottom: 30px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .dashboard-text ul li {
     margin-bottom: 30px;
+    line-height: 1.6em;
+    font-family: Whitney;
+    font-size: 14px;
 }
 
 .dashboard-text ul li:last-child {
@@ -2034,6 +2090,10 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
     color: #0e1d34;
 }
 
+.faq-header-title h1 {
+    font-size: 26px;
+}
+
 .faq-title {
     /*padding: 15px;
     background: #0e1d34;
@@ -2041,7 +2101,8 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
     display: inline-block;
     padding: 20px 40px;
     box-sizing: border-box;
-    font-size: 14px;
+    font-family: Whitney;
+    font-size: 16px;
 }
 
 .addFaq-form {
@@ -2057,6 +2118,7 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
 .form-top {
     display: flex;
     justify-content: space-between;
+    margin-top: 60px;
 }
 
 .addFaq-form .form-group {
@@ -2109,7 +2171,7 @@ input.form-control:-moz-placeholder { /* Firefox 18- */
 .faq-submit {
     width: 100%;
     border-radius: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 }
 
 .faqs {
@@ -2158,7 +2220,8 @@ li.faq-text {
     padding: 20px 40px;
     box-sizing: border-box;
     display: none;
-    font-size: 12px;
+    font-size: 14px;
+    font-family: Whitney;
 }
 
 .faq-paginate {
@@ -2183,6 +2246,9 @@ li.faq-text {
      padding: 60px 0px 50px 0px;
      color: #0e1d34;
  }
+ .members-title h1 {
+     font-size: 26px;
+ }
 
  .members-form-wrapper {
      padding: 60px 0px 50px 0px;
@@ -2193,28 +2259,27 @@ li.faq-text {
     font-size: 18px;
     color: #0e1d34;
     margin-right: 40px;
-    font-weight: bold;
 }
 
  .members-form-wrapper button {
     padding: 15px 60px;
     background: #ec5310;
     color: white;
-    font-size: 12px;
+    font-size: 14px;
     font-family: Montserrat, sans-serif;
     display: inline-block;
     border-radius: 5px;
 }
 
 .user_view .user-delete-button {
-    padding: 6px 30px;
+    padding: 8px 30px;
     background: #ec5310;
     color: white;
     font-size: 12px;
     font-family: Montserrat, sans-serif;
     display: inline-block;
     border-radius: 5px;
-    width: 140px;
+    width: 150px;
     text-align: center;
 }
 
@@ -2270,6 +2335,10 @@ li.faq-text {
      margin-bottom: 50px;
  }
 
+ .change-password-title h1 {
+     font-size: 26px;
+ }
+
  .change-password-content .form-horizontal {
      width: 270px;
      border: 0px;
@@ -2299,11 +2368,15 @@ li.faq-text {
      color: #0e1d34;
      background: #f9f9f9;
  }
+
+ .user-profile-title h1 {
+     font-size: 26px;
+ }
  /* USER PROFILE END */
 
 /* FAQ FORM */
 .faq-form-title {
-    padding: 60px 0px 50px 0px;
+    padding: 100px 0px 50px 0px;
     color: #0e1d34;
     background: #fff;
 }
@@ -2333,6 +2406,7 @@ li.faq-text {
     font-weight: bold;
     margin-bottom: 20px;
     display: block;
+    font-size: 14px;
 }
 
 .checkbox {
@@ -2422,8 +2496,40 @@ li.faq-text {
     background: #d7d7d7;
     border-radius: 5px;
     padding: 5px 10px;
+    font-size: 12px;
+    font-family: Whitney;
     font-weight: bold;
     color: #323232;
+}
+
+#userfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+#userfile + label {
+    background: #d7d7d7;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #323232;
+    font-size: 12px;
+    font-family: Whitney;
+    font-weight: bold;
+}
+
+#userfile:focus + label,
+#userfile + label:hover,
+.upload-btn:focus,
+.upload-btn:hover {
+    background-color: #bdbdbd;
+}
+
+#userfile + label, .upload-btn {
+    cursor: pointer;
 }
 
 .faq_req {
@@ -2441,7 +2547,7 @@ li.faq-text {
     margin: 0 auto;
     display: block;
     margin-top: 60px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 @media screen and (max-width:400px){
@@ -2450,13 +2556,19 @@ li.faq-text {
     }
 }
 
+#jax_req {
+    margin: 60px 0px;
+}
+
 #jax_req h3 {
     padding-bottom: 10px;
+    margin-bottom: 40px;
     border-bottom: 2px solid #0e1d33;
+    font-size: 18px;
 }
 
 #jax_req .faq-text {
-    display: block;
+    display: none;
 }
 
 #jax_req ul {
@@ -2469,11 +2581,11 @@ li.faq-text {
     font-weight: bold;
     color: #ec5210;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 21px;
 }
 
 .faq-topic {
-    margin-top: 0px;
+    margin-top: 30px;
     padding: 15px;
     box-sizing: border-box;
     background: #0e1d34;
@@ -2482,11 +2594,12 @@ li.faq-text {
 
 .faq-topic a {
     color: white;
+    font-family: Whitney;
 }
 
 .loading {
     background-color: #ffffff;
-    background-image: url("http://loadinggif.com/images/image-selection/3.gif");
+    background-image: url('../img/loader.gif');
     background-size: 25px 25px;
     background-position:right 25px center;
     background-repeat: no-repeat;
@@ -2520,6 +2633,7 @@ li.faq-text {
     color: white;
     font-family: montserrat;
     font-size: 14px;
+    font-weight: bold;
 }
 
 .front-faq-main {
@@ -2533,6 +2647,8 @@ li.faq-text {
 }
 
 .front-faq-main .front-mainfaq-title h1 {
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .front-faq-main .front-mainfaq-title a {
@@ -2541,13 +2657,14 @@ li.faq-text {
     border-radius: 5px;
     font-weight: bold;
     font-size: 12px;
+    display: inline-block;
 }
 
 .front-faq-bottom p {
     text-align: center;
-    font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
     margin: 40px 0px;
+    margin-bottom: 30px;
 }
 
 .front-faq-bottom a {
@@ -2562,6 +2679,7 @@ li.faq-text {
     display: block;
     text-align: center;
     margin: 0 auto;
+    font-weight: bold;
 }
 
 @media screen and (max-width: 400px) {
@@ -2714,6 +2832,7 @@ li.faq-text {
 
 .enquiry-header-title h1 {
     display: inline-block;
+    font-size: 26px;
 }
 
 .enquiry-header-title a {
@@ -2741,7 +2860,7 @@ li.faq-text {
     background: #ec510f;
     color: white;
     font-size: 12px;
-    padding: 0px 15px;
+    padding: 7px 15px;
     border-radius: 2px;
     font-weight: bold;
     margin-bottom: 5px;
@@ -2916,6 +3035,34 @@ li.faq-text {
 .primary-footer .footer-section.link-icons {
     padding: 30px 0
 }
+.ssform [type=search] {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 2.4375rem;
+    margin: 0 0 1rem;
+    padding: .5rem;
+    border: 1px solid #d7d9d7;
+    border-radius: 0;
+    background-color: #fff;
+    box-shadow: inset 0 1px 2px rgba(28,25,26,.1);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #1c191a;
+    transition: box-shadow .5s,border-color .25s ease-in-out;
+    appearance: none;
+}
+.fa {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 @media screen and (min-width: 40em) {
     .primary-footer .footer-section.link-icons .footer-logo {
         text-align: left

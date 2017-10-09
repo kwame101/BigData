@@ -21,7 +21,6 @@ function updateStatus(chr)
         <a href="#">&lt; back </a>
     </div>
 </div>
-
 <div class="wrapper">
     <section class="enquiry-info-content">
         <?php if(isset($enq_info)){ ?>
@@ -74,6 +73,15 @@ function updateStatus(chr)
         <div class="bold-text title14" style="display: block; margin-bottom: 10px;">Details:</div>
         <div class="text12"><?php echo $enq_info->content;?></div>
     </div>
-    <div class="title14" style="margin-top: 40px;">Images: </div>
+    <div class="title14" style="margin-top: 40px;">Images:
+      <?php if(isset($enq_info->images)){
+            $imageList = array();
+            $imageList = explode(', ',$enq_info->images);
+            foreach($imageList as $img){
+              echo  '<div><img src="'.base_url().'assets/upload/'.$img.'" width="600" height="480" class="img-thumbnail" /></div>';
+            }
+
+      } ?>
+    </div>
     <?php } ?>
 </div>
