@@ -61,9 +61,9 @@
 			</div>
 		</div>
         <header id="header" class="primary-header">
-            <div class="wrapper">
+            <div class="headerWrapper">
             <div class="row">
-                <div class="c-3 logowrap"><img src="<?php echo base_url(); ?>/assets/img/logo.png"></div>
+                <div class="c-3 logowrap"><img src="<?php echo base_url(); ?>/assets/img/logo.png" style="max-width: 170px;"></div>
                 <div class="c-9">
                     <nav class="navwrap">
                         <ul id="menu" class="main menu">

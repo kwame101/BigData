@@ -17,7 +17,7 @@
                       <?php echo form_input($new_password,'','class="form-control" placeholder="New password"');?>
                 </div>
                 <div class="form-group">
-                    <?php echo form_input($new_password_confirm,'','class="form-control" placeholder="New password confirm"');?>
+                    <?php echo form_input($new_password_confirm,'','class="form-control" placeholder="Confirm new password"');?>
                 </div>
                 <div class="form-group">
                     <?php echo form_input($user_id);?>

@@ -1,12 +1,13 @@
+
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div class="container" style="background-color: #f9f9f9; min-height: 100vh;">
     <div class="wrapper faq-header-title">
         <h1>Create category</h1>
     </div>
-    <div class="addFaq-form">
+    <div class="addCategory-form">
         <div class="wrapper">
-            <?php echo form_open('',array('class'=>'faq form-horizontal'));?>
-            <div class="form-top">
+            <?php echo form_open('',array('class'=>'category form-horizontal'));?>
+            <div class="form-top" style="margin-bottom: 60px;">
                 <div class="form-group">
                     <?php
                         echo form_error('category_name');
@@ -19,9 +20,9 @@
                         echo form_input('category_email','','class="form-control" placeholder="Category email"');
                         ?>
                 </div>
-            </div>
-            <div class="faq-submit-wrapper" style="margin-top: 20px; width: calc(50% - 10px)">
-                <?php echo form_submit('submit', 'Create category', 'class="faq-submit btn btn-primary btn-lg btn-block" style="font-size: 14px;"');?>
+                <div class="category-submit-wrapper">
+                    <?php echo form_submit('submit', 'Create category', 'class="btn btn-primary btn-lg btn-block" style="font-size: 14px;"');?>
+                </div>
             </div>
             <?php echo form_close();?>
         </div>

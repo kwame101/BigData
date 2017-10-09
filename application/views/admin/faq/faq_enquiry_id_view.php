@@ -14,7 +14,6 @@ function updateStatus(chr)
     }
 });
 }
-
 </script>
 <div class="enquiry-header-title">
     <div class="wrapper">
@@ -22,22 +21,21 @@ function updateStatus(chr)
         <a href="#">&lt; back </a>
     </div>
 </div>
-
 <div class="wrapper">
     <section class="enquiry-info-content">
         <?php if(isset($enq_info)){ ?>
         <div class="enquiry-info-table">
             <div class="enquiry-info-row">
-                <div class="enquiry-user">
+                <div class="enquiry-user" style="width: 33%;">
                     <div class="bold-text title14" style="display: block; margin-bottom: 10px;"> User: </div>
                     <div class="text12"> <?php echo $enq_info->user_full_name, '</div>
                     <div class="text12" style="font-style: italic;">',date("d/m/y - H:ia",$enq_info->created_on);?> </div>
                 </div>
-                <div>
+                <div style="width: 33%;">
                     <div class="bold-text title14" style="display: block; margin-bottom: 10px;"> Summary: </div>
                     <div class="text12"><?php echo $enq_info->summary;?></div>
                 </div>
-                <div>
+                <div style="width: 33%;">
                     <div class="bold-text title14" style="display: block; margin-bottom: 10px;"> For: </div>
                     <div class="text12"><?php echo $enq_info->category_email;?></div>
                 </div>
@@ -75,6 +73,15 @@ function updateStatus(chr)
         <div class="bold-text title14" style="display: block; margin-bottom: 10px;">Details:</div>
         <div class="text12"><?php echo $enq_info->content;?></div>
     </div>
-    <div class="title14" style="margin-top: 40px;">Images: </div>
+    <div style="margin-top: 40px; display: flex; justify-content: space-between; flex-wrap: wrap;">
+      <?php if(isset($enq_info->images)){
+            $imageList = array();
+            $imageList = explode(', ',$enq_info->images);
+            foreach($imageList as $img){
+              echo  '<div style="width: calc(50% - 10px);"><img src="'.base_url().'assets/upload/'.$img.'" width="600" height="480" class="img-thumbnail" /></div>';
+            }
+
+      } ?>
+    </div>
     <?php } ?>
 </div>

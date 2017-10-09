@@ -11,17 +11,17 @@
   }
   </script>
     <div class="wrapper members-title">
-    <h1>Admins</h1>
+    <h1>Admin profile</h1>
     </div>
     <section class="admin-view-title">
         <div class="wrapper">
             <span>Add a new admin </span> <button onclick="hideShow()">Create new account</button>
         </div>
     </section>
-    <section class="members-list" style="padding: 40px">
+    <div class="add-admin-container">
         <div class="wrapper">
               <div id="adduser" style="display:none;">
-              <?php echo form_open('',array('class'=>'form-horizontal'));?>
+              <?php echo form_open('',array('class'=>'form-horizontal addadmin'));?>
               <div class="form-group">
                 <?php
                 echo form_error('first_name');
@@ -55,14 +55,18 @@
                 </div>
               <?php echo form_close();?>
             </div>
+        </div>
+    </div>
+    <section class="members-list" style="padding: 40px; padding-top:0px;">
+        <div class="wrapper">
             <?php
             if(!empty($users))
             {
               echo '<div class="top_view" style="width: 680px; text-align: left;">';
-              echo '<div class="flex"><span style="font-weight: bold; margin-top: 50px;">Company</span><span style="font-weight: bold; margin-top: 50px;">Email</span><span style="font-weight: bold; margin-top: 50px; width: 140px;"></span> </div>';
+              echo '<div class="flex" style="margin-bottom: 20px; font-family: Whitney;"><span style="font-weight: bold; margin-top: 50px;">Company</span><span style="font-weight: bold; margin-top: 50px;">Email</span><span style="font-weight: bold; margin-top: 50px; width: 140px;"></span> </div>';
               foreach($users as $user)
               {
-                echo '<div class="user_view flex" style="padding: 30px 0px; border-bottom: 2px solid #acacac; width: 680px;">';
+                echo '<div class="user_view flex" style="padding: 30px 0px; padding-bottom: 20px; border-bottom: 2px solid #acacac; width: 680px; font-family: Whitney;">';
                 echo '<span>'.$user->company.'</span><span>'.$user->email.'</span>'; ?>
 
                 <div class="user-delete-button"><a href="<?php echo site_url('admin/users/delete/'.$user->id);?>"> Delete Admin </a></div>
