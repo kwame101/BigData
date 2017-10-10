@@ -34,4 +34,12 @@ class Dashboard extends Public_Controller{
       }
   }
 
+  /*
+  *
+  */
+  public function visualisation()
+  {
+      $this->render('visualisation_view');
+  }
+
 }

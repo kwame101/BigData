@@ -245,6 +245,7 @@ public function reports()
     $this->load->library("Excel");
     date_default_timezone_set('Europe/London');
     $currentdate = date("d_m_Y");
+    $getDate = date("l, jS F, Y");
 
     // Create new PHPExcel object
     $objPHPExcel = new PHPExcel();
@@ -261,7 +262,17 @@ public function reports()
     // Create the worksheet
     $objPHPExcel->setActiveSheetIndex(0);
 
-    $objPHPExcel->getActiveSheet()->setCellValue('A1', "Dummy message for later");
+    $objPHPExcel->getActiveSheet()->setCellValue('A1', "BigDataCorridor Report");
+    $objPHPExcel->getActiveSheet()->setCellValue('A3', $getDate);
+    $objPHPExcel->getActiveSheet()->setCellValue('A5', "Navigate through the worksheet to see each user activity");
+    //set bold
+    $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+    $objPHPExcel->getActiveSheet()->getStyle('A3')->getFont()->setBold(true);
+    $objPHPExcel->getActiveSheet()->getStyle('A5')->getFont()->setBold(true);
+    //set font size
+    $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(28);
+    $objPHPExcel->getActiveSheet()->getStyle('A3')->getFont()->setSize(16);
+    $objPHPExcel->getActiveSheet()->getStyle('A5')->getFont()->setSize(16);
   /* ->setCellValue('B1', "Email")
    ->setCellValue('C1', "Company")
    ->setCellValue('D1', "Total Time");
@@ -338,6 +349,7 @@ public function reports()
        ->setCellValue('G1', "Time out")
        ->setCellValue('H1', "Time spent");
 
+        $objWorksheet->getStyle('A1:H1')->getFont()->setBold(true);
          $objWorksheet->fromArray($dataArray, NULL, 'A2');
 
      }
@@ -499,11 +511,8 @@ public function reports()
 
     }
 
-    //Close and output PDF document
-    $pdf->Output('Report_'.$currentdate.'pdf', 'I');
-
     //force download pdf
-    //$pdf->Output('Report_'.$currentdate.'pdf','D');
+    $pdf->Output('Report_'.$currentdate.'.pdf','D');
   }
 
 }

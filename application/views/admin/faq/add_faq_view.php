@@ -53,7 +53,7 @@
                  <li>
                     <a href="#" class="faq-title"> <?php echo $faq->title; ?> </a>
                     <span class="faq-edits">
-                        <span class="front-faq-more"> &#43; </span>
+                        <span class="front-faq-more fa fa-plus"></span>
                         <a style="margin-left:20px;" href="<?php echo site_url('admin/support/editFaq/'.$faq->faq_id) ?>">Edit</a>
                    </span>
                  </li>

@@ -43,7 +43,7 @@ class Help extends Public_Controller{
       else{
         echo json_encode(
           ['error' => 1,
-          'data'=> '<ul><li>We couldn\'t find any results for: '.$value.'</li></ul>']);
+          'data'=> '<ul class="helpdeskSearchError"><li>We couldn\'t find any results for: '.$value.'</li></ul>']);
       }
   }
 
@@ -71,6 +71,15 @@ class Help extends Public_Controller{
     $this->form_validation->set_rules('topics[]','Topics','required|integer');
     if($this->form_validation->run()===FALSE)
     {
+      //class imagesClean() here to delete unwanted images
+      $this->load->helper('directory');
+      $this->load->helper("file");
+      $dir_fiels = directory_map('assets/upload/tmp/');
+      $len = sizeOf($dir_fiels);
+      for($i=0; $i<$len;$i++){
+        unlink('assets/upload/tmp/'.$dir_fiels[$i]);
+      }
+
       $this->load->helper('form');
       $this->data['category'] = $this->Support_desk_model->displayAllCategories();
       $this->render('faq/help_form_view');
@@ -80,15 +89,46 @@ class Help extends Public_Controller{
         $summary = $this->input->post('summary');
         $message = $this->input->post('message');
         $images = $this->input->post('images');
+
+        //move each image into attachment dir
+        if(!empty($images)){
+          foreach($images as $img){
+            $tmp_path = FCPATH.'assets/upload/tmp/'.$img;
+            $perm_path = FCPATH.'assets/upload/attachments/'.$img;
+            rename($tmp_path, $perm_path);
+          }
+        }
         $this->Support_desk_model->enquiryForm($topics,$summary,$message,$images);
 
         //submit an email to each selected topic
         $topic_email = $this->Support_desk_model->getTopicEmail($topics)->result_array();
 
+        $this->load->library('email');
+        $this->load->helper('path');
+        foreach($topic_email as $u_email){
+        //clear any previous email content
+        $this->email->clear(TRUE);
+
+        $this->email->from('test@gmail.com');
+        $this->email->to($u_email);
+        if(!empty($images)){
+          foreach($images as $img){
+            $image_path = set_realpath('assets/upload/');
+            $this->email->attach($image_path.$img);
+          }
+        }
+        $msg_info = array(
+          'summary' => $summary,
+          'message' => $message,
+        );
+        $this->email->subject('testing email ci');
+        $content = $this->load->view('templates/email/enquiry_template.php',$msg_info,TRUE);
+        $this->email->message($content);
+        $this->email->send();
+      }
 
         //needs to display a message
         redirect('help/contact','refresh');
-
     }
   }
 
@@ -100,22 +140,17 @@ class Help extends Public_Controller{
     if(isset($_FILES['userfile']['name']))
     {
       $upload_file = 'userfile';
-      $config['upload_path'] = './assets/upload/';
+      $config['upload_path'] = './assets/upload/tmp';
       $config['allowed_types'] = 'jpg|jpeg|png|gif';
       $config['max_size'] = 1024 * 8;
       $config['encrypt_name'] = TRUE;
       $this->load->library('upload',$config);
-      //$this->upload->do_upload($upload_file);
-      //$data = $this->upload->data();
-
-      //echo '<img scr="'.base_url().'assets/upload/'.$data["file_name"].'" width="300" height="225" class="img-thumbnail" />';
 
       if($this->upload->do_upload('userfile')){
          $data = $this->upload->data();
-        // echo '<img src="'.base_url().'assets/upload/'.$data["file_name"].'" width="75" height="75" class="img-thumbnail" />';
-         echo '<span class="up_image"><input type="hidden" name="images[]" value="'.$data["file_name"].'" />
-          <input type="image" disabled class="img_thumb" width="75" height="95" src="'.base_url().'assets/upload/'.$data["file_name"].'"  />
-          <span class="del_img">X</span></span>';
+        echo '<span class="up_image"><input type="hidden" class="img_thumb" name="images[]" value="'.$data["file_name"].'" />
+         <input type="image" disabled class="img_thumb" width="75" height="95" src="'.base_url().'assets/upload/tmp/'.$data["file_name"].'"  />
+         <span class="del_img fa fa-times"></span></span>';
       }
       else{
           echo $this->upload->display_erros();
@@ -131,7 +166,7 @@ class Help extends Public_Controller{
   {
     $this->load->helper("file");
     $file_name = $this->input->post('filename');
-    $path = FCPATH.'assets/upload/'.$file_name;
+    $path = FCPATH.'assets/upload/tmp/'.$file_name;
     if(file_exists($path))
     {
       unlink($path);
@@ -140,17 +175,5 @@ class Help extends Public_Controller{
       show_404();
     }
   }
-
-  public function test()
-  {
-    if($this->upload->do_upload('imagefile')){
-       //$data = $this->upload->data();
-       echo '<img scr="'.base_url().'/assets/upload/'.$data["file_name"].'" width="300" height="225" class="img-thumbnail" />';
-    }
-    else{
-        echo $this->upload->display_erros();
-      }
-  }
-
 
 }

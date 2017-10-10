@@ -31,7 +31,6 @@
                        '</span></span></li><li class="faq-text">'+strdata.text+'</li></ul>'
                    }
                    $('#topic_view').html(raw);
-
                    //  $('#topic_view').append(JSON.stringify(data));
                  }
                }
@@ -57,7 +56,7 @@
        <div class="front-mainfaq-title">
          <h1>Browse FAQ's</h1>
          <div class="extra-buttons">
-             <a href="<?php echo site_url('help/contact')?>">User guide </a>
+             <a href="<?php echo site_url('help/contact')?>" style="background: #0e1d34; color: white;">User guide </a>
              <a href="<?php echo site_url('help/contact')?>">Contact Us </a>
         </div>
      </div>
@@ -72,13 +71,18 @@
             <li class="faq-topic">
                <a href="#" > <?php echo $faq->name; ?> </a>
             </li>
-            <li>
+            <li style="margin-top: 20px;">
                <a href="#" class="faq-title"> <?php echo $faq->title; ?> </a>
                <span class="faq-edits">
-                  <span class="front-faq-more">&#43;</span>
+                  <span class="front-faq-more fa fa-plus"></span>
               </span>
             </li>
-            <li class="faq-text"> <?php echo $faq->text; ?> </li>
+            <li class="faq-text">
+                <?php echo $faq->text; ?>
+                </br>
+                </br>
+                <p>For any assistance please contact <a href="<?php echo site_url('help/contact')?>" class="orange-text">Customer Support.</a></p>
+            </li>
          </ul>
          <?php  } } ?>
       </div>

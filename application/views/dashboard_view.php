@@ -8,7 +8,6 @@ $(document).ready(function () {
         $(".link").fadeOut('slow');
         $(".iframe").fadeIn('slow');
     });
-
     $(document).on('click', '.fclose', function(event){
         $(this).parent().fadeOut("slow");
         $(".link").fadeIn("slow");
@@ -27,7 +26,7 @@ $(document).ready(function () {
         <div class="dashboard-content-container">
             <div class="dashboard-column">
                 <div class="dashboard-image-container">
-                    <img src="http://via.placeholder.com/450x250" />
+                    <img src="<?php echo base_url(); ?>/assets/img/data.png">
                 </div>
                 <div class="dashboard-text">
                     <h2>Data</h2>
@@ -36,9 +35,7 @@ $(document).ready(function () {
                         <li>The Big Data Corridor is a 3 year long project co-funded by the European Structural and Investment Funds (ESIF).</li>
                     </ul>
                 </div>
-                <div class="dashboard-article-btn link">
-                  <a class="open_web" href="http://bigdatacorridor.com" style="color:#fff"> Go to Data </a>
-                </div>
+                  <a class="open_web dashboard-article-btn link" href="http://bigdatacorridor.com" style="color:#fff"> Go to Data </a>
             </div>
 
             <div class="dashboard-column">
@@ -52,9 +49,7 @@ $(document).ready(function () {
                         <li>The Big Data Corridor is a 3 year long project co-funded by the European Structural and Investment Funds (ESIF).</li>
                     </ul>
                 </div>
-                <div class="dashboard-article-btn orange-background link">
-                    <a class="open_web" href="http://example.com" style="color:#fff">Go to Visualisation</a>
-                </div>
+                <a class="open_web dashboard-article-btn orange-background link" href="http://localhost:8888/bigdata/dashboard/visualisation" style="color:#fff">Go to Visualisation</a>
             </div>
         </div>
     </div>

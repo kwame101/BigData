@@ -52,8 +52,12 @@ $(document).ready(function() {
     $('.view-user-profile').click(function(){
         if ($(this).closest('.user_view_container').find('.tryout').is(':hidden')){
             $(this).closest('.user_view_container').find('.tryout').css({'display': 'block'});
+            $(this).html('Close User');
+            $(this).css({'background-color':'#d44a0f'});
         } else {
             $(this).closest('.user_view_container').find('.tryout').css({'display': 'none'});
+            $(this).html('View User');
+            $(this).css({'background-color':'#EC5310'});
         }
     });
 
@@ -75,11 +79,13 @@ $(document).ready(function() {
   $(document).on('click', '.front-faq-more', function(event){
     if ($(this).closest('.front-faq').find('.faq-text').is(':hidden')){
         $(this).closest('.front-faq').find('.faq-text').css({'display': 'block'});
-        $(this).html('-');
+        $(this).removeClass('fa-plus');
+        $(this).addClass('fa-minus');
 
     } else {
         $(this).closest('.front-faq').find('.faq-text').css({'display': 'none'});
-        $(this).html('+');
+        $(this).removeClass('fa-minus');
+        $(this).addClass('fa-plus');
     }
 });
 //trigger pre and post events for faqs forms
