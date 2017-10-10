@@ -3123,6 +3123,186 @@ li.faq-text {
   color: red;
 }
 
+.helpdeskSearchError {
+    padding: 20px;
+    list-style: none;
+}
+
+.iframe {
+    position: fixed;
+    z-index: 9999999;
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+}
+
+.iframe iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.fclose {
+    background: #EC5210;
+    color: white;
+    display: inline-block;
+    padding: 15px 50px;
+    border-radius: 50px;
+    top: 20px;
+    right: 20px;
+    position: fixed;
+    cursor: pointer;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+/* visualisation_view.php */
+.visualBanner {
+    background: #0E1D33;
+    height: 325px;
+    width: 100%;
+}
+
+.visualBanner h1 {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 42px;
+}
+
+.bannerTextContainer, .bannerImageContainer {
+    width: calc(50% - 4px);
+    height: 100%;
+    overflow: hidden;
+}
+
+.bannerTextContainer {
+    padding: 40px;
+    float: left;
+}
+
+.bannerImageContainer {
+    float: right;
+}
+
+.bannerImageContainer img {
+    width: 100%;
+    height: auto;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.visualColumns {
+    display: block;
+    padding: 40px 0px;
+}
+
+.visualColumns .wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.textcolumn {
+    width: 25%;
+    padding: 0px 20px;
+}
+
+@media screen and (max-width:900px){
+    .textcolumn {
+        width: 50%;
+    }
+
+    .visualBanner h1 {
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width:600px){
+    .textcolumn {
+        width: 100%;
+    }
+
+    .visualBanner {
+        height: auto;
+    }
+
+    .bannerTextContainer, .bannerImageContainer {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .bannerTextContainer {
+        float: none;
+    }
+
+    .bannerImageContainer {
+        float: none;
+    }
+
+    .bannerImageContainer img {
+        width: 100%;
+        height: auto;
+        top: 0px;
+        transform: translateY(0px);
+    }
+}
+
+@media screen and (max-width:500px){
+    .visualBanner {
+        height: auto;
+    }
+
+    .bannerTextContainer, .bannerImageContainer {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .bannerTextContainer {
+        float: none;
+    }
+
+    .bannerImageContainer {
+        float: none;
+    }
+
+    .bannerImageContainer img {
+        width: 100%;
+        height: auto;
+        top: 0px;
+        transform: translateY(0px);
+    }
+}
+
+.textcolumn .textcolumn-title {
+    margin-bottom: 10px;
+}
+
+.textcolumn .textcolumn-title h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    position: absolute;
+    left: 30%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 70%;
+}
+
+.textcolumn .textcolumn-title img {
+    float: left;
+    width: auto;
+    max-width: 30%;
+    max-height: 70px;
+}
+
+.textcolumn p {
+    font-family: Whitney;
+    font-size: 14px;
+}
+/* visualisation_view.php */
+
 /* FOOTER */
 .primary-footer {
     background-color: #0E1D33;
@@ -3130,7 +3310,7 @@ li.faq-text {
 
 .primary-content.logos h3,
 .primary-footer .footer-section.search h4 {
-    font-family: Montserrat, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 400
 }
 

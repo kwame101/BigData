@@ -43,7 +43,7 @@ class Help extends Public_Controller{
       else{
         echo json_encode(
           ['error' => 1,
-          'data'=> '<ul><li>We couldn\'t find any results for: '.$value.'</li></ul>']);
+          'data'=> '<ul class="helpdeskSearchError"><li>We couldn\'t find any results for: '.$value.'</li></ul>']);
       }
   }
 

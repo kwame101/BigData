@@ -37,7 +37,7 @@
     <body>
 
 		<div class="top-bar">
-			<div class="wrapper">
+			<div class="headerWrapper">
 				<div class="c-12 column text-right">
 					<div id="help-toolbar" class="accessibility-toolbar">
                         <li class="menu-header-search">

@@ -36,9 +36,7 @@ $(document).ready(function () {
                         <li>The Big Data Corridor is a 3 year long project co-funded by the European Structural and Investment Funds (ESIF).</li>
                     </ul>
                 </div>
-                <div class="dashboard-article-btn link">
-                  <a class="open_web" href="http://bigdatacorridor.com" style="color:#fff"> Go to Data </a>
-                </div>
+                  <a class="open_web dashboard-article-btn link" href="http://bigdatacorridor.com" style="color:#fff"> Go to Data </a>
             </div>
 
             <div class="dashboard-column">
@@ -52,9 +50,7 @@ $(document).ready(function () {
                         <li>The Big Data Corridor is a 3 year long project co-funded by the European Structural and Investment Funds (ESIF).</li>
                     </ul>
                 </div>
-                <div class="dashboard-article-btn orange-background link">
-                    <a class="open_web" href="http://example.com" style="color:#fff">Go to Visualisation</a>
-                </div>
+                <a class="open_web dashboard-article-btn orange-background link" href="http://localhost:8888/bigdata/dashboard/visualisation" style="color:#fff">Go to Visualisation</a>
             </div>
         </div>
     </div>
