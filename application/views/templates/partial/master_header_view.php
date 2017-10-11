@@ -16,10 +16,13 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>/assets/js/styleswitcher.jquery.js"></script>
 
         <script src="<?php echo base_url(); ?>/assets/js/script.js"></script>
+        <script src="<?php echo base_url(); ?>/assets/js/idle.js"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
         <script type="text/javascript">
+        <?php if($this->ion_auth->logged_in()) {
+        ?>
            var auto_refresh = setInterval(function (){
              var key = '<?php echo $this->session->userdata('auth_key')?>';
             $.ajax({
@@ -31,6 +34,45 @@
              }
            });
          }, 10000); // refresh every 10000 milliseconds(10s)
+
+         var awayCallback = function(){
+         console.log(new Date().toTimeString() + ": away");
+         document.body.style.opacity = 0.5;
+          $.ajax({
+            url:"<?php echo base_url();?>admin/user/logout",
+            method:"post",
+            success: function(data){
+            alert('You have been logged out due to inactivity');
+            }
+        });
+       };
+       var awayBackCallback = function(){
+         console.log(new Date().toTimeString() + ": back");
+          document.body.style.opacity = 1;
+       };
+       var onVisibleCallback = function(){
+         console.log(new Date().toTimeString() + ": now looking at page");
+       };
+       var onHiddenCallback = function(){
+         console.log(new Date().toTimeString() + ": not looking at page");
+       };
+       //this is one way of using it.
+       /*
+       var idle = new Idle();
+       idle.onAway = awayCallback;
+       idle.onAwayBack = awayBackCallback;
+       idle.setAwayTimeout(2000);
+       idle.start();
+       */
+       //this is another way of using it
+       var idle = new Idle({
+         onHidden: onHiddenCallback,
+         onVisible: onVisibleCallback,
+         onAway: awayCallback,
+         onAwayBack: awayBackCallback,
+         awayTimeout: 600000 //away with 10 seconds of inactivity
+       }).start();
+       <?php } ?>
       </script>
 
     </head>
@@ -38,7 +80,7 @@
 
 		<div class="top-bar">
 			<div class="headerWrapper">
-				<div class="c-12 column text-right">
+				<div class="text-right">
 					<div id="help-toolbar" class="accessibility-toolbar">
                         <li class="menu-header-search">
                             <form action="/" id="searchform" method="get">
@@ -61,9 +103,9 @@
 			</div>
 		</div>
         <header id="header" class="primary-header">
-            <div class="headerWrapper">
+            <div class="headerWrapper" style="padding: 6px 0px;">
             <div class="row">
-                <div class="c-3 logowrap"><img src="<?php echo base_url(); ?>/assets/img/logo.png" style="max-width: 170px;"></div>
+                <div class="c-3 logowrap" style="text-align: left;"><img src="<?php echo base_url(); ?>/assets/img/logo.png" style="max-width: 170px;"></div>
                 <div class="c-9">
                     <nav class="navwrap">
                         <ul id="menu" class="main menu">
@@ -115,34 +157,30 @@
 
 						<div class="first-layer">
 						    <div class="wrapper">
-						    	<div class="c-12 column">
-						    		<div id="help-toolbar" class="accessibility-toolbar">
-										<div class="add-contrast">
-											<a href="#" class="contrast default" onclick="setActiveStyleSheet('bigdatacorridor'); return false;" title="Standard Theme">C</a>
-											<a href="#" class="contrast high" onclick="setActiveStyleSheet('high-contrast'); return false;" title="High Contrast">C</a>
-										</div>
-										<div class="add-fontsize" id="font-resizr">
-											<a href="#decrease" class="decrease-me">A</a>
-											<a href="#normal" class="reset-me">A</a>
-											<a href="#increase" class="increase-me">A</a>
-										</div>
-									</div>
-						    	</div><!-- end accessibility tool-bar -->
-
-						    	<div class="c-12 column">
-                                    <div class="navwrap mobile">
-                                        <ul id="menu" class="main menu mobile">
-                                            <li class="button orange"><a href="#">Help Desk</a></li>
-                                            <li class="button"><a href="#">Log In</a></li>
-                                            <li class="button border-left"><a href="#">Sign Up</a></li>
-                                            <?php
-                                            if($this->ion_auth->logged_in()) {
-                                            ?>
-                                            <li><a href="<?php echo site_url('user/logout');?>">Logout</a></li>
-                                            <?php } ?>
-                                        </ul>
+                                <div id="help-toolbar" class="accessibility-toolbar">
+                                    <div class="add-contrast">
+                                        <a href="#" class="contrast default" onclick="setActiveStyleSheet('bigdatacorridor'); return false;" title="Standard Theme">C</a>
+                                        <a href="#" class="contrast high" onclick="setActiveStyleSheet('high-contrast'); return false;" title="High Contrast">C</a>
                                     </div>
-						    	</div>
+                                    <div class="add-fontsize" id="font-resizr">
+                                        <a href="#decrease" class="decrease-me">A</a>
+                                        <a href="#normal" class="reset-me">A</a>
+                                        <a href="#increase" class="increase-me">A</a>
+                                    </div>
+                                </div>
+
+                                <div class="navwrap mobile">
+                                    <ul id="menu" class="main menu mobile">
+                                        <li class="button orange"><a href="#">Help Desk</a></li>
+                                        <li class="button"><a href="#">Log In</a></li>
+                                        <li class="button border-left"><a href="#">Sign Up</a></li>
+                                        <?php
+                                        if($this->ion_auth->logged_in()) {
+                                        ?>
+                                        <li><a href="<?php echo site_url('user/logout');?>">Logout</a></li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
 						    </div>
 						</div>
 

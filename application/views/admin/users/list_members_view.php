@@ -1,4 +1,3 @@
-
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div class="container" style="background-color: #f9f9f9; min-height: 100vh;">
   <script type="text/javascript">
@@ -49,7 +48,7 @@
                     echo '<div class="user_view flex" style="padding: 30px 0px; padding-bottom: 20px; border-bottom: 2px solid #acacac; width: 680px;">';
                     echo '<span>'.$user->company.'</span><span>'.$user->email.'</span>'; ?>
 
-                    <div class="user-delete-button"><a href="<?php echo site_url('admin/users/delete/'.$user->id);?>"> Delete User </a></div>
+                    <a href="<?php echo site_url('admin/users/delete/'.$user->id);?>" class="user-delete-button"> Delete User </a>
                     <?php
                     echo '</div>';
                   }

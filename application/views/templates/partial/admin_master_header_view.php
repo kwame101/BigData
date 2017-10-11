@@ -9,52 +9,9 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>/assets/js/styleswitcher.jquery.js"></script>
 
         <script src="<?php echo base_url(); ?>/assets/js/script.js"></script>
-        <script src="<?php echo base_url(); ?>/assets/js/idle.js"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
-        <script type="text/javascript">
-      <?php if($this->ion_auth->logged_in()) {
-      ?>
-      var awayCallback = function(){
-      console.log(new Date().toTimeString() + ": away");
-      document.body.style.opacity = 0.5;
-       $.ajax({
-         url:"<?php echo base_url();?>admin/user/logout",
-         method:"post",
-         success: function(data){
-         alert('You have been logged out due to inactivity');
-         }
-     });
-    };
-    var awayBackCallback = function(){
-      console.log(new Date().toTimeString() + ": back");
-       document.body.style.opacity = 1;
-    };
-    var onVisibleCallback = function(){
-      console.log(new Date().toTimeString() + ": now looking at page");
-    };
-    var onHiddenCallback = function(){
-      console.log(new Date().toTimeString() + ": not looking at page");
-    };
-    //this is one way of using it.
-    /*
-    var idle = new Idle();
-    idle.onAway = awayCallback;
-    idle.onAwayBack = awayBackCallback;
-    idle.setAwayTimeout(2000);
-    idle.start();
-    */
-    //this is another way of using it
-    var idle = new Idle({
-      onHidden: onHiddenCallback,
-      onVisible: onVisibleCallback,
-      onAway: awayCallback,
-      onAwayBack: awayBackCallback,
-      awayTimeout: 600000 //away with 10 seconds of inactivity
-    }).start();
-    <?php } ?>
-   </script>
     </head>
     <body>
         <header id="header" class="primary-header">
@@ -77,10 +34,10 @@
                                 </ul></li>
                                 <li><a href="<?php echo site_url('admin/users/reports');?>">Report</a></li>
                                 <li class="drop-down">
-                                    <a class="admin-drop">FAQ's</a>
+                                    <a class="admin-drop">FAQs</a>
                                   <ul>
-                                  <li><a href="<?php echo site_url('admin/support/faq')?>">Add FAQ's</a></li>
                                   <li><a href="<?php echo site_url('admin/support/topic')?>">Add Topic</a></li>
+                                  <li><a href="<?php echo site_url('admin/support/faq')?>">Add FAQs</a></li>
                                  </ul></li>
                                 <li><a href="<?php echo site_url('admin/support/enquiry');?>">Enquires</a></li>
                                 <li class="button orange"><a href="<?php echo site_url('/help');?>">Help Desk</a></li>

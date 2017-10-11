@@ -36,7 +36,7 @@
         echo '<div class="user_row flex" style="padding: 20px 0px; border-bottom: 2px solid #acacac;">';
         echo '<span style="width: 250px; line-height: 33px;">'.$user->user_full_name.'</span><span style="width: 250px; line-height: 33px;">'.$user->email.'</span><span style="width: 250px; line-height: 33px;">'.$user->company.'</span>'; ?>
 
-        <span style="width: 250px;"><button class="view-user-profile" style="float: right; padding: 10px 40px; border-radius: 2px; background: #ec5310; color: white; font-size: 13px;"> View User </button></span>
+        <span style="width: 250px;"><button class="view-user-profile"> View User </button></span>
         <?php
         echo '</div>';
         echo '</div>';
@@ -59,7 +59,7 @@
                   array_push($new_date, $value);
           echo '<div class="user-view" style="padding: 0px 100px; background: #fff;">';
           echo '<div class="user_row flex" style="padding: 7px 0px; font-family: Whitney;">';
-          echo '<span style="width: 150px;">'.date('d/m/y',$logged->logged_in),'  -  '.date('d/m/y',$logged->last_seen).'</span><span style="width: 150px;">'.date('H:i:s',$logged->logged_in).'</span><span style="width: 150px;">'.date('H:i:s',$logged->last_seen).'</span><span style="width: 150px; font-weight: bold;">'.$value.'</span>';
+          echo '<span style="width: 150px;">'.date('d/m/y',$logged->logged_in).'</span><span style="width: 150px;">'.date('H:i:s',$logged->logged_in).'</span><span style="width: 150px;">'.date('H:i:s',$logged->last_seen).'</span><span style="width: 150px; font-weight: bold;">'.$value.'</span>';
           echo '</div>';
           echo '</div>';
             } }

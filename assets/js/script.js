@@ -53,11 +53,11 @@ $(document).ready(function() {
         if ($(this).closest('.user_view_container').find('.tryout').is(':hidden')){
             $(this).closest('.user_view_container').find('.tryout').css({'display': 'block'});
             $(this).html('Close User');
-            $(this).css({'background-color':'#d44a0f'});
+            $(this).addClass('view-user-profile-close');
         } else {
             $(this).closest('.user_view_container').find('.tryout').css({'display': 'none'});
             $(this).html('View User');
-            $(this).css({'background-color':'#EC5310'});
+            $(this).removeClass('view-user-profile-close');
         }
     });
 
@@ -76,7 +76,7 @@ $(document).ready(function() {
 });
 
   //trigger pre and post events for faqs
-  $(document).on('click', '.front-faq-more', function(event){
+$(document).on('click', '.front-faq-more', function(event){
     if ($(this).closest('.front-faq').find('.faq-text').is(':hidden')){
         $(this).closest('.front-faq').find('.faq-text').css({'display': 'block'});
         $(this).removeClass('fa-plus');
@@ -88,6 +88,21 @@ $(document).ready(function() {
         $(this).addClass('fa-plus');
     }
 });
+
+  //trigger pre and post events for faqs
+$(document).on('click', '.faq-title', function(event){
+    if ($(this).closest('.front-faq').find('.faq-text').is(':hidden')){
+        $(this).closest('.front-faq').find('.faq-text').css({'display': 'block'});
+        $(this).closest('.front-faq').find('.front-faq-more').removeClass('fa-plus');
+        $(this).closest('.front-faq').find('.front-faq-more').addClass('fa-minus');
+
+    } else {
+        $(this).closest('.front-faq').find('.faq-text').css({'display': 'none'});
+        $(this).closest('.front-faq').find('.front-faq-more').removeClass('fa-minus');
+        $(this).closest('.front-faq').find('.front-faq-more').addClass('fa-plus');
+    }
+});
+
 //trigger pre and post events for faqs forms
 $(document).on('click', '.enquiry-more', function(event){
   if ($(this).closest('.enquiry-faq').find('.faq-text').is(':hidden')){

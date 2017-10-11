@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div class="container" style="background-color: #f9f9f9;">
     <div class="wrapper faq-header-title">
-      <h1>Create faqs</h1>
+      <h1>Add Faqs</h1>
     </div>
     <div class="addFaq-form">
         <div class="wrapper">
@@ -51,13 +51,18 @@
                     <a href="#" > <?php echo $faq->name; ?> </a>
                  </li>
                  <li>
-                    <a href="#" class="faq-title"> <?php echo $faq->title; ?> </a>
+                    <span class="faq-title"> <?php echo $faq->title; ?> </span>
                     <span class="faq-edits">
                         <span class="front-faq-more fa fa-plus"></span>
                         <a style="margin-left:20px;" href="<?php echo site_url('admin/support/editFaq/'.$faq->faq_id) ?>">Edit</a>
                    </span>
                  </li>
-                 <li class="faq-text"> <?php echo $faq->text; ?> </li>
+                 <li class="faq-text">
+                     <?php echo $faq->text; ?>
+                    <br />
+                    <br />
+                    <p>For any assistance please contact <a href="<?php echo site_url('help/contact')?>" class="orange-text">Customer Support.</a></p>
+                  </li>
               </ul>
               <?php  }  ?>
 

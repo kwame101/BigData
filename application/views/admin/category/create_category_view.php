@@ -1,8 +1,7 @@
-
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div class="container" style="background-color: #f9f9f9; min-height: 100vh;">
     <div class="wrapper faq-header-title">
-        <h1>Create category</h1>
+        <h1>Add Topic</h1>
     </div>
     <div class="addCategory-form">
         <div class="wrapper">

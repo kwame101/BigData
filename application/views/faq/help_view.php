@@ -31,7 +31,6 @@
                        '</span></span></li><li class="faq-text">'+strdata.text+'</li></ul>'
                    }
                    $('#topic_view').html(raw);
-
                    //  $('#topic_view').append(JSON.stringify(data));
                  }
                }
@@ -57,7 +56,7 @@
        <div class="front-mainfaq-title">
          <h1>Browse FAQ's</h1>
          <div class="extra-buttons">
-             <a href="<?php echo site_url('help/contact')?>" style="background: #0e1d34; color: white;">User guide </a>
+             <a href="<?php echo site_url('help/contact')?>" class="blue-button">User guide </a>
              <a href="<?php echo site_url('help/contact')?>">Contact Us </a>
         </div>
      </div>
@@ -80,15 +79,15 @@
             </li>
             <li class="faq-text">
                 <?php echo $faq->text; ?>
-                </br>
-                </br>
+                <br />
+                <br />
                 <p>For any assistance please contact <a href="<?php echo site_url('help/contact')?>" class="orange-text">Customer Support.</a></p>
             </li>
          </ul>
          <?php  } } ?>
       </div>
       <div class="front-faq-bottom">
-          <p>Can't find what you're after? </br>
+          <p>Can't find what you're after? <br />
              You can contact our customer support below.
           </p>
           <a href="<?php echo site_url('help/contact'); ?>" class="btn faq-touch" style="width:350px; margin-bottom: 100px;" > Get in touch </a>

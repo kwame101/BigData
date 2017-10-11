@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div class="container" style="background-color: #f9f9f9;">
    <div class="wrapper faq-header-title">
-     <h1>Edit Category</h1>
+     <h1>Edit Topic</h1>
    </div>
    <div class="addFaq-form">
       <div class="wrapper">
