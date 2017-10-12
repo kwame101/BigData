@@ -51,14 +51,17 @@ class Support_desk_model extends CI_Model
   /*
   *
   */
-  public function displayRecentFaq()
+  public function displayRecentFaq($cat_id)
   {
     $this->db->select('*');
     $this->db->from('faq');
     $this->db->join('faq_category','faq.id=faq_category.faq_id','left');
     $this->db->join('category','faq_category.cat_id =category.id','left');
+    if ($cat_id !== false)
+       $this->db->where('faq_category.cat_id', $cat_id);
     $this->db->order_by('created_on', 'desc');
-    $this->db->limit('5');
+    //$this->db->group_by('category.name');
+    $this->db->limit('3');
     $query=$this->db->get();
 
     if($query->num_rows() > 0) {
@@ -70,6 +73,23 @@ class Support_desk_model extends CI_Model
         return false;
 
   }
+
+  function getSelCategories()
+{
+  $this->db->select('id, name');
+  $this->db->order_by('name', 'ASC');
+  $this->db->limit('3');
+  $query = $this->db->get('category');
+
+  if($query->result() == TRUE)
+  {
+    foreach($query->result_array() as $row)
+    {
+      $result[] = $row;
+    }
+    return $result;
+  }
+}
 
   /**
   *

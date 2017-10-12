@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div class="container" style="background-color: #f9f9f9;">
    <div class="wrapper faq-header-title">
-     <h1>Edit Category</h1>
+     <h1>Edit Topic</h1>
    </div>
    <div class="addFaq-form">
       <div class="wrapper">
@@ -22,7 +22,7 @@
          </div>
          <div class="faq-submit-wrapper" style="width: calc(50% - 10px);">
            <?php echo form_hidden('category_id',set_value('category_id',$category->id));?>
-           <?php echo form_submit('submit', 'Edit category', 'class="faq-submit btn btn-primary btn-lg btn-block" style="margin-top: 20px;"');?>
+           <?php echo form_submit('submit', 'Save topic', 'class="faq-submit btn btn-primary btn-lg btn-block" style="margin-top: 20px;"');?>
          </div>
          <?php echo form_close();?>
       </div>

@@ -34,10 +34,10 @@
                                 </ul></li>
                                 <li><a href="<?php echo site_url('admin/users/reports');?>">Report</a></li>
                                 <li class="drop-down">
-                                    <a class="admin-drop">FAQ's</a>
+                                    <a class="admin-drop">FAQs</a>
                                   <ul>
-                                  <li><a href="<?php echo site_url('admin/support/faq')?>">Add FAQ's</a></li>
                                   <li><a href="<?php echo site_url('admin/support/topic')?>">Add Topic</a></li>
+                                  <li><a href="<?php echo site_url('admin/support/faq')?>">Add FAQs</a></li>
                                  </ul></li>
                                 <li><a href="<?php echo site_url('admin/support/enquiry');?>">Enquires</a></li>
                                 <li class="button orange"><a href="<?php echo site_url('/help');?>">Help Desk</a></li>

@@ -14,6 +14,7 @@ class MY_Controller extends CI_Controller
     $this->load->database();
     $this->load->library(array('ion_auth','form_validation'));
     $this->load->helper(array('url','language'));
+    $this->load->model('Support_desk_model');
     $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
     $this->lang->load('auth');
 
@@ -59,11 +60,6 @@ class Admin_Controller extends MY_Controller
       redirect('dashboard', 'refresh');
     }
     $this->data['current_user'] = $this->ion_auth->user()->row();
-    $this->data['current_user_menu'] = '';
-    if($this->ion_auth->in_group('admin'))
-    {
-      $this->data['current_user_menu'] = $this->load->view('templates/partial/user_menu_admin_view.php', NULL, TRUE);
-    }
     $this->data['page_title'] = 'Big Data Corridor - Admin';
   }
 

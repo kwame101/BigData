@@ -14,15 +14,136 @@ class Users extends Admin_Controller
     }
   }
 
+  /*
+  *
+  */
   public function index($group_id = NULL)
-{
+  {
   $this->data['page_title'] = 'Users';
   //$this->data['users'] = $this->ion_auth->users($group_id)->result();
   if($group_id == null){$group_id = 2;}
-  $this->data['users'] = $this->ion_auth->usersProfile($group_id)->result();
+  $this->data['users'] = $this->ion_auth->usersProfileReq($group_id, 0)->result();
   $this->data['logged_info'] = $this->ion_auth->activityDetails()->result();
+
   $this->render('admin/users/list_users_view');
+ }
+
+/*
+*
+*/
+public function loadUserProfile()
+{
+  $page = $this->input->get('page');
+  $users = $this->ion_auth->usersProfileReq(2, $page)->result();
+  $logged_info = $this->ion_auth->activityDetails()->result();
+  if(!empty($users))
+  {
+  foreach($users as $user)
+  {
+    $sumTotal = null;
+    $new_date = array();
+    echo '<div class="user_view_container">';
+    echo '<div class="user_view">';
+    echo '<div class="user_row flex" style="padding: 20px 0px; border-bottom: 2px solid #acacac;">';
+    echo '<span style="width: 250px; line-height: 33px;">'.$user->user_full_name.'</span><span style="width: 250px; line-height: 33px;">'.$user->email.'</span><span style="width: 250px; line-height: 33px;">'.$user->company.'</span>'; ?>
+
+    <span style="width: 250px;"><button class="view-user-profile"> View User </button></span>
+    <?php
+    echo '</div>';
+    echo '</div>';
+    echo '<div class="tryout" style="margin: 0 auto; border-bottom: 2px solid #acacac; background: #f9f9f9; display: none;">';
+    echo '<div class="flex" style="padding: 20px 100px; font-family: Whitney;"> <span style="font-weight: bold; width: 150px;">Date</span> <span style="font-weight: bold; width: 150px;">Time in</span><span style="font-weight: bold; width: 150px;">Time out</span><span style="font-weight: bold; width: 150px;">Time spent</span></div>';
+    echo '<div class="user-view-container">';
+     foreach($logged_info as $logged)
+      {
+        $total = null;
+        if($user->id == $logged->user_id) {
+            $loggedout = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$logged->last_seen));
+            $loggedin = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$logged->logged_in));
+            $total =  $loggedout->diff($loggedin);
+            $value = sprintf(
+                '%d:%02d:%02d',
+               ($total->d * 24) + $total->h,
+                $total->i,
+                $total->s
+              );
+              array_push($new_date, $value);
+      echo '<div class="user-view" style="padding: 0px 100px; background: #fff;">';
+      echo '<div class="user_row flex" style="padding: 7px 0px; font-family: Whitney;">';
+      echo '<span style="width: 150px;">'.date('d/m/y',$logged->logged_in).'</span><span style="width: 150px;">'.date('H:i:s',$logged->logged_in).'</span><span style="width: 150px;">'.date('H:i:s',$logged->last_seen).'</span><span style="width: 150px; font-weight: bold;">'.$value.'</span>';
+      echo '</div>';
+      echo '</div>';
+        } }
+      echo '</div>';
+    echo '<div style="padding: 20px 100px" text-align="right">';
+    echo '<div style="float: right; font-family: Whitney;">';
+    echo '<span style="text-align:right; font-weight: bold; margin-right: 30px;">Total:</span><span style="color: #EC5310; font-weight: bold;">'.$this->addTime($new_date).'</span>';
+    echo '</div>';
+    echo '<div class="clearFix"></div>';
+    echo '</div>';
+    echo '</div></div>';
+    }
+  }
 }
+
+  /*
+  *
+  */
+  public function searchUserProfile()
+  {
+    $search = $this->input->post('search');
+    $users = $this->ion_auth->usersProfileOnSearch(2,$search)->result();
+    $logged_info = $this->ion_auth->activityDetails()->result();
+
+    if(!empty($users))
+    {
+    foreach($users as $user)
+    {
+      $sumTotal = null;
+      $new_date = array();
+      echo '<div class="user_view_container">';
+      echo '<div class="user_view">';
+      echo '<div class="user_row flex" style="padding: 20px 0px; border-bottom: 2px solid #acacac;">';
+      echo '<span style="width: 250px; line-height: 33px;">'.$user->user_full_name.'</span><span style="width: 250px; line-height: 33px;">'.$user->email.'</span><span style="width: 250px; line-height: 33px;">'.$user->company.'</span>'; ?>
+
+      <span style="width: 250px;"><button class="view-user-profile"> View User </button></span>
+      <?php
+      echo '</div>';
+      echo '</div>';
+      echo '<div class="tryout" style="margin: 0 auto; border-bottom: 2px solid #acacac; background: #f9f9f9; display: none;">';
+      echo '<div class="flex" style="padding: 20px 100px; font-family: Whitney;"> <span style="font-weight: bold; width: 150px;">Date</span> <span style="font-weight: bold; width: 150px;">Time in</span><span style="font-weight: bold; width: 150px;">Time out</span><span style="font-weight: bold; width: 150px;">Time spent</span></div>';
+      echo '<div class="user-view-container">';
+       foreach($logged_info as $logged)
+        {
+          $total = null;
+          if($user->id == $logged->user_id) {
+              $loggedout = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$logged->last_seen));
+              $loggedin = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$logged->logged_in));
+              $total =  $loggedout->diff($loggedin);
+              $value = sprintf(
+                  '%d:%02d:%02d',
+                 ($total->d * 24) + $total->h,
+                  $total->i,
+                  $total->s
+                );
+                array_push($new_date, $value);
+        echo '<div class="user-view" style="padding: 0px 100px; background: #fff;">';
+        echo '<div class="user_row flex" style="padding: 7px 0px; font-family: Whitney;">';
+        echo '<span style="width: 150px;">'.date('d/m/y',$logged->logged_in).'</span><span style="width: 150px;">'.date('H:i:s',$logged->logged_in).'</span><span style="width: 150px;">'.date('H:i:s',$logged->last_seen).'</span><span style="width: 150px; font-weight: bold;">'.$value.'</span>';
+        echo '</div>';
+        echo '</div>';
+          } }
+        echo '</div>';
+      echo '<div style="padding: 20px 100px" text-align="right">';
+      echo '<div style="float: right; font-family: Whitney;">';
+      echo '<span style="text-align:right; font-weight: bold; margin-right: 30px;">Total:</span><span style="color: #EC5310; font-weight: bold;">'.$this->addTime($new_date).'</span>';
+      echo '</div>';
+      echo '<div class="clearFix"></div>';
+      echo '</div>';
+      echo '</div></div>';
+      }
+    }
+  }
 
 
   public function create()
@@ -79,7 +200,7 @@ class Users extends Admin_Controller
 
     if($this->form_validation->run()===FALSE)
     {
-      $this->data['users'] = $this->ion_auth->users(2)->result();
+      $this->data['users'] = $this->ion_auth->membersDetailsReq(2,0)->result();
       $this->load->helper('form');
       $this->render('admin/users/list_members_view');
     }
@@ -98,6 +219,45 @@ class Users extends Admin_Controller
       $this->ion_auth->register_others($username, $password, $email, $additional_data,$group_ids);
       $this->session->set_flashdata('message',$this->ion_auth->messages());
       redirect('admin/users/members','refresh');
+    }
+  }
+
+  /*
+  *
+  */
+  public function loadMembersReq()
+  {
+    $page = $this->input->get('page');
+    $users = $this->ion_auth->membersDetailsReq(2,$page)->result();
+
+    if(!empty($users)){
+      foreach($users as $user)
+      {
+        echo '<div class="user_view flex" style="padding: 30px 0px; padding-bottom: 20px; border-bottom: 2px solid #acacac; width: 680px;">';
+        echo '<span>'.$user->company.'</span><span>'.$user->email.'</span>'; ?>
+
+        <a href="<?php echo site_url('admin/users/delete/'.$user->id);?>" class="user-delete-button"> Delete User </a><?php
+        echo '</div>';
+      }
+    }
+  }
+
+  /*
+  *
+  */
+  public function searchMembers()
+  {
+    $search = $this->input->post('search');
+    $users = $this->ion_auth->membersDetailsOnSearch(2,$search)->result();
+    if(!empty($users)){
+      foreach($users as $user)
+      {
+        echo '<div class="user_view flex" style="padding: 30px 0px; padding-bottom: 20px; border-bottom: 2px solid #acacac; width: 680px;">';
+        echo '<span>'.$user->company.'</span><span>'.$user->email.'</span>'; ?>
+
+        <a href="<?php echo site_url('admin/users/delete/'.$user->id);?>" class="user-delete-button"> Delete User </a><?php
+        echo '</div>';
+      }
     }
   }
 
@@ -231,9 +391,68 @@ class Users extends Admin_Controller
 */
 public function reports()
 {
-  $this->data['users'] = $this->ion_auth->usersProfile(2)->result();
+  $this->data['users'] = $this->ion_auth->usersProfileReq(2,0)->result();
   $this->data['logged_info'] = $this->ion_auth->activityDetails()->result();
   $this->render('admin/users/list_reports_view');
+}
+
+/*
+*
+*/
+public function loadReports()
+{
+  $page = $this->input->get('page');
+  $users = $this->ion_auth->usersProfileReq(2,$page)->result();
+  $logged_info = $this->ion_auth->activityDetails()->result();
+  if(isset($users))
+  {
+    function addTime($times) {
+      $seconds = 0;
+        foreach ($times as $time)
+        {
+          list($hour,$minute,$second) = explode(':', $time);
+            $seconds += $hour*3600;
+            $seconds += $minute*60;
+            $seconds += $second;
+          }
+          $hours = floor($seconds/3600);
+          $seconds -= $hours*3600;
+          $minutes  = floor($seconds/60);
+          $seconds -= $minutes*60;
+          return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+        }
+    date_default_timezone_set("Europe/London");
+        foreach($users as $user)
+    {
+      $sumTotal = null;
+      $new_date = array();
+      foreach($logged_info as $logged)
+       {
+         $total = null;
+         if($user->id == $logged->user_id) {
+           if($logged->last_seen != $logged->logged_in && isset($logged->last_seen)){
+             $loggedout = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$logged->last_seen));
+             $loggedin = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$logged->logged_in));
+             $total =  $loggedout->diff($loggedin);
+             $sumTotal = sprintf(
+               '%d:%02d:%02d',
+              ($total->d * 24) + $total->h,
+              $total->i,
+              $total->s
+             );
+             array_push($new_date, $sumTotal);
+           }
+         }
+       }
+      echo '<div class="user_view_container">';
+      echo '<div class="user_view">';
+      echo '<div class="user_row flex" style="padding: 20px 0px; border-bottom: 2px solid #acacac;">';
+      echo '<span style="width: 250px; line-height: 33px;">'.$user->user_full_name.'</span><span style="width: 250px; line-height: 33px;">'.$user->email.'</span><span style="width: 250px; line-height: 33px;">'.$user->company.'</span>';
+      echo '<span style="width: 250px; line-height: 33px; color: #EC5310; font-weight: bold;">'.addTime($new_date).'</span>';
+      echo '</div>';
+      echo '</div></div>';
+   }
+  }
 }
 
 
@@ -399,7 +618,7 @@ public function reports()
     $this->load->library("Pdf_report");
     date_default_timezone_set('Europe/London');
     $currentdate = date("d_m_Y");
-    $getDate = date("l, jS F, Y");
+    $getDate = date("l jS F Y");
 
     // create new PDF document
     $pdf = new Pdf_report(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -445,34 +664,59 @@ public function reports()
     // ---------------------------------------------------------
 
     // set font
-    $pdf->SetFont('times', '', 11);
-
+    $pdf->SetFont('helvetica', '', 12);
+    // remove default header
+    $pdf->setPrintHeader(false);
+    //remove default footer
+    $pdf->setPrintFooter(false);
     // add a page
     $pdf->AddPage();
-
-    $pdf->Ln(30);
-    // Page title
-    $page_info = '<div style="font-weight:bold;font-size:48px;">BigDataCorridor Report</div>';
-
-    $pdf->writeHTML($page_info, true, false, true, false, '');
-
-    $pdf->Ln(30);
+        // -- set new background ---
+    // get the current page break margin
+    $bMargin = $pdf->getBreakMargin();
+    // get current auto-page-break mode
+    $auto_page_break = $pdf->getAutoPageBreak();
+    // disable auto-page-break
+    $pdf->SetAutoPageBreak(false, 0);
+    // set bacground image
+    $img_file = K_PATH_IMAGES.'pdf_doc.jpg';
+    $pdf->Image($img_file, 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+    // restore auto-page-break status
+    $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+    // set the starting point for the page content
+    $pdf->setPageMark();
+    $pdf->Ln(128);
 
     //date info
-    $date_info = '<span style="color:black;font-size:24px;">'.$getDate.'</span>';
+    $date_info = '<span style="color:white;font-size:20px;">'.$getDate.'</span>';
     $pdf->writeHTML($date_info, true, false, true, false, '');
+
+    $pdf->Ln(5);
+    // Page title 1
+    $page_info = '<div style="color:white;font-weight:bold;font-size:48px;">BigDataCorridor</div>';
+    $pdf->writeHTML($page_info, true, false, true, false, '');
+    //$pdf->Ln(1);
+    // Page title 2
+    $page_info = '<div style="color:white;font-weight:bold;font-size:48px;">User Report</div>';
+    $pdf->writeHTML($page_info, true, false, true, false, '');
+
+
 
     $result = $this->ion_auth->usersProfile(2)->result_array();
     $logged =  $this->ion_auth->activityDetails()->result_array();
     foreach($result as $row){
       $new_date = array();
+      //set default header to true
+      $pdf->setPrintHeader(true);
       // add a page
       $pdf->AddPage();
+      //set default footer to true
+      $pdf->setPrintFooter(true);
       $pdf->Ln(10);
 
       $html_info = '<h1>'.$row['company'].'</h1><table><tr>
-                    <th style="font-weight:bold;color:#8ba5c3;">Name: <span style="color:black;">'.$row['user_full_name'].'</span></th>
-                    <th style="font-weight:bold;color:#8ba5c3;">Email: <span style="color:black;">'.$row['email'].'</span></th>';
+                    <th style="font-size:12px;font-weight:bold;color:#8ba5c3;">Name: <span style="color:black;">'.$row['user_full_name'].'</span></th>
+                    <th style="font-size:12px;font-weight:bold;color:#8ba5c3;">Email: <span style="color:black;">'.$row['email'].'</span></th>';
       $table_info = '<h1></h1><table style="border:1px solid #000; padding:6px;">';
       $table_info .= '<tr> <th style="border:1px solid #000; padding:6px; font-weight: bold; width: 150px;">
                       Date</th> <th style="border:1px solid #000; padding:6px;font-weight: bold; width: 150px;">Time in</th><th
@@ -502,7 +746,7 @@ public function reports()
 
       $table_info .= '</table>';
 
-      $html_info .=  '<th style="font-weight:bold;color:#8ba5c3;">Total time: <span style="color:black;">'.$this->addTime($new_date).'</span></th></tr></table>';
+      $html_info .=  '<th style="font-size:12px;font-weight:bold;color:#8ba5c3;text-align:center;">Total time: <span style="color:black;">'.$this->addTime($new_date).'</span></th></tr></table>';
 
       // output the HTML content
       $pdf->writeHTML($html_info, true, false, true, false, '');
@@ -511,7 +755,7 @@ public function reports()
 
     }
 
-    //force download pdf
+    //force download pdf D - download I - view
     $pdf->Output('Report_'.$currentdate.'.pdf','D');
   }
 

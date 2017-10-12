@@ -2144,6 +2144,100 @@ class Ion_auth_model extends CI_Model
 	/*
 	*
 	*/
+	public function usersProfileReq($group_id, $page)
+	{
+		$limit= 8;
+		$offset= 8*$page;
+		$this->db->limit($limit,$offset);
+		$this->db->select('users.id,CONCAT_WS(" ",users.first_name,users.last_name) as user_full_name,
+		users.email,users.company');
+		$this->db->from('users');
+		$this->db->join('users_groups','users.id=users_groups.user_id','left');
+		$this->db->join('groups','users_groups.group_id=groups.id','left');
+		$this->db->where('groups.id',$group_id);
+		//$this->db->group_by('users.id');
+		$this->db->order_by('users.id', 'asc');
+
+		$query=$this->db->get();
+		return $query;
+	}
+
+	/*
+	*
+	*/
+	public function usersProfileOnSearch($group_id, $search)
+	{
+		$this->db->DISTINCT();
+		$this->db->select('users.id,CONCAT_WS(" ",users.first_name,users.last_name) as user_full_name,
+		users.email,users.company');
+		$this->db->from('users');
+		$this->db->join('users_groups','users.id=users_groups.user_id','left');
+		$this->db->join('groups','users_groups.group_id=groups.id','left');
+		$this->db->where('groups.id',$group_id);
+		$this->db->group_start();
+		$this->db->like('users.first_name',$search);
+		$this->db->or_like('users.last_name',$search);
+		$this->db->or_like('users.email',$search);
+		$this->db->or_like('users.company',$search);
+		$this->db->group_end();
+
+		//$this->db->group_by('users.id');
+		$this->db->order_by('users.id', 'asc');
+
+		$query=$this->db->get();
+		return $query;
+	}
+
+	/*
+	*
+	*/
+	public function membersDetailsReq($group_id, $page)
+	{
+		$limit= 8;
+		$offset= 8*$page;
+		$this->db->limit($limit,$offset);
+		$this->db->select("users.company, users.email, users.id");
+		$this->db->from('users');
+		$this->db->join('users_groups','users.id=users_groups.user_id','left');
+		$this->db->join('groups','users_groups.group_id=groups.id','left');
+		$this->db->where('groups.id',$group_id);
+		//$this->db->group_by('users.id');
+		$this->db->order_by('users.id', 'asc');
+
+		$query=$this->db->get();
+		return $query;
+
+	}
+
+
+		/*
+		*
+		*/
+		public function membersDetailsOnSearch($group_id, $search)
+		{
+
+			$this->db->DISTINCT();
+			$this->db->select("users.company, users.email, users.id");
+			$this->db->from('users');
+			$this->db->join('users_groups','users.id=users_groups.user_id','left');
+			$this->db->join('groups','users_groups.group_id=groups.id','left');
+			$this->db->where('groups.id',$group_id);
+			$this->db->group_start();
+			$this->db->like('users.email',$search);
+			$this->db->or_like('users.company',$search);
+			$this->db->group_end();
+
+			//$this->db->group_by('users.id');
+			$this->db->order_by('users.id', 'asc');
+
+			$query=$this->db->get();
+			return $query;
+
+		}
+
+	/*
+	*
+	*/
 	public function activityDetails()
 	{
 		$this->db->select('user_activity.user_id,user_activity.logged_in,user_activity.last_seen');

@@ -31,8 +31,9 @@ $(document).ready(function () {
                 <div class="dashboard-text">
                     <h2>Data</h2>
                     <ul>
-                        <li>The Big Data Corridor is a 3 year long project co-funded by the European Structural.</li>
-                        <li>The Big Data Corridor is a 3 year long project co-funded by the European Structural and Investment Funds (ESIF).</li>
+                      <li>Browse data by topics, organisations, formats or keywords search.</li>
+                      <li>Preview data in grids, graphs, maps or document viewers.</li>
+                      <li>Download data to combine with your private data for particular business needs.</li>
                     </ul>
                 </div>
                   <a class="open_web dashboard-article-btn link" href="http://bigdatacorridor.com" style="color:#fff"> Go to Data </a>
@@ -40,16 +41,17 @@ $(document).ready(function () {
 
             <div class="dashboard-column">
                 <div class="dashboard-image-container">
-                    <img src="http://via.placeholder.com/450x250" />
+                    <img src="<?php echo base_url(); ?>/assets/img/visualisation.png" />
                 </div>
                 <div class="dashboard-text">
                     <h2>Visualisation</h2>
                     <ul>
-                        <li>The Big Data Corridor is a 3 year long project co-funded by the European Structural.</li>
-                        <li>The Big Data Corridor is a 3 year long project co-funded by the European Structural and Investment Funds (ESIF).</li>
+                      <li>Extract business insight through interactive visualisation.</li>
+                        <li>Blend open data with your private data to generate new business values.</li>
+                        <li>Produce robust data models, rich and interactive personalised dashboard reports.</li>
                     </ul>
                 </div>
-                <a class="open_web dashboard-article-btn orange-background link" href="http://localhost:8888/bigdata/dashboard/visualisation" style="color:#fff">Go to Visualisation</a>
+                <a class="open_web dashboard-article-btn orange-background link" href="<?php echo site_url('dashboard/visualisation');?>" style="color:#fff">Go to Visualisation</a>
             </div>
         </div>
     </div>
@@ -60,6 +62,6 @@ $(document).ready(function () {
     <iframe src="" >
         <p>Your browser does not support iframes.</p>
     </iframe>
-    <span class="fclose">close</span>
+    <span class="fclose">Close</span>
   </div>
 </section>

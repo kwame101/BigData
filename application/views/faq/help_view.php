@@ -7,7 +7,7 @@
          var string = $('#search').val();
          if(string == '')
          {
-           $('#topic_view').html('<ul><li>Please type some words in the search box.</li> </ul>');
+           $('#topic_view').html('<ul class="helpdeskSearchError" ><li>Please type some words in the search box.</li> </ul>');
          }
          else {
              $.ajax({
@@ -27,8 +27,7 @@
                      strdata = data[i];
                      raw += '<ul class="front-faq"><li class="faq-topic"><a href="#" >'+
                        strdata.name + '</a></li><li><a href="#" class="faq-title" >'+ strdata.title +
-                       '</a><span class="faq-edits"><span class="front-faq-more">'+ "&#43;" +
-                       '</span></span></li><li class="faq-text">'+strdata.text+'</li></ul>'
+                       '</a><span class="faq-edits"><span class="front-faq-more fa fa-plus"></span></span></li><li class="faq-text">'+strdata.text+'</li></ul>'
                    }
                    $('#topic_view').html(raw);
                    //  $('#topic_view').append(JSON.stringify(data));
@@ -56,7 +55,7 @@
        <div class="front-mainfaq-title">
          <h1>Browse FAQ's</h1>
          <div class="extra-buttons">
-             <a href="<?php echo site_url('help/contact')?>" style="background: #0e1d34; color: white;">User guide </a>
+             <a href="<?php echo site_url('help/contact')?>" class="blue-button">User guide </a>
              <a href="<?php echo site_url('help/contact')?>">Contact Us </a>
         </div>
      </div>
@@ -64,13 +63,16 @@
   <div class="wrapper"  >
     <div class="faqs" id="topic_view">
          <?php
-            if(isset($faq_info))
+
+            if(isset($cat_info))
             {
-                foreach ($faq_info as $faq){ ?>
+                foreach ($cat_info as $cat){ ?>
          <ul class="front-faq">
             <li class="faq-topic">
-               <a href="#" > <?php echo $faq->name; ?> </a>
+               <a href="#" > <?php echo $cat['name']; ?> </a>
             </li>
+            <?php $faq_info = $this->Support_desk_model->displayRecentFaq($cat['id']);
+            foreach ($faq_info as $faq) { ?>
             <li style="margin-top: 20px;">
                <a href="#" class="faq-title"> <?php echo $faq->title; ?> </a>
                <span class="faq-edits">
@@ -79,15 +81,16 @@
             </li>
             <li class="faq-text">
                 <?php echo $faq->text; ?>
-                </br>
-                </br>
+                <br/>
+                <br/>
                 <p>For any assistance please contact <a href="<?php echo site_url('help/contact')?>" class="orange-text">Customer Support.</a></p>
             </li>
+          <?php } ?>
          </ul>
-         <?php  } } ?>
+       <?php  } } ?>
       </div>
       <div class="front-faq-bottom">
-          <p>Can't find what you're after? </br>
+          <p>Can't find what you're after? <br/>
              You can contact our customer support below.
           </p>
           <a href="<?php echo site_url('help/contact'); ?>" class="btn faq-touch" style="width:350px; margin-bottom: 100px;" > Get in touch </a>

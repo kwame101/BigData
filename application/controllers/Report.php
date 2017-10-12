@@ -50,7 +50,7 @@ class Report extends My_Controller{
       $this->load->library("Pdf_report");
       date_default_timezone_set('Europe/London');
       $currentdate = date("d_m_Y");
-      $getDate = date("l, jS F, Y");
+      $getDate = date("l jS F Y");
 
       // create new PDF document
       $pdf = new Pdf_report(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -89,41 +89,66 @@ class Report extends My_Controller{
 
       // set some language-dependent strings (optional)
       if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-        require_once(dirname(__FILE__).'/lang/eng.php');
-        $pdf->setLanguageArray($l);
+      	require_once(dirname(__FILE__).'/lang/eng.php');
+      	$pdf->setLanguageArray($l);
       }
 
       // ---------------------------------------------------------
 
       // set font
-      $pdf->SetFont('times', '', 11);
-
+      $pdf->SetFont('helvetica', '', 12);
+      // remove default header
+      $pdf->setPrintHeader(false);
+      //remove default footer
+      $pdf->setPrintFooter(false);
       // add a page
       $pdf->AddPage();
-
-      $pdf->Ln(30);
-      // Page title
-      $page_info = '<div style="font-weight:bold;font-size:48px;">BigDataCorridor Report</div>';
-
-      $pdf->writeHTML($page_info, true, false, true, false, '');
-
-      $pdf->Ln(30);
+          // -- set new background ---
+      // get the current page break margin
+      $bMargin = $pdf->getBreakMargin();
+      // get current auto-page-break mode
+      $auto_page_break = $pdf->getAutoPageBreak();
+      // disable auto-page-break
+      $pdf->SetAutoPageBreak(false, 0);
+      // set bacground image
+      $img_file = K_PATH_IMAGES.'pdf_doc.jpg';
+      $pdf->Image($img_file, 0, 0, 210, 297, '', '', '', false, 300, '', false, false, 0);
+      // restore auto-page-break status
+      $pdf->SetAutoPageBreak($auto_page_break, $bMargin);
+      // set the starting point for the page content
+      $pdf->setPageMark();
+      $pdf->Ln(128);
 
       //date info
-      $date_info = '<span style="color:black;font-size:24px;">'.$getDate.'</span>';
+      $date_info = '<span style="color:white;font-size:20px;">'.$getDate.'</span>';
       $pdf->writeHTML($date_info, true, false, true, false, '');
+
+      $pdf->Ln(5);
+      // Page title 1
+      $page_info = '<div style="color:white;font-weight:bold;font-size:48px;">BigDataCorridor</div>';
+      $pdf->writeHTML($page_info, true, false, true, false, '');
+      //$pdf->Ln(1);
+      // Page title 2
+      $page_info = '<div style="color:white;font-weight:bold;font-size:48px;">User Report</div>';
+      $pdf->writeHTML($page_info, true, false, true, false, '');
+
+
 
       $result = $this->ion_auth->usersProfile(2)->result_array();
       $logged =  $this->ion_auth->activityDetails()->result_array();
       foreach($result as $row){
         $new_date = array();
+        //set default header to true
+        $pdf->setPrintHeader(true);
         // add a page
         $pdf->AddPage();
+        //set default footer to true
+        $pdf->setPrintFooter(true);
         $pdf->Ln(10);
 
         $html_info = '<h1>'.$row['company'].'</h1><table><tr>
-                      <th style="font-weight:bold;color:#8ba5c3;">Name: <span style="color:black;">'.$row['user_full_name'].'</span></th>
-                      <th style="font-weight:bold;color:#8ba5c3;">Email: <span style="color:black;">'.$row['email'].'</span></th>';
+                      <th style="font-size:12px;font-weight:bold;color:#8ba5c3;">Name: <span style="color:black;">'.$row['user_full_name'].'</span></th>
+                      <th style="font-size:12px;font-weight:bold;color:#8ba5c3;">Email: <span style="color:black;">'.$row['email'].'</span></th>';
         $table_info = '<h1></h1><table style="border:1px solid #000; padding:6px;">';
         $table_info .= '<tr> <th style="border:1px solid #000; padding:6px; font-weight: bold; width: 150px;">
                         Date</th> <th style="border:1px solid #000; padding:6px;font-weight: bold; width: 150px;">Time in</th><th
@@ -153,7 +178,7 @@ class Report extends My_Controller{
 
         $table_info .= '</table>';
 
-        $html_info .=  '<th style="font-weight:bold;color:#8ba5c3;">Total time: <span style="color:black;">'.$this->addTime($new_date).'</span></th></tr></table>';
+        $html_info .=  '<th style="font-size:12px;font-weight:bold;color:#8ba5c3;text-align:center;">Total time: <span style="color:black;">'.$this->addTime($new_date).'</span></th></tr></table>';
 
         // output the HTML content
         $pdf->writeHTML($html_info, true, false, true, false, '');

@@ -80,7 +80,7 @@
 
 		<div class="top-bar">
 			<div class="headerWrapper">
-				<div class="c-12 column text-right">
+				<div class="text-right">
 					<div id="help-toolbar" class="accessibility-toolbar">
                         <li class="menu-header-search">
                             <form action="/" id="searchform" method="get">
@@ -103,9 +103,9 @@
 			</div>
 		</div>
         <header id="header" class="primary-header">
-            <div class="headerWrapper">
+            <div class="headerWrapper" style="padding: 6px 0px;">
             <div class="row">
-                <div class="c-3 logowrap"><img src="<?php echo base_url(); ?>/assets/img/logo.png" style="max-width: 170px;"></div>
+                <div class="c-3 logowrap" style="text-align: left;"><img src="<?php echo base_url(); ?>/assets/img/logo.png" style="max-width: 170px;"></div>
                 <div class="c-9">
                     <nav class="navwrap">
                         <ul id="menu" class="main menu">
@@ -157,34 +157,30 @@
 
 						<div class="first-layer">
 						    <div class="wrapper">
-						    	<div class="c-12 column">
-						    		<div id="help-toolbar" class="accessibility-toolbar">
-										<div class="add-contrast">
-											<a href="#" class="contrast default" onclick="setActiveStyleSheet('bigdatacorridor'); return false;" title="Standard Theme">C</a>
-											<a href="#" class="contrast high" onclick="setActiveStyleSheet('high-contrast'); return false;" title="High Contrast">C</a>
-										</div>
-										<div class="add-fontsize" id="font-resizr">
-											<a href="#decrease" class="decrease-me">A</a>
-											<a href="#normal" class="reset-me">A</a>
-											<a href="#increase" class="increase-me">A</a>
-										</div>
-									</div>
-						    	</div><!-- end accessibility tool-bar -->
-
-						    	<div class="c-12 column">
-                                    <div class="navwrap mobile">
-                                        <ul id="menu" class="main menu mobile">
-                                            <li class="button orange"><a href="#">Help Desk</a></li>
-                                            <li class="button"><a href="#">Log In</a></li>
-                                            <li class="button border-left"><a href="#">Sign Up</a></li>
-                                            <?php
-                                            if($this->ion_auth->logged_in()) {
-                                            ?>
-                                            <li><a href="<?php echo site_url('user/logout');?>">Logout</a></li>
-                                            <?php } ?>
-                                        </ul>
+                                <div id="help-toolbar" class="accessibility-toolbar">
+                                    <div class="add-contrast">
+                                        <a href="#" class="contrast default" onclick="setActiveStyleSheet('bigdatacorridor'); return false;" title="Standard Theme">C</a>
+                                        <a href="#" class="contrast high" onclick="setActiveStyleSheet('high-contrast'); return false;" title="High Contrast">C</a>
                                     </div>
-						    	</div>
+                                    <div class="add-fontsize" id="font-resizr">
+                                        <a href="#decrease" class="decrease-me">A</a>
+                                        <a href="#normal" class="reset-me">A</a>
+                                        <a href="#increase" class="increase-me">A</a>
+                                    </div>
+                                </div>
+
+                                <div class="navwrap mobile">
+                                    <ul id="menu" class="main menu mobile">
+                                        <li class="button orange"><a href="#">Help Desk</a></li>
+                                        <li class="button"><a href="#">Log In</a></li>
+                                        <li class="button border-left"><a href="#">Sign Up</a></li>
+                                        <?php
+                                        if($this->ion_auth->logged_in()) {
+                                        ?>
+                                        <li><a href="<?php echo site_url('user/logout');?>">Logout</a></li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
 						    </div>
 						</div>
 

@@ -9,10 +9,6 @@ class User extends My_Controller {
     function __construct()
     {
       parent::__construct();
-      if($this->ion_auth->logged_in())
-        {
-          redirect('dashboard','refresh');
-       }
     }
 
 	/**
@@ -29,6 +25,10 @@ class User extends My_Controller {
   */
   public function login()
   {
+    if($this->ion_auth->logged_in())
+      {
+        redirect('dashboard','refresh');
+     }
     $this->data['title'] = $this->lang->line('login_heading');
 		//validate form input
 		$this->form_validation->set_rules('identity', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
@@ -99,6 +99,10 @@ class User extends My_Controller {
   */
   public function register_user()
   {
+    if($this->ion_auth->logged_in())
+      {
+        redirect('dashboard','refresh');
+     }
     $this->data['title'] = $this->lang->line('create_user_heading');
     $tables = $this->config->item('tables','ion_auth');
     $identity_column = $this->config->item('identity','ion_auth');

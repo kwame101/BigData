@@ -26,7 +26,8 @@ class Help extends Public_Controller{
 	public function index()
 	{
        $this->data['page_title'] = 'Help desk';
-       $this->data["faq_info"] = $this->Support_desk_model->displayRecentFaq();
+       //$this->data["faq_info"] = $this->Support_desk_model->displayRecentFaq();
+       $this->data["cat_info"] = $this->Support_desk_model->getSelCategories();
 		   $this->render('faq/help_view');
 	}
 
@@ -41,9 +42,9 @@ class Help extends Public_Controller{
         echo json_encode($data);
       }
       else{
-        echo json_encode(
-          ['error' => 1,
-          'data'=> '<ul class="helpdeskSearchError"><li>We couldn\'t find any results for: '.$value.'</li></ul>']);
+        $json_data["error"] = 1;
+        $json_data["data"] = '<ul class="helpdeskSearchError"><li>We couldn\'t find any results for: '.$value.'</li></ul>';
+        echo json_encode($json_data);
       }
   }
 

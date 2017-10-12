@@ -157,10 +157,6 @@ a {
     padding-bottom: 100px;
 }
 
-.orange-background {
-    background: #EC5210 !important;
-}
-
 .column
 {
     display: inline-block;
@@ -1393,6 +1389,11 @@ screen and (min-width: 40em) {
     background: #0e1d33;
 }
 
+.top-bar .add-contrast a
+{
+    line-height: 1.5;
+}
+
 .top-bar .add-contrast a.contrast
 {
     display: inline-block;
@@ -1414,6 +1415,7 @@ screen and (min-width: 40em) {
     font-family: WhitneyHTF-Medium,sans-serif;
     font-weight: 700;
     padding: 0 .1rem;
+    line-height: 1.5;
 }
 
 .top-bar .add-fontsize a.decrease-me
@@ -1454,12 +1456,17 @@ screen and (min-width: 40em) {
 .main.menu
 {
     text-align: right;
-    padding-right: 20px;
 }
 
 .main.menu li
 {
+    margin-right: 15px;
     display: inline-block;
+}
+
+.main.menu li:last-child
+{
+    margin-right: 0px;
 }
 
 .main.menu a
@@ -1495,7 +1502,39 @@ screen and (min-width: 40em) {
     box-shadow: 0 0 1px transparent;
     position: relative;
     overflow: hidden;
+    font-family: Whitney;
+    font-weight: 600;
 }
+
+
+.primary-header .navwrap .main.menu li:not([class*=button]) a:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    -webkit-transition-property: right;
+    transition-property: right;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+    background: #ec5210;
+    height: 2px;
+}
+
+.primary-header .navwrap .main.menu li:not([class*=button]) a:active:before, .primary-header .navwrap .main.menu li:not([class*=button]) a:focus:before, .primary-header .navwrap .main.menu li:not([class*=button]) a:hover:before {
+    right: 0;
+}
+
+/*
+.primary-header .navwrap .main.menu li:not([class*=button]) a:hover {
+    -webkit-box-shadow: inset 0px -2px 0px 0px rgba(255,255,255,1);
+    -moz-box-shadow: inset 0px -2px 0px 0px rgba(255,255,255,1);
+    box-shadow: inset 0px -2px 0px 0px rgba(255,255,255,1);
+}
+*/
 
 .primary-header .navwrap .main.menu li.button a
 {
@@ -1507,10 +1546,15 @@ screen and (min-width: 40em) {
 
 .primary-header .navwrap .main.menu li.button.orange
 {
-    padding: 5px 3px;
+    padding: 6px 3px;
     background: #ec5210;
     border-bottom: 2px solid #86310c;
     margin: 0 .5rem;
+}
+
+.primary-header .navwrap .main.menu li.button.orange:hover
+{
+    background-color: #ba410d;
 }
 
 .primary-header .navwrap .main.menu li.button.orange a
@@ -1935,6 +1979,11 @@ input.btn {
     background: #ec5210;
     border: none;
     font-weight: bold;
+    cursor: pointer;
+}
+
+input.btn:hover {
+    background-color: #ba410d;
 }
 
 .forgot-pass {
@@ -2038,13 +2087,13 @@ textarea.form-control:-moz-placeholder { /* Firefox 18- */
 
 .dashboard-text h2 {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     font-weight: bold;
     font-family: 'Montserrat', sans-serif;
 }
 
 .dashboard-text ul li {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     line-height: 1.6em;
     font-family: Whitney;
     font-size: 14px;
@@ -2061,6 +2110,18 @@ textarea.form-control:-moz-placeholder { /* Firefox 18- */
     padding: 15px 50px;
     border-radius: 50px;
     transform: translateY(-110%);
+}
+
+.dashboard-article-btn:hover {
+    background: #060e1a;
+}
+
+.orange-background {
+    background-color: #EC5210;
+}
+
+.orange-background:hover {
+    background-color: #ba410d;
 }
 
 .hamburger-menu.close {
@@ -2087,9 +2148,9 @@ textarea.form-control:-moz-placeholder { /* Firefox 18- */
         width: 100%;
     }
 
-.dashboard-text {
-    width: 100%;
-}
+    .dashboard-text {
+        width: 100%;
+    }
 }
 /* DASHBOARD END */
 
@@ -2103,6 +2164,10 @@ textarea.form-control:-moz-placeholder { /* Firefox 18- */
     font-size: 26px;
 }
 
+.front-faq {
+    color: #0E1D34;
+}
+
 .faq-title {
     /*padding: 15px;
     background: #0e1d34;
@@ -2112,6 +2177,7 @@ textarea.form-control:-moz-placeholder { /* Firefox 18- */
     box-sizing: border-box;
     font-family: Whitney;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .addFaq-form {
@@ -2293,8 +2359,7 @@ li.faq-title a {
 }
 
 li.faq-text {
-    padding: 20px 40px;
-    padding-bottom: 40px;
+    padding: 20px 250px 40px 40px;
     box-sizing: border-box;
     display: none;
     font-size: 14px;
@@ -2346,6 +2411,11 @@ li.faq-text {
     font-family: Montserrat, sans-serif;
     display: inline-block;
     border-radius: 5px;
+     cursor: pointer;
+}
+
+ .members-form-wrapper button:hover {
+    background-color: #ba410d;
 }
 
 .user_view .user-delete-button {
@@ -2358,6 +2428,11 @@ li.faq-text {
     border-radius: 5px;
     width: 150px;
     text-align: center;
+    transition: none;
+}
+
+.user_view .user-delete-button:hover {
+    background-color: #ba410d;
 }
 
 .user_view .user-delete-button a {
@@ -2472,6 +2547,25 @@ li.faq-text {
  .user-profile-title h1 {
      font-size: 26px;
  }
+
+.view-user-profile {
+    float: right;
+    padding: 10px 40px;
+    border-radius: 2px;
+    background: #ec5310;
+    color: white;
+    font-size: 13px;
+    font-family: Whitney;
+    cursor: pointer;
+}
+
+.view-user-profile:hover {
+    background-color: #ba410d;
+}
+
+.view-user-profile-close {
+    background-color: #d44a0f;
+}
  /* USER PROFILE END */
 
 /* FAQ FORM */
@@ -2639,9 +2733,16 @@ li.faq-text {
 }
 
 .faq_req a {
+    padding-bottom: 5px;
     color: #ec5210;
     font-weight: bold;
     font-size: 12px;
+}
+
+.faq_req a:hover {
+    -webkit-box-shadow: inset 0px -2px 0px 0px rgba(236,82,16,1);
+    -moz-box-shadow: inset 0px -2px 0px 0px rgba(236,82,16,1);
+    box-shadow: inset 0px -2px 0px 0px rgba(236,82,16,1);
 }
 
 .faq-send {
@@ -2736,6 +2837,11 @@ li.faq-text {
     font-family: montserrat;
     font-size: 14px;
     font-weight: bold;
+    cursor: pointer;
+}
+
+#search_faq #submit_search:hover {
+    background-color: #ba410d;
 }
 
 .front-faq-main {
@@ -2762,6 +2868,17 @@ li.faq-text {
     display: inline-block;
 }
 
+.front-faq-main .front-mainfaq-title a:hover {
+    background: #ec5210;
+    border: 2px solid #ec5210;
+    color: white;
+}
+
+.blue-button {
+    background: #0e1d34;
+    color: white;
+}
+
 .front-faq-bottom p {
     text-align: center;
     font-size: 20px;
@@ -2782,6 +2899,10 @@ li.faq-text {
     text-align: center;
     margin: 0 auto;
     font-weight: bold;
+}
+
+.front-faq-bottom a:hover {
+    background-color: #ba410d;
 }
 
 @media screen and (max-width: 400px) {
@@ -3072,8 +3193,12 @@ li.faq-text {
     width: 20%;
 }
 
-.cat-email, .cat-edits {
-    width: 40%;
+.cat-email {
+    width: 50%;
+}
+
+.cat-edits {
+    width: 30%;
 }
 
 .cat-edits a {
@@ -3083,6 +3208,11 @@ li.faq-text {
     font-size: 12px;
     font-weight: bold;
     background: grey;
+    transition: none;
+}
+
+.cat-edits a:hover {
+    background-color: #4d4d4d;
 }
 
 .report_update {
@@ -3141,18 +3271,20 @@ li.faq-text {
 }
 
 .fclose {
-    background: #EC5210;
+    background: #0E1D33;
     color: white;
     display: inline-block;
-    padding: 15px 50px;
-    border-radius: 50px;
-    top: 20px;
+    padding: 13px 30px;
+    /* border-radius: 50px; */
+    top: 0px;
     right: 20px;
     position: fixed;
     cursor: pointer;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    /* -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75); */
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    /* box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75); */
+    font-family: Whitney;
+    font-weight: 600;
 }
 
 /* visualisation_view.php */

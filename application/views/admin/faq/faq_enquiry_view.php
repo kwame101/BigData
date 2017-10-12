@@ -53,13 +53,13 @@
                           <div class="bold-text title14"><?php echo ucfirst($enq['status']),'</div>';
                       $stat = $enq['status'];
                       if($stat == 'open'){
-                        echo '<div class="open_tag"style="width:45px;height:30px;background:red;display:inline-block;"></div>';
+                        echo '<div class="open_tag"style="width:45px;height:30px;background:#ff0000;display:inline-block;"></div>';
                       }
                       else if($stat == 'pending'){
                         echo '<div class="pending_tag"style="width:45px;height:30px;background:#FDB82C;display:inline-block;"></div>';
                       }
                       else if($stat == 'closed'){
-                        echo '<div class="closed_tag"style="width:45px;height:30px;background:green;display:inline-block;"></div>';
+                        echo '<div class="closed_tag"style="width:45px;height:30px;background:#0fd800;display:inline-block;"></div>';
                       }
                       ?></span>
                      </div>

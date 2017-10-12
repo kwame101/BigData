@@ -1,4 +1,31 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#load_more").click(function(e){
+e.preventDefault();
+    var page = $(this).data('val');
+    getReports(page);
+    });
+});
+var getReports = function(page){
+$("#loader").show();
+$.ajax({
+    url:"<?php echo base_url() ?>admin/users/loadReports",
+    type:'GET',
+    data: {page:page}
+  }).done(function(response){
+    $("#ajax_data").append(response);
+    $("#loader").hide();
+    $('#load_more').data('val', ($('#load_more').data('val')+1));
+    scroll();
+    });
+};
+var scroll  = function(){
+    $('html, body').animate({
+    scrollTop: $('#load_more').offset().top
+    }, 1000);
+};
+</script>
 <div class="container" style="background-color: #f9f9f9; min-height: 100vh;">
     <div class="user-profile-title">
        <div class="wrapper">
@@ -16,6 +43,9 @@
 
   <section class="report_list">
       <div class="wrapper">
+        <div class="top_view">
+        <div class="flex"> <span style="font-weight: bold; margin-top: 50px; width: 250px;">Name</span> <span style="font-weight: bold; margin-top: 50px; width: 250px;">Email</span><span style="font-weight: bold; margin-top: 50px; width: 250px;">Company</span><span style="font-weight: bold; margin-top: 50px; width: 250px;">Total Time</span></div>
+        <div id="ajax_data">
         <?php
         if(isset($users))
         {
@@ -34,10 +64,8 @@
                 $seconds -= $minutes*60;
                 return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
               }
-          date_default_timezone_set("UTC");
-          echo '<div class="top_view">';
-          echo '<div class="flex"> <span style="font-weight: bold; margin-top: 50px; width: 250px;">Name</span> <span style="font-weight: bold; margin-top: 50px; width: 250px;">Email</span><span style="font-weight: bold; margin-top: 50px; width: 250px;">Company</span><span style="font-weight: bold; margin-top: 50px; width: 250px;">Total Time</span></div>';
-          foreach($users as $user)
+          date_default_timezone_set("Europe/London");
+              foreach($users as $user)
           {
             $sumTotal = null;
             $new_date = array();
@@ -67,9 +95,12 @@
             echo '</div>';
             echo '</div></div>';
          }
-         echo '</div>';
         }
         ?>
+      </div>
+        </div>
+        <button class="btn" data-val="1" id="load_more"> Load more.. <img id="loader" style="display:none;" src="<?php echo base_url('assets/img/loader.gif');?>"/>
+        </button>
         </div>
     </section>
   </div>
