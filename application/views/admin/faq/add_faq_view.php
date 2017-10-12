@@ -8,13 +8,13 @@
         <div class="col-lg-4 col-lg-offset-4">
           <?php echo form_open('',array('class'=>'faq form-horizontal'));?>
           <div class="form-top">
-              <div class="form-group">
+              <div class="gvd">
                 <?php
                 echo form_error('title');
                 echo form_input('title',set_value('title'),'class="form-control" placeholder="Title"');
                 ?>
               </div>
-              <div class="form-group">
+              <div class="gvd">
                 <?php
                 if(isset($category))
                 { ?>
@@ -27,10 +27,10 @@
                 <?php } ?>
                 </div>
             </div>
-              <div class="form-group text-area">
+              <div class="gvd text-area">
                 <?php
                 echo form_error('content');
-                echo form_textarea('content',set_value('content'),'class="form-control"');
+                echo form_textarea('content',set_value('content'),'class="form-control" placeholder="Message"');
                 ?>
               </div>
               <div class="faq-submit-wrapper">

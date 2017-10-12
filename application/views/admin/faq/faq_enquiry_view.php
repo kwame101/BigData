@@ -7,9 +7,15 @@
 <section class="admin-enquiry">
     <ul>
         <div class="wrapper">
-          <li><a href="<?php echo site_url('admin/support/enquiry/open')?>">Open </a>
-          <li><a href="<?php echo site_url('admin/support/enquiry/pending')?>">Pending </a>
-          <li><a href="<?php echo site_url('admin/support/enquiry/closed')?>">Resolved </a>
+          <li class="<?php if($this->uri->segment(4) == 'open'){ echo 'admin-enquiry-li-active';} elseif($this->uri->segment(4) == null){echo 'admin-enquiry-li-active';}?>">
+            <a class="<?php if($this->uri->segment(4) == 'open'){ echo 'admin-enquiry-li-active';} elseif($this->uri->segment(4) == null){echo 'admin-enquiry-li-active';}?>"
+               href="<?php echo site_url('admin/support/enquiry/open')?>">Open </a>
+          <li class="<?php if($this->uri->segment(4) == 'pending'){ echo 'admin-enquiry-li-active';} ?>">
+            <a  class="<?php if($this->uri->segment(4) == 'pending'){ echo 'admin-enquiry-li-active';}?>"
+               href="<?php echo site_url('admin/support/enquiry/pending')?>">Pending </a>
+          <li class="<?php if($this->uri->segment(4) == 'closed'){ echo 'admin-enquiry-li-active';}?>">
+            <a class="<?php if($this->uri->segment(4) == 'closed'){ echo 'admin-enquiry-li-active';}?>"
+              href="<?php echo site_url('admin/support/enquiry/closed')?>">Resolved </a>
         </div>
     </ul>
     <div class="wrapper">
@@ -38,19 +44,19 @@
                       </span>
                       <span class="topic_email">
                           <div class="bold-text title14">For:</div>
-                          <div class="text13"><?php echo $enq['category_email'];?></div>
+                          <div class="text13 enquiry-for-container"><?php echo $enq['category_email'];?></div>
                       </span>
                       <span style="width: auto; text-align: center;font-weight:bold;">
                           <div class="bold-text title14"><?php echo ucfirst($enq['status']),'</div>';
                       $stat = $enq['status'];
                       if($stat == 'open'){
-                        echo '<div class="open_tag"style="width:45px;height:30px;background:red;display:inline-block;"></div>';
+                        echo '<div class="open_tag"style="width:45px;height:30px;background:#ff0000;display:inline-block;"></div>';
                       }
                       else if($stat == 'pending'){
                         echo '<div class="pending_tag"style="width:45px;height:30px;background:#FDB82C;display:inline-block;"></div>';
                       }
                       else if($stat == 'closed'){
-                        echo '<div class="closed_tag"style="width:45px;height:30px;background:green;display:inline-block;"></div>';
+                        echo '<div class="closed_tag"style="width:45px;height:30px;background:#0fd800;display:inline-block;"></div>';
                       }
                       ?></span>
                      </div>

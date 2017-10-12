@@ -18,7 +18,8 @@ function updateStatus(chr)
 <div class="enquiry-header-title">
     <div class="wrapper">
         <h1> FAQ Enquires </h1>
-        <a href="#">&lt; back </a>
+        <!-- this may cause problem if user land on this page without history -->
+        <a href="#" onclick="window.history.back();">&lt; back </a>
     </div>
 </div>
 <div class="wrapper">
@@ -37,7 +38,7 @@ function updateStatus(chr)
                 </div>
                 <div style="width: 33%;">
                     <div class="bold-text title14" style="display: block; margin-bottom: 10px;"> For: </div>
-                    <div class="text12"><?php echo $enq_info->category_email;?></div>
+                    <div class="text12 enquiry-for-container"><?php echo $enq_info->category_email;?></div>
                 </div>
             </div>
             <div class="enquiry-info-states">
@@ -78,9 +79,8 @@ function updateStatus(chr)
             $imageList = array();
             $imageList = explode(', ',$enq_info->images);
             foreach($imageList as $img){
-              echo  '<div style="width: calc(50% - 10px);"><img src="'.base_url().'assets/upload/'.$img.'" width="600" height="480" class="img-thumbnail" /></div>';
+              echo  '<div style="width: calc(50% - 10px);"><img src="'.base_url().'assets/upload/attachments/'.$img.'" width="600" height="480" class="img-thumbnail" /></div>';
             }
-
       } ?>
     </div>
     <?php } ?>

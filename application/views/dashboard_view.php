@@ -31,12 +31,12 @@ $(document).ready(function () {
                 <div class="dashboard-text">
                     <h2>Data</h2>
                     <ul>
-                        <li>Browse data by topics, organisations, formats or keywords search.</li>
-                        <li>Preview data in grids, graphs, maps or document viewers.</li>
-                        <li>Download data to combine with your private data for particular business needs.</li>
+                      <li>Browse data by topics, organisations, formats or keywords search.</li>
+                      <li>Preview data in grids, graphs, maps or document viewers.</li>
+                      <li>Download data to combine with your private data for particular business needs.</li>
                     </ul>
                 </div>
-                  <a class="open_web dashboard-article-btn link" href="http://bigdatacorridor.com" style="color:#fff"> Go to Data </a>
+                  <a class="open_web dashboard-article-btn link" href="http://www.birminghamdata.org/" style="color:#fff"> Go to Data </a>
             </div>
 
             <div class="dashboard-column">
@@ -46,7 +46,7 @@ $(document).ready(function () {
                 <div class="dashboard-text">
                     <h2>Visualisation</h2>
                     <ul>
-                        <li>Extract business insight through interactive visualisation.</li>
+                      <li>Extract business insight through interactive visualisation.</li>
                         <li>Blend open data with your private data to generate new business values.</li>
                         <li>Produce robust data models, rich and interactive personalised dashboard reports.</li>
                     </ul>
@@ -59,9 +59,9 @@ $(document).ready(function () {
     <?php  //iframe style
           //style="position:fixed; top:0px; left:0px; bottom:0px; right:0px; width:100%;
           //height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" ?>
-    <iframe src="" >
-        <p>Your browser does not support iframes.</p>
-    </iframe>
-    <span class="fclose">Close</span>
+          <span class="fclose">Back to Dashboard</span>
+        <iframe src="" >
+            <p>Your browser does not support iframes.</p>
+        </iframe>
   </div>
 </section>
