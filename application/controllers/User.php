@@ -94,6 +94,37 @@ class User extends My_Controller {
     redirect('user/login', 'refresh');
   }
 
+
+    /*
+    *
+    */
+    public function ping()
+    {
+          date_default_timezone_set('Europe/London');
+          if($this->session->userdata('ses_key')==1){
+              $session_key = $this->input->post('session_key');
+              //get user last seen - current time
+              $lastseen = $this->ion_auth->getLastSeen($session_key);
+
+              //$prev_t = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$lastseen));
+              //$cur_t = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',time()));
+              //$diff = $cur_t->diff($prev_t);
+              $time_n = time();
+              $diff = $time_n - $lastseen;
+              //if diff btwn that > 5 mins log user out.
+              if($diff > 300){
+                echo 'timeout';
+                $this->logout();
+              }
+              else {
+                  $this->ion_auth->update_user_activity($session_key);
+            }
+          }
+          else {
+              redirect('user','refresh');
+        }
+    }
+
   /*
   *
   */
@@ -229,22 +260,22 @@ class User extends My_Controller {
 			$this->form_validation->set_message('valid_password', 'The {field} field is required.');
 			return FALSE;
 		}
-		if (preg_match_all($regex_lowercase, $password) < 1)
+		if (preg_match($regex_lowercase, $password) < 1)
 		{
 			$this->form_validation->set_message('valid_password', 'The {field} field must be at least one lowercase letter.');
 			return FALSE;
 		}
-		if (preg_match_all($regex_uppercase, $password) < 1)
+		if (preg_match($regex_uppercase, $password) < 1)
 		{
 			$this->form_validation->set_message('valid_password', 'The {field} field must be at least one uppercase letter.');
 			return FALSE;
 		}
-		if (preg_match_all($regex_number, $password) < 1)
+		if (preg_match($regex_number, $password) < 1)
 		{
 			$this->form_validation->set_message('valid_password', 'The {field} field must have at least one number.');
 			return FALSE;
 		}
-		if (preg_match_all($regex_special, $password) < 1)
+		if (preg_match($regex_special, $password) < 1)
 		{
 			$this->form_validation->set_message('valid_password', 'The {field} field must have at least one special character.');
 			return FALSE;

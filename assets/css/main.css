@@ -1399,7 +1399,7 @@ screen and (min-width: 40em) {
     display: inline-block;
     padding: .09rem .5rem .1rem;
     background: #fff;
-    font-family: WhitneyHTF-Bold,sans-serif;
+    font-family: Whitney, sans-serif;
     font-size: 14px;
 }
 
@@ -1412,7 +1412,7 @@ screen and (min-width: 40em) {
 .top-bar .add-fontsize a
 {
     color: #fff;
-    font-family: WhitneyHTF-Medium,sans-serif;
+    font-family: Whitney, sans-serif;
     font-weight: 700;
     padding: 0 .1rem;
     line-height: 1.5;
@@ -1469,6 +1469,12 @@ screen and (min-width: 40em) {
     margin-right: 0px;
 }
 
+.drop-down li
+{
+    margin-right: 0px !important;
+    width: 100px;
+}
+
 .main.menu a
 {
     color: white;
@@ -1491,7 +1497,7 @@ screen and (min-width: 40em) {
 {
     color: #fff;
     padding: .4rem 0;
-    font-family: Whitney;
+    font-family: Whitney, sans-serif;
     font-size: 14px;
     text-transform: capitalize;
     margin: .2rem .4rem;
@@ -1502,7 +1508,7 @@ screen and (min-width: 40em) {
     box-shadow: 0 0 1px transparent;
     position: relative;
     overflow: hidden;
-    font-family: Whitney;
+    font-family: Whitney, sans-serif;
     font-weight: 600;
 }
 
@@ -1538,7 +1544,7 @@ screen and (min-width: 40em) {
 
 .primary-header .navwrap .main.menu li.button a
 {
-    font-family: WhitneyHTF-Medium,sans-serif;
+    font-family: Whitney, sans-serif;
     font-size: 14px;
     text-transform: capitalize;
     padding: .35rem .65rem .4rem;
@@ -1550,6 +1556,7 @@ screen and (min-width: 40em) {
     background: #ec5210;
     border-bottom: 2px solid #86310c;
     margin: 0 .5rem;
+    transition: none;
 }
 
 .primary-header .navwrap .main.menu li.button.orange:hover
@@ -1567,6 +1574,12 @@ screen and (min-width: 40em) {
     padding: 5px 3px;
     background: #fff;
     border-bottom: 2px solid #868686;
+    transition: none;
+}
+
+.primary-header .navwrap .main.menu li.button.white:hover
+{
+    background-color: #cccccc;
 }
 
 .primary-header .navwrap .main.menu li.button.white a
@@ -1657,7 +1670,7 @@ screen and (min-width: 40em) {
         display: inline-block;
         padding: .09rem .5rem .1rem;
         background: #fff;
-        font-family: WhitneyHTF-Bold, sans-serif;
+        font-family: Whitney, sans-serif;
         font-size: 14px
     }
     .primary-header #mobile-menu .overlay .overlay-content .first-layer .accessibility-toolbar .add-contrast a.contrast.high {
@@ -1671,7 +1684,7 @@ screen and (min-width: 40em) {
     }
     .primary-header #mobile-menu .overlay .overlay-content .first-layer .accessibility-toolbar .add-fontsize a {
         color: #fff;
-        font-family: WhitneyHTF-Medium, sans-serif;
+        font-family: Whitney, sans-serif;
         font-weight: 700;
         padding: 0 .1rem
     }
@@ -1693,7 +1706,7 @@ screen and (min-width: 40em) {
     .primary-header #mobile-menu .overlay .overlay-content .second-layer .mmenu li a {
         color: #fff;
         padding: .6rem 0;
-        font-family: WhitneyHTF-Medium, sans-serif;
+        font-family: Whitney, sans-serif;
         font-size: 14px;
         text-transform: capitalize;
         margin: .2rem .8rem;
@@ -1986,6 +1999,43 @@ input.btn:hover {
     background-color: #ba410d;
 }
 
+button.btn, .clear_data, .clear_res {
+    padding: 15px 60px;
+    height: 100%;
+    width: auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: white;
+    background: #ec5210;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+button.btn:hover, .clear_data:hover, .clear_res:hover {
+    background-color: #ba410d;
+}
+
+.form-group p {
+    font-size: 12px;
+    color: red;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+#infoMessage {
+    width: 270px;
+}
+
+#infoMessage p {
+    font-size: 12px;
+    color: red;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
 .forgot-pass {
     margin-top: 30px;
 }
@@ -2095,7 +2145,7 @@ textarea.form-control:-moz-placeholder { /* Firefox 18- */
 .dashboard-text ul li {
     margin-bottom: 10px;
     line-height: 1.6em;
-    font-family: Whitney;
+    font-family: Whitney, sans-serif;
     font-size: 14px;
 }
 
@@ -2175,7 +2225,7 @@ textarea.form-control:-moz-placeholder { /* Firefox 18- */
     display: inline-block;
     padding: 20px 40px;
     box-sizing: border-box;
-    font-family: Whitney;
+    font-family: Whitney, sans-serif;
     font-size: 16px;
     cursor: pointer;
 }
@@ -2201,25 +2251,17 @@ textarea.form-control:-moz-placeholder { /* Firefox 18- */
 }
 
 .addCategory-form .form-group {
-    height: 48px;
-    border-radius: 5px;
-    width: calc(33% - 10px);
-    display: block;
-    border: none;
-    background: #fff;
-    overflow: hidden;
+    height: auto;
+    border: 0px;
+    margin-bottom: 15px;
 }
 
 .addCategory-form .form-group input.form-control, .addCategory-form .form-group select.form-control {
-    padding: 10px 20px;
-    vertical-align: top;
-    width:100%;
-    height: 100%;
-    border: 0px;
-    font-size: 14px;
-    font-family: Montserrat, sans-serif;
-    font-weight: 400;
-    background: #fff;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 12px;
+    width: calc(80% - 4px);
+    font-size: 12px;
 }
 
 .addCategory-form .form-group select.form-control option {
@@ -2238,7 +2280,7 @@ textarea.form-control:-moz-placeholder { /* Firefox 18- */
     height: 100%;
     border-radius: 5px;
     border: none;
-    font-family: Montserrat, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     padding: 20px;
     font-size: 12px;
 }
@@ -2247,14 +2289,24 @@ textarea.form-control:-moz-placeholder { /* Firefox 18- */
     width:calc(33% - 10px);
 }
 
-.category-submit-wrapper input {
-    padding: 15px 60px;
-    background: #ec5310;
-    color: white;
-    font-size: 14px;
-    font-family: Montserrat, sans-serif;
-    display: inline-block;
+.addCategory-form .addCat-formGroup:not(.addCatBtn) {
+    width: calc(33.333% - 20px);
     border-radius: 5px;
+    background-color: white;
+    overflow: visible;
+}
+
+.addCategory-form .addCat-formGroup {
+    width: calc(33.333% - 20px);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.addCategory-form .addCat-formGroup:not(.addCatBtn) input {
+    width: 100%;
+    height: 100%;
+    background: none;
+    padding-left: 15px;
 }
 
 .form-top {
@@ -2263,45 +2315,44 @@ textarea.form-control:-moz-placeholder { /* Firefox 18- */
     margin-top: 60px;
 }
 
-.addFaq-form .form-group {
+.addFaq-form .gvd {
     height: 40px;
-    border-radius: 5px;
     width: calc(50% - 10px);
     display: block;
     border: none;
-    background: #fff;
-    overflow: hidden;
 }
 
-.addFaq-form .form-group input.form-control, .addFaq-form .form-group select.form-control {
+.addFaq-form .gvd input.form-control, .addFaq-form .gvd select.form-control {
     padding: 10px 20px;
     vertical-align: top;
     width:100%;
     height: 100%;
     border: 0px;
+    border-radius: 5px;
     font-size: 14px;
-    font-family: Montserrat, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     background: #fff;
 }
 
-.addFaq-form .form-group select.form-control option {
+.addFaq-form .gvd select.form-control option {
     border-radius: 5px;
     background: white;
 }
 
-.addFaq-form .form-group.text-area {
+.addFaq-form .gvd.text-area {
     width:100%;
-    height: 200px;
+    height: auto;
     margin: 20px 0px;
 }
 
-.addFaq-form .form-group textarea {
+.addFaq-form .gvd textarea {
     width: 100%;
     height: 100%;
+    max-width: 100%;
     border-radius: 5px;
     border: none;
-    font-family: Montserrat, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     padding: 20px;
     font-size: 12px;
 }
@@ -2363,7 +2414,7 @@ li.faq-text {
     box-sizing: border-box;
     display: none;
     font-size: 14px;
-    font-family: Whitney;
+    font-family: Whitney, sans-serif;
 }
 
 .faq-paginate {
@@ -2408,7 +2459,7 @@ li.faq-text {
     background: #ec5310;
     color: white;
     font-size: 14px;
-    font-family: Montserrat, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     display: inline-block;
     border-radius: 5px;
      cursor: pointer;
@@ -2423,7 +2474,7 @@ li.faq-text {
     background: #ec5310;
     color: white;
     font-size: 12px;
-    font-family: Montserrat, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     display: inline-block;
     border-radius: 5px;
     width: 150px;
@@ -2438,7 +2489,7 @@ li.faq-text {
 .user_view .user-delete-button a {
     color: white;
     font-size: 12px;
-    font-family: Montserrat, sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .members-list span {
@@ -2456,7 +2507,7 @@ li.faq-text {
 }
 
 .user_row span {
-    font-family: Whitney;
+    font-family: Whitney, sans-serif;
     font-size: 14px;
 }
 
@@ -2488,6 +2539,10 @@ li.faq-text {
 #adduser-form .form-horizontal .form-group input {
     padding: 15px;
     border-radius: 5px;
+}
+
+#adduser-form input.form-control{
+    height: inherit;
 }
 
 .flex {
@@ -2555,7 +2610,7 @@ li.faq-text {
     background: #ec5310;
     color: white;
     font-size: 13px;
-    font-family: Whitney;
+    font-family: 'Montserrat', sans-serif;
     cursor: pointer;
 }
 
@@ -2673,7 +2728,7 @@ li.faq-text {
     height: auto;
     border: 1px solid #a5a5a5;
     border-radius: 5px;
-    font-family: Montserrat, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 14px;
 }
 
@@ -2692,7 +2747,7 @@ li.faq-text {
     border-radius: 5px;
     padding: 5px 10px;
     font-size: 12px;
-    font-family: Whitney;
+    font-family: Whitney, sans-serif;
     font-weight: bold;
     color: #323232;
 }
@@ -2712,7 +2767,7 @@ li.faq-text {
     padding: 5px 10px;
     color: #323232;
     font-size: 12px;
-    font-family: Whitney;
+    font-family: Whitney, sans-serif;
     font-weight: bold;
 }
 
@@ -2792,12 +2847,12 @@ li.faq-text {
     box-sizing: border-box;
     background: #0e1d34;
     display: inline-block;
-    font-family: Whitney;
+    font-family: Whitney, sans-serif;
 }
 
 .faq-topic a {
     color: white;
-    font-family: Whitney;
+    font-family: Whitney, sans-serif;
 }
 
 .loading {
@@ -2919,20 +2974,24 @@ li.faq-text {
 }
 
 .admin-view-title span {
-   font-size: 18px;
-   color: #0e1d34;
-   margin-right: 40px;
-   font-weight: bold;
+    font-size: 18px;
+    color: #0e1d34;
+    margin-right: 40px;
 }
 
 .admin-view-title button {
    padding: 15px 60px;
    background: #ec5310;
    color: white;
-   font-size: 12px;
-   font-family: Montserrat, sans-serif;
+   font-size: 14px;
+   font-family: 'Montserrat', sans-serif;
    display: inline-block;
    border-radius: 5px;
+   cursor: pointer;
+}
+
+.admin-view-title button:hover {
+   background: #ba410d;
 }
 
 #adduser .form-horizontal{
@@ -3019,15 +3078,19 @@ li.faq-text {
 }
 
 .enq_view a {
-        padding: 10px 50px;
-        background: #0E1D33;
-        color: white;
-        font-size: 12px;
-        border-radius: 2px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    padding: 10px 50px;
+    background: #0E1D33;
+    color: white;
+    font-size: 12px;
+    border-radius: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.enq_view a:hover {
+        background-color: #070e1a;
 }
 
 .bold-text {
@@ -3124,6 +3187,12 @@ li.faq-text {
     padding: 40px 0px;
 }
 
+.enquiry-for-container div {
+    padding-right: 20px;
+    padding-bottom: 5px;
+    word-wrap: break-word;
+}
+
 .title14 {
     font-size: 14px;
     margin-bottom: 15px;
@@ -3183,10 +3252,12 @@ li.faq-text {
 }
 
 .cat-row {
-    flex-basis: 50%;
+    flex-basis: calc(50% - 20px);
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
+    background: #E5E5E5;
+    padding: 20px 10px;
 }
 
 .cat-name {
@@ -3198,7 +3269,7 @@ li.faq-text {
 }
 
 .cat-edits {
-    width: 30%;
+    width: auto;
 }
 
 .cat-edits a {
@@ -3232,9 +3303,14 @@ li.faq-text {
     background: #ec5310;
     color: white;
     font-size: 14px;
-    font-family: Montserrat, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     display: inline-block;
     border-radius: 5px;
+    transition: none;
+}
+
+.report_update a:hover {
+    background-color: #ba410d;
 }
 
 .up_image {
@@ -3268,23 +3344,25 @@ li.faq-text {
 .iframe iframe {
     width: 100%;
     height: 100%;
+    margin-top: 40px;
+    border: 0px;
 }
 
 .fclose {
-    background: #0E1D33;
+    background: #00A3FF;
     color: white;
-    display: inline-block;
+    display: block;
     padding: 13px 30px;
-    /* border-radius: 50px; */
-    top: 0px;
-    right: 20px;
+    width: 100%;
     position: fixed;
+    text-align: right;
     cursor: pointer;
-    /* -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75); */
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-    /* box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75); */
-    font-family: Whitney;
-    font-weight: 600;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
 }
 
 /* visualisation_view.php */
@@ -3298,6 +3376,7 @@ li.faq-text {
     color: white;
     font-family: 'Montserrat', sans-serif;
     font-size: 42px;
+    width: calc(50% - 20px);
 }
 
 .bannerTextContainer, .bannerImageContainer {
@@ -3308,7 +3387,8 @@ li.faq-text {
 
 .bannerTextContainer {
     padding: 40px;
-    float: left;
+    position: absolute;
+    width: 100%;
 }
 
 .bannerImageContainer {
@@ -3341,6 +3421,7 @@ li.faq-text {
 @media screen and (max-width:900px){
     .textcolumn {
         width: 50%;
+        padding: 20px 20px;
     }
 
     .visualBanner h1 {
@@ -3349,6 +3430,17 @@ li.faq-text {
 }
 
 @media screen and (max-width:600px){
+    .bannerTextContainer {
+        padding: 40px;
+        position: relative;
+        width: 100%;
+    }
+
+    .visualBanner h1 {
+        width: 100%;
+        text-align: center;
+    }
+
     .textcolumn {
         width: 100%;
     }
@@ -3428,10 +3520,51 @@ li.faq-text {
 }
 
 .textcolumn p {
-    font-family: Whitney;
+    font-family: Whitney, sans-serif;
     font-size: 14px;
 }
 /* visualisation_view.php */
+
+/* MISC */
+.admin-search {
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 20px;
+}
+
+.admin-search input {
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 12px;
+    width: calc(80% - 4px);
+    font-size: 12px;
+}
+
+.admin-search input.btn {
+    width: 20%;
+    font-size: 14px;
+}
+
+.addCategory-form .addCat-formGroup p {
+    font-size: 12px;
+    color: red;
+    position: absolute;
+    top: -30px;
+}
+
+.addFaq-form .gvd.text-area p {
+    font-size: 12px;
+    position: relative;
+    top: 0px;
+    padding-bottom: 15px;
+}
+
+.gvd p {
+    font-size: 12px;
+    position: absolute;
+    top: -30px;
+    color: red;
+}
+/* MISC END */
 
 /* FOOTER */
 .primary-footer {
@@ -3562,7 +3695,7 @@ li.faq-text {
     font-size: 28px
 }
 .primary-footer .footer-section.link-icons .socials li a.tag-link {
-    font-family: WhitneyHTF-Bold, sans-serif
+    font-family: Whitney, sans-serif
 }
 .primary-footer .footer-section.link-icons .socials li a.fa-facebook-square:hover {
     color: #3b5998;

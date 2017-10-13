@@ -38,7 +38,7 @@ function updateStatus(chr)
                 </div>
                 <div style="width: 33%;">
                     <div class="bold-text title14" style="display: block; margin-bottom: 10px;"> For: </div>
-                    <div class="text12"><?php echo $enq_info->category_email;?></div>
+                    <div class="text12 enquiry-for-container"><?php echo $enq_info->category_email;?></div>
                 </div>
             </div>
             <div class="enquiry-info-states">

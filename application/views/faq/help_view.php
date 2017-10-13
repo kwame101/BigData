@@ -72,6 +72,7 @@
                <a href="#" > <?php echo $cat['name']; ?> </a>
             </li>
             <?php $faq_info = $this->Support_desk_model->displayRecentFaq($cat['id']);
+            if(isset($faq_info)){
             foreach ($faq_info as $faq) { ?>
             <li style="margin-top: 20px;">
                <a href="#" class="faq-title"> <?php echo $faq->title; ?> </a>
@@ -85,7 +86,7 @@
                 <br/>
                 <p>For any assistance please contact <a href="<?php echo site_url('help/contact')?>" class="orange-text">Customer Support.</a></p>
             </li>
-          <?php } ?>
+          <?php } } ?>
          </ul>
        <?php  } } ?>
       </div>

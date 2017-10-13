@@ -7,19 +7,19 @@
         <div class="wrapper">
             <?php echo form_open('',array('class'=>'category form-horizontal'));?>
             <div class="form-top" style="margin-bottom: 60px;">
-                <div class="form-group">
+                <div class="addCat-formGroup">
                     <?php
                         echo form_error('category_name');
                         echo form_input('category_name','','class="form-control" placeholder="Category name"');
                         ?>
                 </div>
-                <div class="form-group">
+                <div class="addCat-formGroup">
                     <?php
                         echo form_error('category_email');
                         echo form_input('category_email','','class="form-control" placeholder="Category email"');
                         ?>
                 </div>
-                <div class="category-submit-wrapper">
+                <div class="addCat-formGroup addCatBtn">
                     <?php echo form_submit('submit', 'Create category', 'class="btn btn-primary btn-lg btn-block" style="font-size: 14px;"');?>
                 </div>
             </div>

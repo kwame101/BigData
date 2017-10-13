@@ -1,7 +1,4 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
-<script type="text/javascript">
-
-</script>
 <div class="enquiry-header-title">
     <div class="wrapper">
         <h1> FAQ Enquires </h1>
@@ -47,7 +44,7 @@
                       </span>
                       <span class="topic_email">
                           <div class="bold-text title14">For:</div>
-                          <div class="text13"><?php echo $enq['category_email'];?></div>
+                          <div class="text13 enquiry-for-container"><?php echo $enq['category_email'];?></div>
                       </span>
                       <span style="width: auto; text-align: center;font-weight:bold;">
                           <div class="bold-text title14"><?php echo ucfirst($enq['status']),'</div>';

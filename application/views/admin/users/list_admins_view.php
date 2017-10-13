@@ -9,6 +9,31 @@
         tog.style.display = 'none';
     }
   }
+
+  $(document).on('click', '.user-delete-button', function(event){
+    var uid = $(this).attr('value');
+    var Urlink = '<?php echo site_url('admin/users/delete/');?>'+uid;
+    //alert(uid);
+    swal({
+            title: "Delete user",
+            text: "Are you sure you want to delete this user?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#ec5310",
+            confirmButtonText: "Delete user",
+            cancelButtonText: "Cancel"
+        }).then(function() {
+          alert(uid);
+             location.href = Urlink;
+        }, function(dismiss) {
+           if (dismiss === 'cancel') {
+             //do nothing if cancel
+           }
+           else {
+             throw dismiss;
+           }
+        });
+  });
   </script>
     <div class="wrapper members-title">
     <h1>Admin profile</h1>
@@ -69,7 +94,7 @@
                 echo '<div class="user_view flex" style="padding: 30px 0px; padding-bottom: 20px; border-bottom: 2px solid #acacac; width: 680px; font-family: Whitney;">';
                 echo '<span>'.$user->company.'</span><span>'.$user->email.'</span>'; ?>
 
-                <div class="user-delete-button"><a href="<?php echo site_url('admin/users/delete/'.$user->id);?>"> Delete Admin </a></div>
+                <a class="user-delete-button" value="<?php echo $user->id;?>"> Delete Admin </a>
                 <?php
                 echo '</div>';
               }

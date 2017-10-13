@@ -1,20 +1,20 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div class="container" style="background-color: #f9f9f9;">
     <div class="wrapper faq-header-title">
-      <h1>Add faqs</h1>
+      <h1>Add Faqs</h1>
     </div>
     <div class="addFaq-form">
         <div class="wrapper">
         <div class="col-lg-4 col-lg-offset-4">
           <?php echo form_open('',array('class'=>'faq form-horizontal'));?>
           <div class="form-top">
-              <div class="form-group">
+              <div class="gvd">
                 <?php
                 echo form_error('title');
                 echo form_input('title',set_value('title'),'class="form-control" placeholder="Title"');
                 ?>
               </div>
-              <div class="form-group">
+              <div class="gvd">
                 <?php
                 if(isset($category))
                 { ?>
@@ -27,10 +27,10 @@
                 <?php } ?>
                 </div>
             </div>
-              <div class="form-group text-area">
+              <div class="gvd text-area">
                 <?php
                 echo form_error('content');
-                echo form_textarea('content',set_value('content'),'class="form-control"');
+                echo form_textarea('content',set_value('content'),'class="form-control" placeholder="Message"');
                 ?>
               </div>
               <div class="faq-submit-wrapper">
@@ -57,9 +57,10 @@
                         <a style="margin-left:20px;" href="<?php echo site_url('admin/support/editFaq/'.$faq->faq_id) ?>">Edit</a>
                    </span>
                  </li>
-                 <li class="faq-text"> <?php echo $faq->text; ?>
-                   <br />
-                   <br />
+                 <li class="faq-text">
+                     <?php echo $faq->text; ?>
+                    <br />
+                    <br />
                     <p>For any assistance please contact <a href="<?php echo site_url('help/contact')?>" class="orange-text">Customer Support.</a></p>
                   </li>
               </ul>

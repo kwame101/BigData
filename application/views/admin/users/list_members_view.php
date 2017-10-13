@@ -67,6 +67,31 @@
   $(document).on('click', '.clear_res', function(event){
     location.href = '<?php echo site_url('/admin/users/members');?>';
   });
+
+  $(document).on('click', '.user-delete-button', function(event){
+    var uid = $(this).attr('value');
+    var Urlink = '<?php echo site_url('admin/users/delete/');?>'+uid;
+    //alert(uid);
+    swal({
+            title: "Delete user",
+            text: "Are you sure you want to delete this user?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#ec5310",
+            confirmButtonText: "Delete user",
+            cancelButtonText: "Cancel"
+        }).then(function() {
+          alert(uid);
+             location.href = Urlink;
+        }, function(dismiss) {
+           if (dismiss === 'cancel') {
+             //do nothing if cancel
+           }
+           else {
+             throw dismiss;
+           }
+        });
+  });
   </script>
     <div class="wrapper members-title">
     <h1>BDC Members</h1>
@@ -111,10 +136,10 @@
                 {
                   foreach($users as $user)
                   {
-                    echo '<div class="user_view flex" style="padding: 30px 0px; padding-bottom: 20px; border-bottom: 2px solid #acacac; width: 680px;">';
+                    echo '<div class="user_view flex" style="padding: 30px 0px; padding-bottom: 20px; border-bottom: 2px solid #acacac; width: 680px;font-family: Whitney;">';
                     echo '<span>'.$user->company.'</span><span>'.$user->email.'</span>'; ?>
 
-                    <a href="<?php echo site_url('admin/users/delete/'.$user->id);?>" class="user-delete-button"> Delete User </a>
+                    <a value="<?php echo $user->id;?>" class="user-delete-button"> Delete User </a>
                     <?php
                     echo '</div>';
                   }

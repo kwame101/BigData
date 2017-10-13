@@ -96,12 +96,15 @@ class Support_desk_model extends CI_Model
   */
   public function searchFaq($value)
   {
-    $this->db->select('*');
+    $this->db->select('category.name,faq.title,faq.text');
     $this->db->from('faq');
     $this->db->join('faq_category','faq.id=faq_category.faq_id','left');
     $this->db->join('category','faq_category.cat_id =category.id','left');
-    $this->db->like('text',$value);
-    $this->db->or_like('name',$value);
+    $this->db->group_start();
+    $this->db->or_like('faq.text',$value);
+    $this->db->or_like('category.name',$value);
+    $this->db->or_like('faq.title',$value);
+    $this->db->group_end();
     $this->db->order_by('created_on', 'desc');
     $query=$this->db->get();
 
@@ -136,26 +139,27 @@ class Support_desk_model extends CI_Model
   /**
   *
   */
-  public function searchFaqResult($value)
+  public function searchFaqResult($values)
   {
     $this->db->select('*');
     $this->db->from('faq');
     $this->db->join('faq_category','faq.id=faq_category.faq_id','left');
     $this->db->join('category','faq_category.cat_id =category.id','left');
-    if (strpos($value, ',') !== false) {
-    $search = explode(',' , $value);
-    $this->db->like('text', trim($search[0]), 'both');
-    $this->db->like('name', trim($search[0]), 'both');
-    unset($search[0]);
-        foreach ($search as $term){
-            $this->db->or_like('text', trim($term), 'both');
-            $this->db->or_like('name', trim($term), 'both');
+    $this->db->group_start();
+    $search_query_values = explode(' ', $values);
+    $counter = 0;
+    foreach ($search_query_values as $key => $value) {
+        if ($counter == 0) {
+            $this->db->like('faq.title', $value);
         }
-    }else{
-        //this means you only have one value
-        $this->db->like('text',$value, 'both');
-        $this->db->or_like('name',$value,'both');
+        else {
+            $this->db->or_like('faq.title', $value);
+            $this->db->or_like('faq.text', $value);
+            $this->db->or_like('category.name', $value);
+        }
+        $counter++;
     }
+    $this->db->group_end();
     //$this->db->like('text',$value,'both');
     //$this->db->or_like('name',$value,'both');
     $this->db->order_by('created_on', 'desc');

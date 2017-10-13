@@ -63,6 +63,16 @@
           }
         });
       }
+
+        // disable submit button until you have selected a topic
+       $('input:checkbox').on('change', function() {
+           if($(this).is(':checked')) {
+               $(this).closest('.form_post').find('input:submit').prop('disabled', false);
+           }
+           else {
+               $(this).closest('.form_post').find('input:submit').prop('disabled', true);
+           }
+       })
     });
     //remove image after uploading it
     $(document).on('click', '.del_img', function(event){
@@ -89,7 +99,8 @@
 </section>
 <section class="faq-form">
     <div class="wrapper">
-        <?php echo form_open('',array('class'=>'form-horizontal'));?>
+        <div><?php echo $this->session->flashdata('message');?></div>
+        <?php echo form_open('',array('class'=>'form_post form-horizontal'));?>
         <h3> Select topic </h3>
         <?php if(isset($category)) {
             foreach($category as $cat)
@@ -128,7 +139,7 @@
         <div id="jax_req">
             <!-- Ajax request here to display faqs -->
         </div>
-        <?php echo form_submit('submit', 'Send', 'class="btn faq-send" style="width:350px;"');?>
+        <?php echo form_submit('submit', 'Send', 'disabled class="btn faq-send" style="width:350px;"');?>
         <?php echo form_close();?>
         <form enctype="multipart/form-data" method="post" id="form_upload"></form>
         <div class="faq_req"> <a href="<?php echo base_url('help'); ?>"> Go back to FAQs </a></div>

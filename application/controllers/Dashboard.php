@@ -23,20 +23,6 @@ class Dashboard extends Public_Controller{
   /*
   *
   */
-  public function ping()
-  {
-        if($this->session->userdata('ses_key')==1){
-        $session_key = $this->input->post('session_key');
-        $this->ion_auth->update_user_activity($session_key);
-      }
-      else {
-          redirect('user','refresh');
-      }
-  }
-
-  /*
-  *
-  */
   public function visualisation()
   {
       $this->render('visualisation_view');

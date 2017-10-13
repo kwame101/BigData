@@ -2089,14 +2089,8 @@ class Ion_auth_model extends CI_Model
 	/*
 	*
 	*/
-	public function generateRandomString($length = 10) {
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$charactersLength = strlen($characters);
-		$randomString = '';
-		for ($i = 0; $i < $length; $i++) {
-				$randomString .= $characters[rand(0, $charactersLength - 1)];
-		}
-		return $randomString;
+	public function generateRandomString($length = 32) {
+		return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
 	}
 
 	/*
@@ -2175,12 +2169,22 @@ class Ion_auth_model extends CI_Model
 		$this->db->join('groups','users_groups.group_id=groups.id','left');
 		$this->db->where('groups.id',$group_id);
 		$this->db->group_start();
-		$this->db->like('users.first_name',$search);
-		$this->db->or_like('users.last_name',$search);
-		$this->db->or_like('users.email',$search);
-		$this->db->or_like('users.company',$search);
+		$search_query_values = explode(' ', $search);
+		$counter = 0;
+		foreach ($search_query_values as $key => $value) {
+				if ($counter == 0) {
+						$this->db->like('users.first_name', $value);
+						$this->db->like('users.last_name', $value);
+				}
+				else {
+						$this->db->or_like('users.first_name', $value);
+						$this->db->or_like('users.last_name', $value);
+				}
+				$counter++;
+		}
+		$this->db->or_like('users.email', $search);
+		$this->db->or_like('users.company', $search);
 		$this->db->group_end();
-
 		//$this->db->group_by('users.id');
 		$this->db->order_by('users.id', 'asc');
 
@@ -2222,11 +2226,10 @@ class Ion_auth_model extends CI_Model
 			$this->db->join('users_groups','users.id=users_groups.user_id','left');
 			$this->db->join('groups','users_groups.group_id=groups.id','left');
 			$this->db->where('groups.id',$group_id);
-			$this->db->group_start();
-			$this->db->like('users.email',$search);
-			$this->db->or_like('users.company',$search);
-			$this->db->group_end();
-
+			 $this->db->group_start();
+			 $this->db->like('users.email',$search);
+			 $this->db->or_like('users.company',$search);
+			 $this->db->group_end();
 			//$this->db->group_by('users.id');
 			$this->db->order_by('users.id', 'asc');
 
@@ -2244,6 +2247,18 @@ class Ion_auth_model extends CI_Model
 		$this->db->from('user_activity');
 		//$this->db->join('user_activity','users.id=user_activity.user_id','left');
 		$query=$this->db->get();
+    return $query;
+	}
+
+	/**
+	*
+	*/
+	public function getLastSeen($session_key)
+	{
+		$this->db->select('last_seen');
+		$this->db->from('user_activity');
+		$this->db->where('ses_key',$session_key);
+		$query=$this->db->get()->row()->last_seen;
     return $query;
 	}
 

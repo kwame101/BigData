@@ -55,7 +55,6 @@ class Help extends Public_Controller{
   {
 
     $term = $this->input->post('search',TRUE);
-    //if(strln($term>3))
     $rows = $this->Support_desk_model->searchFaqResult($term);
      echo json_encode($rows);
   }
@@ -70,7 +69,7 @@ class Help extends Public_Controller{
     $this->form_validation->set_rules('summary','Question Summary','trim|required');
     $this->form_validation->set_rules('message','Message','trim|required');
     $this->form_validation->set_rules('topics[]','Topics','required|integer');
-    if($this->form_validation->run()===FALSE)
+    if($this->form_validation->run($this)===FALSE)
     {
       //class imagesClean() here to delete unwanted images
       $this->load->helper('directory');
@@ -127,7 +126,7 @@ class Help extends Public_Controller{
         $this->email->message($content);
         $this->email->send();
       }
-
+          $this->session->set_flashdata('message', 'Thanks for sending us an enquiry, we\'ll be in touch with you soon!');
         //needs to display a message
         redirect('help/contact','refresh');
     }

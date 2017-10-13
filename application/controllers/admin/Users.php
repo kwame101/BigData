@@ -229,7 +229,6 @@ public function loadUserProfile()
   {
     $page = $this->input->get('page');
     $users = $this->ion_auth->membersDetailsReq(2,$page)->result();
-
     if(!empty($users)){
       foreach($users as $user)
       {

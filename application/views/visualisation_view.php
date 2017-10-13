@@ -1,9 +1,11 @@
 <div class="visualBanner">
     <div class="bannerTextContainer">
-        <h1>Getting started with <span class="orange-text" style="font-weight: 400;">Power BI Desktop</span></h1>
+        <div class="wrapper">
+            <h1>Getting started with <span class="orange-text" style="font-weight: 400;">Power BI Desktop</span></h1>
+        </div>
     </div>
     <div class="bannerImageContainer">
-        <img src="http://drpattydental.com/wp-content/uploads/2017/05/placeholder.png" />
+        <img src="<?php echo base_url(); ?>/assets/img/visualisation-header.png" />
     </div>
 </div>
 

@@ -5,10 +5,12 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link id="stylesheet" href="<?php echo base_url(); ?>/assets/css/main.css" title="main" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url();?>/assets/css/sweetalert2.min.css" title="main" rel="stylesheet" type="text/css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>/assets/js/styleswitcher.jquery.js"></script>
 
         <script src="<?php echo base_url(); ?>/assets/js/script.js"></script>
+        <script src="<?php echo base_url(); ?>/assets/js/sweetalert2.all.min.js"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">

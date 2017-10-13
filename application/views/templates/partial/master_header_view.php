@@ -12,10 +12,12 @@
             else $style = 'main';
         ?>
         <link id="stylesheet" href="<?php echo base_url(); ?>/assets/css/<?php echo $style ?>.css" title="main" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url();?>/assets/css/sweetalert2.min.css" title="main" rel="stylesheet" type="text/css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>/assets/js/styleswitcher.jquery.js"></script>
 
         <script src="<?php echo base_url(); ?>/assets/js/script.js"></script>
+        <script src="<?php echo base_url(); ?>/assets/js/sweetalert2.all.min.js"></script>
         <script src="<?php echo base_url(); ?>/assets/js/idle.js"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
@@ -26,11 +28,13 @@
            var auto_refresh = setInterval(function (){
              var key = '<?php echo $this->session->userdata('auth_key')?>';
             $.ajax({
-              url:'<?php echo base_url();?>dashboard/ping',
+              url:'<?php echo base_url();?>user/ping',
               method:"post",
               data:{'session_key':key},
               success: function(data){
-              //alert('updated');
+                if(data == 'timeout'){
+                  location.reload();
+                }
              }
            });
          }, 10000); // refresh every 10000 milliseconds(10s)
@@ -42,7 +46,15 @@
             url:"<?php echo base_url();?>admin/user/logout",
             method:"post",
             success: function(data){
-            alert('You have been logged out due to inactivity');
+              swal({
+                 title: "Logged out",
+                 text: "You have been logged out due to inactivity",
+                 type: "info",
+                 showCancelButton: false
+               }).then(function() {
+                 // Redirect the user
+                 location.href = '<?php echo site_url('/user');?>';
+               });
             }
         });
        };
@@ -70,7 +82,7 @@
          onVisible: onVisibleCallback,
          onAway: awayCallback,
          onAwayBack: awayBackCallback,
-         awayTimeout: 600000 //away with 10 seconds of inactivity
+         awayTimeout: 300000 //away with 5 mins of inactivity
        }).start();
        <?php } ?>
       </script>
