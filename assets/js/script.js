@@ -91,6 +91,22 @@ $(document).on('click', '.faq-title', function(event){
     }
 });
 
+
+ //admin search forms
+$(document).on('click', '#submit_search', function(event){
+    if ($(this).hasClass('admin-search-btn')){
+        $(this).removeClass('admin-search-btn');
+        $(this).addClass('clear_data clear_res');
+        $(this).val('Clear');
+        $('.admin-search input#search').css({'display':'none'});
+    } else {
+        $(this).addClass('admin-search-btn');
+        $(this).removeClass('clear_data clear_res');
+        $(this).val('Search');
+        $('.admin-search input#search').css({'display':'inline-block'});
+    }
+});
+
 //trigger pre and post events for faqs forms
 $(document).on('click', '.enquiry-more', function(event){
   if ($(this).closest('.enquiry-faq').find('.faq-text').is(':hidden')){

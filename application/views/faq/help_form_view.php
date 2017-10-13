@@ -17,7 +17,8 @@
                 cache:false,
                 processData:false,
                 success: function(data){
-                  $('#uploaded_image').html(data);
+                  //$('#uploaded_image').html(data);
+                  $(data).appendTo('#uploaded_image');
                 }
               });
           }
@@ -52,9 +53,9 @@
             var info ='<h3>Do these help?</h3>',strdata;
             for(var i = 0;i<data.length;i++){
               strdata = data[i];
-              info += '<ul class="enquiry-faq"><li class="faq-topic"><a href="#">'+
-                strdata.name + '</a></li><li><a href="#" class="faq-title">'+ strdata.title + '</a><span class="faq-edits"><span class="enquiry-more">'+ "&#43;" +'</span></li><li class="faq-text">'+
-                strdata.text+'</span></li></li></ul>'
+              info += '<ul class="enquiry-faq"><li class="faq-topic"><a>'+
+                strdata.name + '</a></li><div class="faq-row-container"><li margin-top: 20px;><a class="faq-title">'+ strdata.title + '</a><span class="faq-edits"><span class="front-faq-more fa fa-plus"></span></span></li><li class="faq-text">'+
+                strdata.text+'<br /><br /><p>For any assistance please contact <a href="<?php echo site_url('help/contact')?>" class="orange-text">Customer Support.</a></p></div></ul>'
             }
             $('#search_sum').removeClass('loading');
             $('#jax_req').html(info);
@@ -62,6 +63,31 @@
           }
         });
       }
+
+        // disable submit button until you have selected a topic
+       $('input:checkbox').on('change', function() {
+           if($(this).is(':checked')) {
+               $(this).closest('.form_post').find('input:submit').prop('disabled', false);
+           }
+           else {
+               $(this).closest('.form_post').find('input:submit').prop('disabled', true);
+           }
+       })
+    });
+    //remove image after uploading it
+    $(document).on('click', '.del_img', function(event){
+        var removed = $(this).parent(".up_image").children('.img_thumb').val();
+        //alert(removed);
+        $(this).parent(".up_image").remove();
+        $.ajax({
+          //delete selected file
+          url:"<?php echo base_url();?>help/delete_upload",
+          method:"post",
+          data: {'filename': removed},
+          success: function(data){
+            //message info later
+          }
+        });
     });
 </script>
 <div class="container">
@@ -73,7 +99,8 @@
 </section>
 <section class="faq-form">
     <div class="wrapper">
-        <?php echo form_open('',array('class'=>'form-horizontal'));?>
+        <div><?php echo $this->session->flashdata('message');?></div>
+        <?php echo form_open('',array('class'=>'form_post form-horizontal'));?>
         <h3> Select topic </h3>
         <?php if(isset($category)) {
             foreach($category as $cat)
@@ -100,23 +127,21 @@
                 echo form_textarea('message','','class="form-control" placeholder="Please give a full description"');
                 ?>
         </div>
-        <form enctype="multipart/form-data" method="post" id="form_upload">
+        <div  id="uploaded_image">
+        </div>
             <div class="form_upload">
                 <?php
                     echo form_error('userfile');
-                    echo form_upload('userfile','','id="userfile" class="choose-file" data-multiple-caption="{count} files selected" multiple');
+                    echo form_upload('userfile','','form="form_upload" id="userfile" class="choose-file" data-multiple-caption="{count} files selected" multiple');
                     echo form_label('Choose file','userfile','','for="userfile"'); ?>
-                <input type="submit" class="upload-btn" value="+ Upload Attachment" >
+                <input type="submit" class="upload-btn" form="form_upload" value="+ Upload Attachment" >
             </div>
-        </form>
-        <div  id="uploaded_image">
-            <!-- <img src="<?php// echo base_url().'assets/upload/7606fdacd2847517fd0ffd40a01441d3.jpg';?>" /> -->
-        </div>
         <div id="jax_req">
             <!-- Ajax request here to display faqs -->
         </div>
+        <?php echo form_submit('submit', 'Send', 'disabled class="btn faq-send" style="width:350px;"');?>
         <?php echo form_close();?>
-        <?php echo form_submit('submit', 'Send', 'class="btn faq-send" style="width:350px;"');?>
+        <form enctype="multipart/form-data" method="post" id="form_upload"></form>
         <div class="faq_req"> <a href="<?php echo base_url('help'); ?>"> Go back to FAQs </a></div>
     </div>
 </section>

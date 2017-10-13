@@ -67,16 +67,38 @@
   $(document).on('click', '.clear_res', function(event){
     location.href = '<?php echo site_url('/admin/users/members');?>';
   });
+
+  $(document).on('click', '.user-delete-button', function(event){
+    var uid = $(this).attr('value');
+    var Urlink = '<?php echo site_url('admin/users/delete/');?>'+uid;
+    //alert(uid);
+    swal({
+            title: "Delete user",
+            text: "Are you sure you want to delete this user?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#ec5310",
+            confirmButtonText: "Delete user",
+            cancelButtonText: "Cancel"
+        }).then(function() {
+          alert(uid);
+             location.href = Urlink;
+        }, function(dismiss) {
+           if (dismiss === 'cancel') {
+             //do nothing if cancel
+           }
+           else {
+             throw dismiss;
+           }
+        });
+  });
   </script>
     <div class="wrapper members-title">
-    <h1>BDC Members</h1>
-    <div>
-    <form method="post" id="search_members" class="admin-search">
-       <input type="text" name="search" id="search" placeholder="Search for members"/>
-       <input type="submit" value="Search" id="submit_search" class="btn"/>
-    </form>
-    <button class="clear_res" style="display:none;">Clear results </button>
-    </div>
+        <h1>BDC Members</h1>
+        <form method="post" id="search_members" class="admin-search">
+            <input type="text" name="search" id="search" placeholder="Search for members"/>
+            <input type="submit" value="Search" id="submit_search" class="btn admin-search-btn"/>
+        </form>
     </div>
     <section class="members-form-wrapper">
         <div class="wrapper">
@@ -104,17 +126,17 @@
                     <?php echo form_close();?>
                 </div>
                 <div class="top_view" style="width: 680px; text-align: left;">
-                <div class="flex" style="margin-bottom: 20px; font-family: Whitney;"><span style="font-weight: bold; margin-top: 50px;">Company</span><span style="font-weight: bold; margin-top: 50px;">Email</span><span style="font-weight: bold; margin-top: 50px; width: 140px;"></span> </div>
+                <div class="flex" style="margin-bottom: 20px;"><span style="font-weight: bold; margin-top: 50px;">Company</span><span style="font-weight: bold; margin-top: 50px;">Email</span><span style="font-weight: bold; margin-top: 50px; width: 140px;"></span> </div>
                 <div id="ajax_data">
                 <?php
                 if(!empty($users))
                 {
                   foreach($users as $user)
                   {
-                    echo '<div class="user_view flex" style="padding: 30px 0px; padding-bottom: 20px; border-bottom: 2px solid #acacac; width: 680px; font-family: Whitney;">';
+                    echo '<div class="user_view flex" style="padding: 30px 0px; padding-bottom: 20px; border-bottom: 2px solid #acacac; width: 680px;font-family: Whitney;">';
                     echo '<span>'.$user->company.'</span><span>'.$user->email.'</span>'; ?>
 
-                    <a href="<?php echo site_url('admin/users/delete/'.$user->id);?>" class="user-delete-button"> Delete User </a>
+                    <a value="<?php echo $user->id;?>" class="user-delete-button"> Delete User </a>
                     <?php
                     echo '</div>';
                   }
@@ -123,7 +145,7 @@
                 ?>
               </div>
                 </div>
-                <button class="btn" data-val="1" id="load_more"> Load more.. <img id="loader" style="display:none;" src="<?php echo base_url('assets/img/loader.gif');?>"/>
+                <button class="load-more-btn" data-val="1" id="load_more" style="margin:0px; margin-top: 110px;"> Load more.. <img id="loader" style="display:none;" src="<?php echo base_url('assets/img/loader.gif');?>"/>
                 </button>
             </div>
         </div>

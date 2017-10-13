@@ -1947,7 +1947,7 @@ video {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     color: #0e1d33;
-    padding-bottom: 30px;
+    padding-bottom: 50px;
 }
 
 .orange-text
@@ -1999,7 +1999,11 @@ input.btn:hover {
     background-color: #ba410d;
 }
 
-button.btn, .clear_data, .clear_res {
+.clear_data {
+    background-color: #0E1D33 !important;
+}
+
+button.btn, /*.clear_data,*/ /*.clear_res*/ {
     padding: 15px 60px;
     height: 100%;
     width: auto;
@@ -2313,6 +2317,7 @@ textarea.form-control:-moz-placeholder { /* Firefox 18- */
     display: flex;
     justify-content: space-between;
     margin-top: 60px;
+    width: 100%;
 }
 
 .addFaq-form .gvd {
@@ -2438,6 +2443,8 @@ li.faq-text {
  .members-title {
      padding: 60px 0px 50px 0px;
      color: #0e1d34;
+     display: flex;
+     justify-content: space-between;
  }
  .members-title h1 {
      font-size: 26px;
@@ -2599,8 +2606,15 @@ li.faq-text {
      background: #f9f9f9;
  }
 
+ .user-profile-title .wrapper {
+     display: flex;
+     justify-content: space-between;
+ }
+
  .user-profile-title h1 {
      font-size: 26px;
+     display: inline-block;
+     margin-top: 8px;
  }
 
 .view-user-profile {
@@ -3256,7 +3270,6 @@ li.faq-text {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
-    background: #E5E5E5;
     padding: 20px 10px;
 }
 
@@ -3525,23 +3538,62 @@ li.faq-text {
 }
 /* visualisation_view.php */
 
+/* EDIT TOPIC */
+.editTopic-form {
+    background-color: #e5e5e5;
+}
+
+.editTopic.form-horizontal {
+    display: flex;
+    justify-content: space-between;
+    border: 0px;
+    border-radius: 0px;
+}
+
+.editTopic .editTopic-formGroup {
+    width: calc(33.333% - 20px);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.editTopic .editTopic-formGroup:not(.editTopic-btn) {
+    background-color: white;
+}
+/* EDIT TOPIC END */
+
 /* MISC */
+.load-more-btn {
+    margin: 0 auto;
+    display: block;
+    background: none;
+    color: #EC5310;
+    margin-top: 90px;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .admin-search {
     font-family: 'Montserrat', sans-serif;
-    margin-top: 20px;
+    display: inline-block;
 }
 
 .admin-search input {
-    border-radius: 5px;
+    border-radius: 5px 0px 0px 5px;
     padding: 15px;
     font-size: 12px;
-    width: calc(80% - 4px);
+    width: 210px;
     font-size: 12px;
+    display: inline-block;
 }
 
 .admin-search input.btn {
-    width: 20%;
-    font-size: 14px;
+    border-radius: 0px 5px 5px 0px;
+    width: 100px;
+    font-size: 12px;
+    margin-left: -4px;
+    max-height: 100%;
 }
 
 .addCategory-form .addCat-formGroup p {

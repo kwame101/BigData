@@ -26,8 +26,8 @@
                    for(var i = 0;i<data.length;i++){
                      strdata = data[i];
                      raw += '<ul class="front-faq"><li class="faq-topic"><a>'+
-                       strdata.name + '</a></li><div class="faq-row-container"><li style="margin-top: 20px;"><a class="faq-title" >'+ strdata.title +
-                       '</a><span class="faq-edits"><span class="front-faq-more fa fa-plus"></span></span></li><li class="faq-text">'+strdata.text+'<br /><br /><p>For any assistance please contact <a href="<?php echo site_url('help/contact')?>" class="orange-text">Customer Support.</a></p></li></div></ul>'
+                       strdata.name + '</a></li><li><a class="faq-title" >'+ strdata.title +
+                       '</a><span class="faq-edits"><span class="front-faq-more fa fa-plus"></span></span></li><li class="faq-text">'+strdata.text+'</li></ul>'
                    }
                    $('#topic_view').html(raw);
                    //  $('#topic_view').append(JSON.stringify(data));
@@ -72,6 +72,7 @@
                <a> <?php echo $cat['name']; ?> </a>
             </li>
             <?php $faq_info = $this->Support_desk_model->displayRecentFaq($cat['id']);
+            if(isset($faq_info)){
             foreach ($faq_info as $faq) { ?>
             <div class="faq-row-container">
                 <li style="margin-top: 20px;">
@@ -87,7 +88,7 @@
                     <p>For any assistance please contact <a href="<?php echo site_url('help/contact')?>" class="orange-text">Customer Support.</a></p>
                 </li>
             </div>
-          <?php } ?>
+          <?php } } ?>
          </ul>
        <?php  } } ?>
       </div>
