@@ -14,17 +14,40 @@ function updateStatus(chr)
     }
 });
 }
+
+window.goBack = function (e){
+    var defaultLocation = "<?php echo base_url();?>admin/support/enquiry";
+    var oldHash = window.location.hash;
+    history.back(); // Try to go back
+    var newHash = window.location.hash;
+    if(
+        newHash === oldHash &&
+        (typeof(document.referrer) !== "string" || document.referrer  === "")
+    ){
+        window.setTimeout(function(){
+            // redirect to default location
+            window.location.href = defaultLocation;
+        },1000); // set timeout in ms
+    }
+    if(e){
+        if(e.preventDefault)
+            e.preventDefault();
+        if(e.preventPropagation)
+            e.preventPropagation();
+    }
+    return false; // stop event propagation and browser default event
+}
 </script>
 <div class="enquiry-header-title">
     <div class="wrapper">
         <h1> FAQ Enquires </h1>
         <!-- this may cause problem if user land on this page without history -->
-        <a href="#" onclick="window.history.back();">&lt; back </a>
+        <a href="#" onclick="goBack();">&lt; back </a>
     </div>
 </div>
 <div class="wrapper">
     <section class="enquiry-info-content">
-        <?php if(isset($enq_info)){ ?>
+        <?php if(!empty($enq_info)){ ?>
         <div class="enquiry-info-table">
             <div class="enquiry-info-row">
                 <div class="enquiry-user" style="width: 33%;">
@@ -75,11 +98,11 @@ function updateStatus(chr)
         <div class="text12"><?php echo $enq_info->content;?></div>
     </div>
     <div style="margin-top: 40px; display: flex; justify-content: space-between; flex-wrap: wrap;">
-      <?php if(isset($enq_info->images)){
+      <?php if(!empty($enq_info->images)){
             $imageList = array();
             $imageList = explode(', ',$enq_info->images);
             foreach($imageList as $img){
-              echo  '<div style="width: calc(50% - 10px);"><img src="'.base_url().'assets/upload/attachments/'.$img.'" width="600" height="480" class="img-thumbnail" /></div>';
+              echo  '<div style="width: calc(50% - 10px);"><a href="'.base_url().'assets/upload/attachments/'.$img.'" data-lightbox="screen-shot"><img src="'.base_url().'assets/upload/attachments/'.$img.'" width="600" height="480" class="img-thumbnail" /></a></div>';
             }
       } ?>
     </div>

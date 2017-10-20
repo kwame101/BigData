@@ -1,6 +1,8 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+* Default page user enters when they logged in
+**/
 class Dashboard extends Public_Controller{
 
   /*
@@ -21,11 +23,11 @@ class Dashboard extends Public_Controller{
 	}
 
   /*
-  *
+  * Load user visualisation page
   */
   public function visualisation()
   {
-      $this->render('visualisation_view');
+      $this->load->view('visualisation_view');
   }
 
 }

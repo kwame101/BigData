@@ -25,7 +25,7 @@
         var string = $('#search').val();
         if(string == '')
         {
-          $('#ajax_data').html('<ul><li>Please type some words in the search box.</li> </ul>');
+          $('#ajax_data').html('<ul><li>Please search for company or email</li> </ul>');
         }
         else {
             $.ajax({
@@ -81,7 +81,6 @@
             confirmButtonText: "Delete user",
             cancelButtonText: "Cancel"
         }).then(function() {
-          alert(uid);
              location.href = Urlink;
         }, function(dismiss) {
            if (dismiss === 'cancel') {
@@ -94,14 +93,11 @@
   });
   </script>
     <div class="wrapper members-title">
-    <h1>BDC Members</h1>
-    <div>
-    <form method="post" id="search_members">
-       <input type="text" name="search" id="search" placeholder="Search for members"/>
-       <input type="submit" value="Search" id="submit_search"/>
-    </form>
-    <button class="clear_res" style="display:none;">Clear results </button>
-    </div>
+        <h1>BDC Members</h1>
+        <form method="post" id="search_members" class="admin-search">
+            <input type="text" name="search" id="search" placeholder="Search for members"/>
+            <input type="submit" value="Search" id="submit_search" class="btn admin-search-btn"/>
+        </form>
     </div>
     <section class="members-form-wrapper">
         <div class="wrapper">
@@ -148,7 +144,7 @@
                 ?>
               </div>
                 </div>
-                <button class="btn" data-val="1" id="load_more"> Load more.. <img id="loader" style="display:none;" src="<?php echo base_url('assets/img/loader.gif');?>"/>
+                <button class="load-more-btn" data-val="1" id="load_more" style="margin:0px; margin-top: 80px;padding-bottom:80px;"> Load more.. <img id="loader" style="display:none;" src="<?php echo base_url('assets/img/loader.gif');?>"/>
                 </button>
             </div>
         </div>

@@ -53,13 +53,12 @@ $(document).ready(function() {
         alert(this);
     });
 
-    // $('.admin-enquiry li').click(function(){
-    //     if($(this).hasClass('admin-enquiry-li-active')){
-    //         $(this).removeClass('admin-enquiry-li-active');
-    //     } else {
-    //         $(this).addClass('admin-enquiry-li-active')
-    //     }
-    // });
+    $(document).on('keyup', '#password', function(event){
+        document.getElementById("extra_cus").style.display = "block";
+    });
+    $(document).on('blur', '#password', function(event){
+      document.getElementById("extra_cus").style.display = "none";
+    });
 
 });
 
@@ -88,6 +87,22 @@ $(document).on('click', '.faq-title', function(event){
         $(this).closest('.faq-row-container').find('.faq-text').css({'display': 'none'});
         $(this).closest('.faq-row-container').find('.front-faq-more').removeClass('fa-minus');
         $(this).closest('.faq-row-container').find('.front-faq-more').addClass('fa-plus');
+    }
+});
+
+
+ //admin search forms
+$(document).on('click', '#submit_search', function(event){
+    if ($(this).hasClass('admin-search-btn')){
+        $(this).removeClass('admin-search-btn');
+        $(this).addClass('clear_data clear_res');
+        $(this).val('Clear');
+        $('.admin-search input#search').css({'display':'none'});
+    } else {
+        $(this).addClass('admin-search-btn');
+        $(this).removeClass('clear_data clear_res');
+        $(this).val('Search');
+        $('.admin-search input#search').css({'display':'inline-block'});
     }
 });
 

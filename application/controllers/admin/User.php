@@ -1,6 +1,11 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+* User controller for admins - allows a particular user to perform simple
+* tasks like logging into their account, logging out etc.
+* This controller also extend the parent (core) controller since it deals
+* with user authentication so it easy.
+*/
 class User extends MY_Controller
 {
   function __construct()
@@ -9,13 +14,20 @@ class User extends MY_Controller
     $this->load->library('ion_auth');
   }
 
+  /*
+  * Load login page - redirect to login fucntion
+  */
   public function index()
   {
     redirect('admin/user/login', 'refresh');
   }
 
+  /*
+  * User login - allows user to login with a valid email
+  * and password.
+  */
   public function login()
-{
+  {
   $this->data['page_title'] = 'Login';
   //if user logged in
   if($this->ion_auth->logged_in())
@@ -31,6 +43,8 @@ class User extends MY_Controller
     $this->form_validation->set_rules('remember','Remember me','integer');
     if($this->form_validation->run()===TRUE)
     {
+      $isAdmin = $this->ion_auth->isAdmin($this->input->post('identity'));
+      if($isAdmin) {
       $remember = (bool) $this->input->post('remember');
       $user = $this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember);
       if ($user)
@@ -44,22 +58,35 @@ class User extends MY_Controller
       }
       else
       {
-        $this->session->set_flashdata('message',$this->ion_auth->errors());
+        $this->session->set_flashdata('message','<div class="error_mg">'.$this->ion_auth->errors().'</div>');
         redirect('admin/user/login', 'refresh');
       }
+       }
+       else {
+         $this->session->set_flashdata('message','<div class="error_mg">Your account does not have permission to access this section.</div>');
+         redirect('admin/user/login', 'refresh');
+       }
     }
   }
   $this->load->helper('form');
   $this->render('admin/login_view','admin_master');
 }
+
+  /*
+  * Logout user on admin section
+  */
   public function logout()
   {
     $this->ion_auth->logout();
     redirect('admin/user/login', 'refresh');
   }
 
+  /*
+  * Allow admins to change their password
+  * If user is not admin redirect to dashbaord
+  */
   public function settings()
-{
+  {
       $this->form_validation->set_rules('old', $this->lang->line('change_password_validation_old_password_label'), 'required');
   		$this->form_validation->set_rules('new', $this->lang->line('change_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
   		$this->form_validation->set_rules('new_confirm', $this->lang->line('change_password_validation_new_password_confirm_label'), 'required');
@@ -67,6 +94,12 @@ class User extends MY_Controller
       if(!$this->ion_auth->logged_in())
       {
         redirect('admin/user/login','refresh');
+      }
+
+      //if user is not admin
+      if(!$this->ion_auth->in_group('admin'))
+      {
+        redirect('dashboard','refresh');
       }
 
   		$user = $this->ion_auth->user()->row();
@@ -114,12 +147,12 @@ class User extends MY_Controller
   			if ($change)
   			{
   				//if the password was successfully changed
-  				$this->session->set_flashdata('message', $this->ion_auth->messages());
+  				$this->session->set_flashdata('message', '<div class="success_mg">'.$this->ion_auth->messages().'</div>');
   				redirect('admin/user/settings', 'refresh');
   			}
   			else
   			{
-  				$this->session->set_flashdata('message', $this->ion_auth->errors());
+  				$this->session->set_flashdata('message', '<div class="error_mg">'.$this->ion_auth->errors().'</div>');
   				redirect('admin/user/settings', 'refresh');
   			}
   		}

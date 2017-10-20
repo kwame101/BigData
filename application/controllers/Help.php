@@ -1,6 +1,10 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+* Helper class is the user controller which allows users to contact
+* the support team for any problem they encounted while using the
+* dashbaord platforms.
+**/
 class Help extends Public_Controller{
 
   /*
@@ -26,18 +30,18 @@ class Help extends Public_Controller{
 	public function index()
 	{
        $this->data['page_title'] = 'Help desk';
-       //$this->data["faq_info"] = $this->Support_desk_model->displayRecentFaq();
-       $this->data["cat_info"] = $this->Support_desk_model->getSelCategories();
+       $this->data["cat_info"] = $this->Support_desk_model->displayRecentFaq();
 		   $this->render('faq/help_view');
 	}
 
   /*
-  *
+  * Search for a word or phrase in the faq tbl
+  * based on what user entered
   */
   public function doSearch()
   {
       $value = $this->input->post('search');
-      $data = $this->Support_desk_model->searchFaq($value);
+      $data = $this->Support_desk_model->searchFaqResult($value);
       if($data){
         echo json_encode($data);
       }
@@ -49,7 +53,8 @@ class Help extends Public_Controller{
   }
 
   /*
-  *
+  * Search through the db based on user input
+  * Perform a complex search on user summary input
   */
   public function complexSearch()
   {
@@ -60,7 +65,9 @@ class Help extends Public_Controller{
   }
 
   /*
-  *
+  * Enquiry form page allows user to contact the support team
+  * By submitting a form which is stored in the admin section
+  * and also sending an email to each selected topic
   */
   public function contact()
   {
@@ -113,7 +120,7 @@ class Help extends Public_Controller{
         $this->email->to($u_email);
         if(!empty($images)){
           foreach($images as $img){
-            $image_path = set_realpath('assets/upload/');
+            $image_path = set_realpath('assets/upload/attachments/');
             $this->email->attach($image_path.$img);
           }
         }
@@ -121,25 +128,32 @@ class Help extends Public_Controller{
           'summary' => $summary,
           'message' => $message,
         );
-        $this->email->subject('testing email ci');
+        $this->email->subject('New Enquiry');
         $content = $this->load->view('templates/email/enquiry_template.php',$msg_info,TRUE);
         $this->email->message($content);
         $this->email->send();
       }
-          $this->session->set_flashdata('message', 'Thanks for sending us an enquiry, we\'ll be in touch with you soon!');
+          $this->session->set_flashdata('message', 'Thank you for sending us an enquiry, we\'ll be in touch with you soon!');
         //needs to display a message
         redirect('help/contact','refresh');
     }
   }
 
   /*
-  *
+  * On upload request, store it in a local server and display result
   */
   public function display_upload()
   {
-    if(isset($_FILES['userfile']['name']))
+    if(!empty($_FILES['userfiles']['name']))
     {
-      $upload_file = 'userfile';
+      $files_c = count($_FILES['userfiles']['name']);
+      for($i=0;$i < $files_c;$i++){
+        $_FILES['userfile']['name'] = $_FILES['userfiles']['name'][$i];
+        $_FILES['userfile']['type'] = $_FILES['userfiles']['type'][$i];
+        $_FILES['userfile']['tmp_name'] = $_FILES['userfiles']['tmp_name'][$i];
+        $_FILES['userfile']['error'] = $_FILES['userfiles']['error'][$i];
+        $_FILES['userfile']['size'] = $_FILES['userfiles']['size'][$i];
+
       $config['upload_path'] = './assets/upload/tmp';
       $config['allowed_types'] = 'jpg|jpeg|png|gif';
       $config['max_size'] = 1024 * 8;
@@ -149,18 +163,19 @@ class Help extends Public_Controller{
       if($this->upload->do_upload('userfile')){
          $data = $this->upload->data();
         echo '<span class="up_image"><input type="hidden" class="img_thumb" name="images[]" value="'.$data["file_name"].'" />
-         <input type="image" disabled class="img_thumb" width="75" height="95" src="'.base_url().'assets/upload/tmp/'.$data["file_name"].'"  />
+         <input type="image" disabled class="img_thumb" height="95" src="'.base_url().'assets/upload/tmp/'.$data["file_name"].'"  />
          <span class="del_img fa fa-times"></span></span>';
       }
       else{
           echo $this->upload->display_erros();
         }
+      }
     }
     //  echo 'notworking';
   }
 
   /*
-  *
+  * On delete request, remove the deleted file from the local server
   */
   public function delete_upload()
   {

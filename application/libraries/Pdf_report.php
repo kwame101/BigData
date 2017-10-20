@@ -18,9 +18,8 @@ class Pdf_report extends TCPDF
       // Set font
       $this->SetFont('helvetica', 'B', 9);
       // Title
-      $this->Cell(70, 9, 'BigDataCorridor User Report', 0, false, 'R', 0, '', 0, false, 'T', 'M');
-      //$this->Cell(30, 0, 'BigDataCorridor User Report', 1, $ln=0, 'C', 0, '', 0, false, 'C', 'C');
-      $this->Cell(75, 9, $getDate, 0, false, 'R', 0, '', 0, false, 'T', 'M');
+      $this->Cell(69, 9, 'User Report', 0, false, 'R', 0, '', 0, false, 'T', 'M');
+      $this->Cell(82, 9, $getDate, 0, false, 'R', 0, '', 0, false, 'T', 'M');
   }
 
   // Page footer
@@ -30,7 +29,6 @@ class Pdf_report extends TCPDF
       // Set font
       $this->SetFont('helvetica', 'I', 8);
       // Page number
-      //$this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
       $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
   }
 }

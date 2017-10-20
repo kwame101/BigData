@@ -1,6 +1,9 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+* User controller allows user to login and logut - Also performs
+* a simple function which update users activity every few seconds
+**/
 class User extends My_Controller {
 
   /*
@@ -40,6 +43,7 @@ class User extends My_Controller {
 			$remember = (bool) $this->input->post('remember');
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
 			{
+        if(!$this->ion_auth->in_group('admin')){
 				//if the login is successful
         $session_key = $this->ion_auth->generateRandomString();
         $new_data = array (
@@ -49,15 +53,16 @@ class User extends My_Controller {
         $this->session->set_userdata($new_data);
         $user_id = $this->ion_auth->get_user_id();
         $this->ion_auth->set_user_activity($user_id,$session_key);
+        }
 				//redirect them back to the home page
-				$this->session->set_flashdata('message', $this->ion_auth->messages());
+				$this->session->set_flashdata('message', '<div class="success_mg">'.$this->ion_auth->messages().'</div>');
 				redirect('dashboard', 'refresh');
 			}
 			else
 			{
 				// if the login was un-successful
 				// redirect them back to the login page
-				$this->session->set_flashdata('message', $this->ion_auth->errors());
+				$this->session->set_flashdata('message', '<div class="error_mg">'.$this->ion_auth->errors().'</div>');
 				redirect('user/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
@@ -90,13 +95,13 @@ class User extends My_Controller {
     // log the user out
     $logout = $this->ion_auth->logout();
     // redirect them to the login page
-    $this->session->set_flashdata('message', $this->ion_auth->messages());
+    $this->session->set_flashdata('message','<div class="success_mg">'.$this->ion_auth->messages().'</div>');
     redirect('user/login', 'refresh');
   }
 
 
     /*
-    *
+    * Update user last activity if they are still on the page
     */
     public function ping()
     {
@@ -105,10 +110,6 @@ class User extends My_Controller {
               $session_key = $this->input->post('session_key');
               //get user last seen - current time
               $lastseen = $this->ion_auth->getLastSeen($session_key);
-
-              //$prev_t = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$lastseen));
-              //$cur_t = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',time()));
-              //$diff = $cur_t->diff($prev_t);
               $time_n = time();
               $diff = $time_n - $lastseen;
               //if diff btwn that > 5 mins log user out.
@@ -126,7 +127,9 @@ class User extends My_Controller {
     }
 
   /*
-  *
+  * User register form - allows user to register their account
+  * If user account is already created by admin allow
+  * them to register
   */
   public function register_user()
   {
@@ -172,11 +175,11 @@ class User extends My_Controller {
         $this->ion_auth->create_account($identity, $password, $email, $additional_data);
         // check to see if we are creating the user
         // redirect them back to the dashboard page
-        $this->session->set_flashdata('message', $this->ion_auth->messages());
+        $this->session->set_flashdata('message', '<div class="success_mg">Account successfully created, please sign in below</div>');
         redirect("user/login", 'refresh');
         }
        else{
-         $error = 'You are not allowed to create an account.';
+         $error = '<div class="error_mg">You are not allowed to create an account.</div>';
          $this->form_creation($error);
       }
     }
@@ -254,30 +257,25 @@ class User extends My_Controller {
 		$regex_lowercase = '/[a-z]/';
 		$regex_uppercase = '/[A-Z]/';
 		$regex_number = '/[0-9]/';
-		$regex_special = '/[!@#$%^&*()\-_=+{};:,<.>§~]/';
+    $test = array();
 		if (empty($password))
 		{
 			$this->form_validation->set_message('valid_password', 'The {field} field is required.');
 			return FALSE;
 		}
-		if (preg_match($regex_lowercase, $password) < 1)
+		if (preg_match_all($regex_lowercase, $password,$test) < 1)
 		{
 			$this->form_validation->set_message('valid_password', 'The {field} field must be at least one lowercase letter.');
 			return FALSE;
 		}
-		if (preg_match($regex_uppercase, $password) < 1)
+		if (preg_match_all($regex_uppercase, $password,$test) < 1)
 		{
 			$this->form_validation->set_message('valid_password', 'The {field} field must be at least one uppercase letter.');
 			return FALSE;
 		}
-		if (preg_match($regex_number, $password) < 1)
+		if (preg_match_all($regex_number, $password,$test) < 1)
 		{
 			$this->form_validation->set_message('valid_password', 'The {field} field must have at least one number.');
-			return FALSE;
-		}
-		if (preg_match($regex_special, $password) < 1)
-		{
-			$this->form_validation->set_message('valid_password', 'The {field} field must have at least one special character.');
 			return FALSE;
 		}
 		return TRUE;

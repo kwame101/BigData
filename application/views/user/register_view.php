@@ -3,7 +3,6 @@
       <h1>Sign up to create your </br > <span class="orange-text">BigDataCorridor</span> account</h1>
     </div>
 </div>
-
 <section class="grey-background">
     <div class="wrapper w-480 text-center" style="top: -100px;">
         <div id="infoMessage"><?php echo $message;?></div>
@@ -35,7 +34,11 @@
             <!--            <?php echo lang('create_user_email_label', 'email');?> <br />-->
                         <?php echo form_input($email,'','class="form-control" placeholder="Email"');?>
                   </div>
-
+                  <span class="form-group" id="extra_cus" style="display:none;">
+                    <div style="padding: 35px 60px;text-align: left;font-size: 11px;height: 100%;width: 100%;
+                      font-family: 'Montserrat', sans-serif;">
+                      Minimum of 8 lower and upper case characters <br> containing letters and numbers.</div>
+                    </span>
                   <div class="form-group">
             <!--            <?php echo lang('create_user_password_label', 'password');?> <br />-->
                         <?php echo form_input($password,'','class="form-control" placeholder="Password"');?>

@@ -2087,14 +2087,20 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/*
+	* Create a generated string for user login key
+	* @return string of chars
 	*
+	* @param string length
 	*/
 	public function generateRandomString($length = 32) {
 		return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
 	}
 
 	/*
+	* Start user activity once, user is logged in
 	*
+	* @param string user_id
+	* @param string gen_key
 	*/
 	public function set_user_activity($user_id,$gen_key)
 	{
@@ -2108,7 +2114,9 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/*
+	* Update user acctivity for each session key
 	*
+	* @param string session_key
 	*/
 	public function update_user_activity($session_key)
 	{
@@ -2118,7 +2126,10 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/*
+	* Search for user profile by a specific group
+	* @return string query
 	*
+	* @param string group_id
 	*/
 	public function usersProfile($group_id)
 	{
@@ -2136,7 +2147,11 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/*
+	* Search for user profile by group and set a limit
+	* @return string query
 	*
+	* @param string group id
+	* @param string page
 	*/
 	public function usersProfileReq($group_id, $page)
 	{
@@ -2157,7 +2172,11 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/*
+	* Search for user profile on search request by group and search term
+	* @return string query
 	*
+	* @param string group_id
+	* @param string search
 	*/
 	public function usersProfileOnSearch($group_id, $search)
 	{
@@ -2193,7 +2212,11 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/*
+	* Search for members by group and set a limit
+	* @return string query
 	*
+	* @param string group id
+	* @param string page
 	*/
 	public function membersDetailsReq($group_id, $page)
 	{
@@ -2206,7 +2229,7 @@ class Ion_auth_model extends CI_Model
 		$this->db->join('groups','users_groups.group_id=groups.id','left');
 		$this->db->where('groups.id',$group_id);
 		//$this->db->group_by('users.id');
-		$this->db->order_by('users.id', 'asc');
+		$this->db->order_by('users.created_on', 'desc');
 
 		$query=$this->db->get();
 		return $query;
@@ -2215,11 +2238,14 @@ class Ion_auth_model extends CI_Model
 
 
 		/*
+		* Search for members on search request by group and search term
+		* @return string query
 		*
+		* @param string group_id
+		* @param string search
 		*/
 		public function membersDetailsOnSearch($group_id, $search)
 		{
-
 			$this->db->DISTINCT();
 			$this->db->select("users.company, users.email, users.id");
 			$this->db->from('users');
@@ -2239,19 +2265,22 @@ class Ion_auth_model extends CI_Model
 		}
 
 	/*
-	*
+	* Get all user activities
+	* @return string query
 	*/
 	public function activityDetails()
 	{
 		$this->db->select('user_activity.user_id,user_activity.logged_in,user_activity.last_seen');
 		$this->db->from('user_activity');
-		//$this->db->join('user_activity','users.id=user_activity.user_id','left');
 		$query=$this->db->get();
     return $query;
 	}
 
 	/**
+	* Get user last seen by passing a key
+	* @return string query
 	*
+	* @param string session_key
 	*/
 	public function getLastSeen($session_key)
 	{
@@ -2260,6 +2289,28 @@ class Ion_auth_model extends CI_Model
 		$this->db->where('ses_key',$session_key);
 		$query=$this->db->get()->row()->last_seen;
     return $query;
+	}
+
+	/**
+	* Check if user is admin
+	* @return true if user is admin
+	* @return false if user is not admin
+	*/
+	public function isAdmin($identity)
+	{
+		$this->db->select('users_groups.group_id');
+		$this->db->from('users');
+		$this->db->join('users_groups','users.id=users_groups.user_id','left');
+		$this->db->where('users.email',$identity);
+		$this->db->where('users_groups.group_id',1);
+		$query = $this->db->get();
+		if($query->num_rows() > 0)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	protected function _filter_data($table, $data)

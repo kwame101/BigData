@@ -2,7 +2,7 @@
     <div class="forgot-password text-center">
 
           <h1 style="font-size:32px;" >Sign in to your </br> <span class="orange-text">BigDataCorridor</span> account</h1>
-        <p>Please enter your email adress. </br> You will receive a link to craete a new </br> password via email.</p>
+        <p>Please enter your email address. </br> You will receive a link to create a new </br> password via email.</p>
 
         <div id="infoMessage"><?php if (isset($message)){ echo $message; }?></div>
 

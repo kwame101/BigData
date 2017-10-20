@@ -4,29 +4,36 @@ $(document).ready(function () {
     $(".iframe").hide();
     $(".open_web").click(function (e) {
         e.preventDefault();
+        document.getElementById('close_bar').style.display = 'block';
+        document.body.style.overflow = 'hidden';
         $("iframe").attr("src", $(this).attr('href'));
-        $(".link").fadeOut('slow');
-        $(".iframe").fadeIn('slow');
+        $(".link").fadeOut(100);
+        $(".iframe").fadeIn(100);
+        //$(".iframe").show();
     });
     $(document).on('click', '.fclose', function(event){
-        $(this).parent().fadeOut("slow");
-        $(".link").fadeIn("slow");
+        $(this).parent().fadeOut(100);
+        $(".link").fadeIn(100);
+        document.getElementById('close_bar').style.display = 'none';
+        document.body.style.overflow = 'visible';
+
     });
+
 });
 </script>
-<div class="wrapper" style="margin-top: 100px;">
+<div class="wrapper" style="margin-top: 70px;">
     <div class="dashboard-title w-480">
         <h1><span class="orange-text">BigDataCorridor</span> Toolkit Select Below</h1>
-        <p>The platform is suitable for knowledge-base projects, gathering and crunching data from Birmingham and the surrounding areas</p>
+        <p>Learn how to use data to your advantage. Search our datasets and visualise results for Birmingham and the surrounding areas</p>
     </div>
 </div>
 
 <section class="grey-background" style="padding-bottom: 0px;">
-    <div class="wrapper" style="top: -100px;">
+    <div class="wrapper" style="top: -130px;">
         <div class="dashboard-content-container">
             <div class="dashboard-column">
                 <div class="dashboard-image-container">
-                    <img src="<?php echo base_url(); ?>/assets/img/data.png">
+                  <a class="open_web" href="http://www.birminghamdata.uk/"> <img src="<?php echo base_url(); ?>assets/img/data.jpg"> </a>
                 </div>
                 <div class="dashboard-text">
                     <h2>Data</h2>
@@ -36,12 +43,12 @@ $(document).ready(function () {
                       <li>Download data to combine with your private data for particular business needs.</li>
                     </ul>
                 </div>
-                  <a class="open_web dashboard-article-btn link" href="http://www.birminghamdata.org/" style="color:#fff"> Go to Data </a>
+                  <a class="open_web dashboard-article-btn link" href="http://www.birminghamdata.uk/" style="color:#fff"> Go to Data </a>
             </div>
 
             <div class="dashboard-column">
                 <div class="dashboard-image-container">
-                    <img src="<?php echo base_url(); ?>/assets/img/visualisation.png" />
+                  <a class="open_web" href="<?php echo site_url('dashboard/visualisation');?>"> <img src="<?php echo base_url(); ?>assets/img/visualisation.jpg" /></a>
                 </div>
                 <div class="dashboard-text">
                     <h2>Visualisation</h2>
@@ -55,11 +62,11 @@ $(document).ready(function () {
             </div>
         </div>
     </div>
-    <div class="iframe">
+    <div class="iframe" style="background:#fff;">
     <?php  //iframe style
           //style="position:fixed; top:0px; left:0px; bottom:0px; right:0px; width:100%;
           //height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" ?>
-          <span class="fclose">Back to Dashboard</span>
+          <span id="close_bar" style="display:none;" class="fclose">Back to Dashboard</span>
         <iframe src="" >
             <p>Your browser does not support iframes.</p>
         </iframe>

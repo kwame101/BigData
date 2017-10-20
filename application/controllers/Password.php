@@ -1,6 +1,9 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+* Password controller allows user to change and
+* also request for a new password
+**/
 class Password extends My_Controller{
 
   /*
@@ -77,7 +80,7 @@ class Password extends My_Controller{
   		            	{
   		            	   $this->ion_auth->set_error('forgot_password_email_not_found');
   		            	}
-  		                $this->session->set_flashdata('message', $this->ion_auth->errors());
+  		                $this->session->set_flashdata('message', '<div class="error_mg">'.$this->ion_auth->errors().'</div>');
                   		redirect("password/forgot_password", 'refresh');
               		}
   			// run the forgotten password method to email an activation code to the user
@@ -102,13 +105,13 @@ class Password extends My_Controller{
               redirect("password/forgot_password", 'refresh');
           }
             else {
-              $this->session->set_flashdata('error','Email was not send, please contact our support team');
+              $this->session->set_flashdata('error','<div class="error_mg">Email was not send, please contact our support team</div>');
               show_error($this->email->print_debugger());
             }
   			}
   			else
   			{
-  				$this->session->set_flashdata('message', $this->ion_auth->errors());
+  				$this->session->set_flashdata('message', '<div class="error_mg">'.$this->ion_auth->errors().'</div>');
   				redirect("password/forgot_password", 'refresh');
   			}
   		}
@@ -191,17 +194,17 @@ class Password extends My_Controller{
               $content = $this->load->view('user/email/new_password.tpl.php',$msg_info,TRUE);
               $this->email->message($content);
               if ($this->email->send()) {
-                  $this->session->set_flashdata('message', $this->ion_auth->messages());
+                  $this->session->set_flashdata('message', '<div class="success_mg">'.$this->ion_auth->messages().'</div>');
                   redirect("user", 'refresh');
               }
                 else {
-                  $this->session->set_flashdata('error','Email was not send, please contact our support team');
+                  $this->session->set_flashdata('error','<div class="error_mg">Email was not send, please contact our support team</div>');
                   show_error($this->email->print_debugger());
                 }
             }
             else
             {
-              $this->session->set_flashdata('message', $this->ion_auth->errors());
+              $this->session->set_flashdata('message', '<div class="error_mg">'.$this->ion_auth->errors().'</div>');
               redirect('password/reset_password' . $code, 'refresh');
             }
           }
@@ -258,30 +261,25 @@ class Password extends My_Controller{
   		$regex_lowercase = '/[a-z]/';
   		$regex_uppercase = '/[A-Z]/';
   		$regex_number = '/[0-9]/';
-  		$regex_special = '/[!@#$%^&*()\-_=+{};:,<.>§~]/';
+      $test = array();
   		if (empty($password))
   		{
   			$this->form_validation->set_message('valid_password', 'The {field} field is required.');
   			return FALSE;
   		}
-  		if (preg_match_all($regex_lowercase, $password) < 1)
+  		if (preg_match_all($regex_lowercase, $password,$test) < 1)
   		{
   			$this->form_validation->set_message('valid_password', 'The {field} field must be at least one lowercase letter.');
   			return FALSE;
   		}
-  		if (preg_match_all($regex_uppercase, $password) < 1)
+  		if (preg_match_all($regex_uppercase, $password,$test) < 1)
   		{
   			$this->form_validation->set_message('valid_password', 'The {field} field must be at least one uppercase letter.');
   			return FALSE;
   		}
-  		if (preg_match_all($regex_number, $password) < 1)
+  		if (preg_match_all($regex_number, $password,$test) < 1)
   		{
   			$this->form_validation->set_message('valid_password', 'The {field} field must have at least one number.');
-  			return FALSE;
-  		}
-  		if (preg_match_all($regex_special, $password) < 1)
-  		{
-  			$this->form_validation->set_message('valid_password', 'The {field} field must have at least one special character.');
   			return FALSE;
   		}
   		return TRUE;

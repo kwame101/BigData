@@ -1,11 +1,16 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+* Suppot Desk Controller - deals with all admin work from creating faq
+* to creating topic and also responsing to enquiries
+**/
 class Support extends Admin_Controller
 {
 
   /*
-  *
+  * Initialise support controller - loading support desk mdoel
+  * and pagination library. Also check if check user is an admin
+  * else return user to admin page with an error message
   */
   function __construct()
   {
@@ -21,7 +26,7 @@ class Support extends Admin_Controller
 
 
   /*
-  *
+  * Load faq page on default request
   */
   public function index()
   {
@@ -30,7 +35,9 @@ class Support extends Admin_Controller
 
 
   /*
-  *
+  * Create faq post which takes title, topic type, content
+  * Onload onto page display created faqs with option to
+  * navigate through each faq - using pagination
   */
   public function faq()
   {
@@ -77,8 +84,9 @@ class Support extends Admin_Controller
 }
 
   /*
-  *
-  *
+  * Edit faq post - option to change title,
+  * topic and content.
+  * @param faq_id is the particular faq post you want to edit
   */
   public function editFaq($faq_id = null)
   {
@@ -117,11 +125,13 @@ class Support extends Admin_Controller
   }
 
   /*
-  *
+  * Create a topic
+  * On sucessful create load user back onto
+  * the same page displaying all created topics
   */
   public function topic()
   {
-    $this->data['page_title'] = 'Create category';
+    $this->data['page_title'] = 'Create topic';
     $this->load->library('form_validation');
     $this->form_validation->set_rules('category_name','category name','trim|required');
     $this->form_validation->set_rules('category_email','category email','trim|required');
@@ -142,7 +152,7 @@ class Support extends Admin_Controller
   }
 
   /*
-   *
+   * Display all topics
    */
    public function listCategories()
    {
@@ -152,12 +162,14 @@ class Support extends Admin_Controller
    }
 
    /*
-   *
+   * Edit topic - required a valid id
+   * If id is not valid it returns user to default topic page
+   * @param category_id is topic id for each topic
    */
    public function editTopic($category_id = null)
    {
      $category_id = $this->input->post('category_id') ? $this->input->post('category_id') : $category_id;
-     $this->data['page_title'] = 'Edit category';
+     $this->data['page_title'] = 'Edit topic';
      $this->load->library('form_validation');
 
      $this->form_validation->set_rules('category_name','Category name','trim|required');
@@ -191,7 +203,9 @@ class Support extends Admin_Controller
 
 
    /*
-   *
+   * Enquiry page displays all enquiry requested by users
+   * By default it loads 'open' status if status is null
+   * @param status is enquiry state i.e closed
    */
    public function enquiry($status = null)
    {
@@ -215,19 +229,18 @@ class Support extends Admin_Controller
    }
 
    /*
-   *
+   * Display each enquiry with an id
+   * @param enq_id is the enquiry id that is sent to be displayed
    */
    public function display($enq_id = null)
    {
       $this->data['enq_info'] = $this->Support_desk_model->retrieveEnquiryById($enq_id);
       $this->render('admin/faq/faq_enquiry_id_view');
-      //display if enquiry id is valid
-
-      //if invalid or null load back enquiry default
    }
 
    /*
-   *
+   * Update enquiry status by passing a post ajax request
+   * enquiryid and status to update its current state.
    */
    public function doUpdateStatus()
    {

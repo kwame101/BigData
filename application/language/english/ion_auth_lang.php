@@ -40,9 +40,9 @@ $lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self
 
 // Login / Logout
 $lang['login_successful']                    = 'Logged In Successfully';
-$lang['login_unsuccessful']                  = 'Incorrect Login';
-$lang['login_unsuccessful_not_active']       = 'Account is inactive';
-$lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
+$lang['login_unsuccessful']                  = 'The information you have entered is incorrect. Please try again';
+$lang['login_unsuccessful_not_active']       = 'Account not verified';
+$lang['login_timeout']                       = 'Temporarily Locked Out.  Please sign in.';
 $lang['logout_successful']                   = 'Logged Out Successfully';
 
 // Account Changes

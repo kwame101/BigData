@@ -1,5 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+* Reort page is run by cli
+**/
 class Report extends My_Controller{
 
   /*
@@ -8,20 +11,28 @@ class Report extends My_Controller{
     function __construct()
     {
       parent::__construct();
-      //die($this->input->is_cli_request()?'T':'F');
-      if(!$this->input->is_cli_request())
-     {
-        echo 'Not allowed';
-        exit();
-     }
+      is_cli() OR show_404();
+      ///usr/bin/php56-cli  /home/sites/brisng.com/public_html/bigdata/index.php report/index
+      ///usr/bin/php7-cli  /home/sites/brisng.com/public_html/bigdata/index.php report/monthlyEmail
+    }
+
+    public function test()
+    {
+      echo 'test';
     }
 
     /*
-    *
+    * Send an email every month using cli funcs
     */
     public function monthlyEmail()
     {
-      //echo "is_cli():".var_dump(is_cli())."<br>";
+        $getRecent = $this->Support_desk_model->getReportDetails();
+        $sent_d = 'now';
+        if(!empty($getRecent)){
+            $sent_d = $getRecent->sent_on;
+          }
+        $cur_t = strtotime("-5 minutes");
+        if(!$getRecent || $cur_t > $sent_d) {
         $getDate = date("l, jS F, Y");
         $pdf = $this->savePDF();
 
@@ -35,15 +46,22 @@ class Report extends My_Controller{
         $msg_info = array(
           'attachment' => 'Monthly Report from '.$getDate
         );
-        $this->email->subject('testing email ci');
+        $this->email->subject('Users Report');
         $content = $this->load->view('templates/email/monthly_template.php',$msg_info,TRUE);
         $this->email->message($content);
-        $this->email->send();
+        if($this->email->send()){
+          $this->Support_desk_model->saveReport($pdf);
+        }
         unlink($pdf_path.$pdf);
+
+        echo 'complete sent';
+      }
+      echo 'complete still in cool out mode';
+
     }
 
     /*
-    *
+    * Save pdf into a tmp folder
     */
     public function savePDF()
     {
@@ -96,7 +114,7 @@ class Report extends My_Controller{
       // ---------------------------------------------------------
 
       // set font
-      $pdf->SetFont('helvetica', '', 12);
+      $pdf->SetFont('helvetica', '', 10);
       // remove default header
       $pdf->setPrintHeader(false);
       //remove default footer
@@ -147,8 +165,8 @@ class Report extends My_Controller{
         $pdf->Ln(10);
 
         $html_info = '<h1>'.$row['company'].'</h1><table><tr>
-                      <th style="font-size:12px;font-weight:bold;color:#8ba5c3;">Name: <span style="color:black;">'.$row['user_full_name'].'</span></th>
-                      <th style="font-size:12px;font-weight:bold;color:#8ba5c3;">Email: <span style="color:black;">'.$row['email'].'</span></th>';
+                      <th style="font-size:12px;font-weight:bold;color:#797f8d;">Name: <span style="color:black;">'.$row['user_full_name'].'</span></th>
+                      <th style="font-size:12px;font-weight:bold;color:#797f8d;">Email: <span style="color:black;">'.$row['email'].'</span></th>';
         $table_info = '<h1></h1><table style="border:1px solid #000; padding:6px;">';
         $table_info .= '<tr> <th style="border:1px solid #000; padding:6px; font-weight: bold; width: 150px;">
                         Date</th> <th style="border:1px solid #000; padding:6px;font-weight: bold; width: 150px;">Time in</th><th
@@ -178,7 +196,7 @@ class Report extends My_Controller{
 
         $table_info .= '</table>';
 
-        $html_info .=  '<th style="font-size:12px;font-weight:bold;color:#8ba5c3;text-align:center;">Total time: <span style="color:black;">'.$this->addTime($new_date).'</span></th></tr></table>';
+        $html_info .=  '<th style="font-size:12px;font-weight:bold;color:#797f8d;text-align:center;">Total time: <span style="color:black;">'.$this->addTime($new_date).'</span></th></tr></table>';
 
         // output the HTML content
         $pdf->writeHTML($html_info, true, false, true, false, '');
@@ -188,13 +206,14 @@ class Report extends My_Controller{
       }
       $file_name = 'Report_'.$currentdate.'.pdf';
       //Close and output PDF document
-      $pdf->Output($_SERVER['DOCUMENT_ROOT']. 'bigdata/assets/tmp_email/'.$file_name, 'F');
+      $pdf->Output(dirname(dirname(dirname(__FILE__))). '/assets/tmp_email/'.$file_name, 'F');
 
       return $file_name;
     }
 
     /*
-    *
+    * @Return a string of time
+    * @Param string times
     */
      protected function addTime($times) {
      $seconds = 0;

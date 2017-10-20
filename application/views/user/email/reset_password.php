@@ -9,7 +9,11 @@
         <div id="infoMessage"><?php echo $message;?></div>
         <section class="form-container">
 						<?php echo form_open('password/reset_password/' . $code);?>
-
+            <span class="form-group" id="extra_cus" style="display:none;">
+              <div style="padding: 35px 60px;text-align: left;font-size: 11px;height: 100%;width: 100%;
+                font-family: 'Montserrat', sans-serif;">
+                Minimum of 8 lower and upper case characters <br> containing letters and numbers.</div>
+              </span>
 	<div class="form-group">
 	<!--	<label for="new_password"><?php echo sprintf(lang('reset_password_new_password_label'), $min_password_length);?></label> <br /> -->
 		<?php echo form_input($new_password,'','class="form-control" placeholder="Password"');?>

@@ -16,7 +16,7 @@
               </div>
               <div class="gvd">
                 <?php
-                if(isset($category))
+                if(!empty($category))
                 { ?>
                   <select name="category_id" class="form-control">
                       <option value="null">Select Category </option>
@@ -43,26 +43,25 @@
         <div class="wrapper" id="topic_view">
             <div class="faqs">
               <?php
-                 if(isset($faq_info))
+                 if(!empty($faq_info))
                  {
                      foreach ($faq_info as $faq){ ?>
               <ul class="front-faq">
                  <li class="faq-topic">
                     <a href="#" > <?php echo $faq->name; ?> </a>
                  </li>
-                 <li>
-                    <span class="faq-title"> <?php echo $faq->title; ?> </span>
-                    <span class="faq-edits">
-                        <span class="front-faq-more fa fa-plus"></span>
-                        <a style="margin-left:20px;" href="<?php echo site_url('admin/support/editFaq/'.$faq->faq_id) ?>">Edit</a>
-                   </span>
-                 </li>
-                 <li class="faq-text">
-                     <?php echo $faq->text; ?>
-                    <br />
-                    <br />
-                    <p>For any assistance please contact <a href="<?php echo site_url('help/contact')?>" class="orange-text">Customer Support.</a></p>
-                  </li>
+                 <div class="faq-row-container">
+                     <li style="margin-top: 20px;">
+                        <span class="faq-title"> <?php echo $faq->title; ?> </span>
+                        <span class="faq-edits">
+                            <span class="front-faq-more fa fa-plus"></span>
+                            <a style="margin-left:20px;" href="<?php echo site_url('admin/support/editFaq/'.$faq->faq_id) ?>">Edit</a>
+                       </span>
+                     </li>
+                     <li class="faq-text">
+                         <?php echo $faq->text; ?>
+                      </li>
+                  </div>
               </ul>
               <?php  }  ?>
 

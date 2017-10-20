@@ -1,10 +1,14 @@
 <?php  if (! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+* Support Desk Model - performs search and retrieves information from db tables
+* by performing simple query selects and returns
+**/
 class Support_desk_model extends CI_Model
 {
 
   /*
-  *
+  * Initialise the databse
   */
   public function __construct()
   {
@@ -14,7 +18,8 @@ class Support_desk_model extends CI_Model
 
 
   /*
-  *
+  * Retreive all faq created from table faq
+  * @return the query of an array result
   */
   public function retrieveAllFaqs()
   {
@@ -27,7 +32,11 @@ class Support_desk_model extends CI_Model
   }
 
   /*
+  * Retrieve faq from table faq by setting a limit
+  * @return array of each row if found else return false
   *
+  * @Param string limit
+  * @Param string offset
   */
   public function retrieveFaq($limit, $offset)
   {
@@ -49,33 +58,43 @@ class Support_desk_model extends CI_Model
   }
 
   /*
+  * Search for most recent faq based of each topic
+  * Set a limit on most recent faq by 10
+  * @return array of each row if found else return false
   *
+  * @param string cat_id
   */
-  public function displayRecentFaq($cat_id)
+  public function displayRecentFaq()
   {
-    $this->db->select('*');
+    $this->db->select('category.name,faq.title,faq.text');
     $this->db->from('faq');
     $this->db->join('faq_category','faq.id=faq_category.faq_id','left');
     $this->db->join('category','faq_category.cat_id =category.id','left');
-    if ($cat_id !== false)
-       $this->db->where('faq_category.cat_id', $cat_id);
-    $this->db->order_by('created_on', 'desc');
+    $this->db->order_by('faq.created_on', 'desc');
     //$this->db->group_by('category.name');
-    $this->db->limit('3');
+    $this->db->limit('10');
     $query=$this->db->get();
 
     if($query->num_rows() > 0) {
-            foreach($query->result() as $row) {
-                $data[] = $row;
-            }
-            return $data;
+          $category = array();
+          $result = $query->result_array();
+          foreach($result as $row){
+          if(!array_key_exists($row['name'], $category)){
+              $category[$row['name']] = array();
+          }
+              $category[$row['name']][] = $row;
+          }
+            return $category;
         }
         return false;
-
   }
 
+  /*
+  * Search for categories and set a limit by 3
+  * @return an array of each row if found else false
+  */
   function getSelCategories()
-{
+  {
   $this->db->select('id, name');
   $this->db->order_by('name', 'ASC');
   $this->db->limit('3');
@@ -92,7 +111,10 @@ class Support_desk_model extends CI_Model
 }
 
   /**
+  * Search for faq based on search term
+  * @return string  data array if found else return false
   *
+  * @param string value
   */
   public function searchFaq($value)
   {
@@ -109,17 +131,25 @@ class Support_desk_model extends CI_Model
     $query=$this->db->get();
 
     if($query->num_rows() > 0) {
-            foreach($query->result() as $row) {
-                $data[] = $row;
+            $category = array();
+            $result = $query->result_array();
+              foreach($result as $row){
+              if(!array_key_exists($row['name'], $category)){
+                $category[$row['name']] = array();
+              }
+              $category[$row['name']][] = $row;
             }
-            return $data;
+            return $category;
         }
         return false;
 
   }
 
   /*
+  * Search for a particular faq by passing a unique id
+  * @return string query row if found else return false
   *
+  * @param string faq_id
   */
   public function checkFaq($faq_id)
   {
@@ -137,46 +167,45 @@ class Support_desk_model extends CI_Model
   }
 
   /**
+  * Search for faq results based on value
+  * @return string data value if found else false
   *
+  * @param string values
   */
   public function searchFaqResult($values)
   {
-    $this->db->select('*');
+    $this->db->select('category.name,faq.title,faq.text');
     $this->db->from('faq');
     $this->db->join('faq_category','faq.id=faq_category.faq_id','left');
     $this->db->join('category','faq_category.cat_id =category.id','left');
-    $this->db->group_start();
-    $search_query_values = explode(' ', $values);
-    $counter = 0;
-    foreach ($search_query_values as $key => $value) {
-        if ($counter == 0) {
-            $this->db->like('faq.title', $value);
-        }
-        else {
-            $this->db->or_like('faq.title', $value);
-            $this->db->or_like('faq.text', $value);
-            $this->db->or_like('category.name', $value);
-        }
-        $counter++;
-    }
-    $this->db->group_end();
-    //$this->db->like('text',$value,'both');
-    //$this->db->or_like('name',$value,'both');
-    $this->db->order_by('created_on', 'desc');
+    $this->db->where('MATCH (category.name) AGAINST ("'.$values.'" IN BOOLEAN MODE)', NULL, false);
+    $this->db->or_where('MATCH (faq.title) AGAINST ("'.$values.'" IN BOOLEAN MODE)', NULL, false);
+    $this->db->or_where('MATCH (faq.text) AGAINST ("'.$values.'" IN BOOLEAN MODE)', NULL, false);
+    $this->db->order_by('faq.created_on', 'desc');
     $query=$this->db->get();
 
     if($query->num_rows() > 0) {
-            foreach($query->result() as $row) {
-                $data[] = $row;
-            }
-            return $data;
+          $category = array();
+          $result = $query->result_array();
+          foreach($result as $row){
+          if(!array_key_exists($row['name'], $category)){
+            $category[$row['name']] = array();
+          }
+            $category[$row['name']][] = $row;
+          }
+            return $category;
         }
         return false;
 
   }
 
   /*
+  * Update a colum in faq table
   *
+  * @param string faq_id
+  * @param string title
+  * @param string content
+  * @param string cat_id
   */
   public function update_faq($faq_id,$title,$content,$cat_id)
   {
@@ -191,7 +220,7 @@ class Support_desk_model extends CI_Model
   }
 
   /*
-  *
+  * @Return all query records in the faq table
   */
   public function record_count_faqs()
   {
@@ -200,7 +229,8 @@ class Support_desk_model extends CI_Model
 
 
   /*
-  *
+  * Create an faq post
+  * @insert into faq table
   */
   public function createFaq($title,$content,$cat_id)
   {
@@ -212,7 +242,8 @@ class Support_desk_model extends CI_Model
   }
 
   /*
-  *
+  * Search for all categories created
+  * @return result of this query
   */
   public function displayAllCategories()
   {
@@ -223,7 +254,11 @@ class Support_desk_model extends CI_Model
   }
 
   /*
+  * Create a topic
+  * @insert into data category table
   *
+  * @param string name
+  * @param string email
   */
   public function create_category($name, $email)
   {
@@ -232,7 +267,10 @@ class Support_desk_model extends CI_Model
   }
 
   /*
+  * Search for a particular topic
+  * @return query row if true else false
   *
+  * @param string cat_id
   */
   public function checkCategory($cat_id)
   {
@@ -248,7 +286,11 @@ class Support_desk_model extends CI_Model
   }
 
   /*
+  * Search for a particular topic and modify it
   *
+  * @param string cat_id
+  * @param string cat_name
+  * @param string cat_email
   */
   public function update_category($cat_id, $cat_name, $cat_email)
   {
@@ -258,7 +300,10 @@ class Support_desk_model extends CI_Model
   }
 
   /**
+  * Search for multiple topics with an array of values
+  * @return string query
   *
+  * @param string topics
   */
   public function getTopicEmail($topics = array())
   {
@@ -271,7 +316,7 @@ class Support_desk_model extends CI_Model
   }
 
   /**
-  *
+  * Create an enquriy form - insert into enquriy table
   */
   public function enquiryForm($topics = array(), $summary, $message, $images = array())
   {
@@ -300,7 +345,10 @@ class Support_desk_model extends CI_Model
   }
 
   /*
+  * Retrieve enquiry by its status
+  * @return array of result if found else return false
   *
+  * @param stirng status
   */
   public function retrieveEnquiry($status)
   {
@@ -324,7 +372,10 @@ class Support_desk_model extends CI_Model
 
 
     /*
+    * Retrieve an enquiry by its unique id
+    * @return array of each row if found else return false
     *
+    * @param string enqid
     */
     public function retrieveEnquiryById($enqid)
     {
@@ -350,7 +401,10 @@ class Support_desk_model extends CI_Model
     }
 
     /*
+    * Update status of a particular enquiry
     *
+    * @param string enq_id
+    * @param string value
     */
     public function updateStatus($enq_id,$value)
     {
@@ -363,6 +417,35 @@ class Support_desk_model extends CI_Model
       }
       $this->db->where('id',$enq_id);
       $this->db->update('enquiry',$data);
+    }
+
+    /*
+    * Get lastest report send date
+    * @return string query row if found else false
+    */
+    public function getReportDetails()
+    {
+      $this->db->select('sent_on');
+      $this->db->from('monthly_report');
+      $this->db->order_by('sent_on','DESC');
+      $this->db->limit(1);
+      $query = $this->db->get();
+      if($query->num_rows() > 0) {
+            return $query->row();
+        }
+          return false;
+    }
+
+    /*
+    * Add a successfully sent report into report table
+    */
+    public function saveReport($filename)
+    {
+      $data = array(
+        'filename' => $filename,
+        'sent_on' => time()
+      );
+      $this->db->insert('monthly_report',$data);
     }
 
 }

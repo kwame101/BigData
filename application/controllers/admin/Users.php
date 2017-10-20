@@ -1,6 +1,9 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+* Users in the admin section which collects and gathers user activity
+* as well as information about each user
+**/
 class Users extends Admin_Controller
 {
 
@@ -15,7 +18,8 @@ class Users extends Admin_Controller
   }
 
   /*
-  *
+  * load users profile with group id
+  * @param string group_id
   */
   public function index($group_id = NULL)
   {
@@ -29,7 +33,8 @@ class Users extends Admin_Controller
  }
 
 /*
-*
+* Load user profile with the right information
+* @echo user information if found
 */
 public function loadUserProfile()
 {
@@ -87,7 +92,8 @@ public function loadUserProfile()
 }
 
   /*
-  *
+  * Search for users on based on name and  company
+  * @echo value if found
   */
   public function searchUserProfile()
   {
@@ -145,7 +151,9 @@ public function loadUserProfile()
     }
   }
 
-
+  /*
+  * Create a new user
+  */
   public function create()
   {
     $this->data['page_title'] = 'Create user';
@@ -189,7 +197,7 @@ public function loadUserProfile()
   }
 
   /*
-  *
+  * Display members - option to also add a new member
   */
   public function members()
   {
@@ -223,7 +231,7 @@ public function loadUserProfile()
   }
 
   /*
-  *
+  * On load more request - load more members
   */
   public function loadMembersReq()
   {
@@ -235,14 +243,14 @@ public function loadUserProfile()
         echo '<div class="user_view flex" style="padding: 30px 0px; padding-bottom: 20px; border-bottom: 2px solid #acacac; width: 680px;">';
         echo '<span>'.$user->company.'</span><span>'.$user->email.'</span>'; ?>
 
-        <a href="<?php echo site_url('admin/users/delete/'.$user->id);?>" class="user-delete-button"> Delete User </a><?php
+        <a value="<?php echo $user->id;?>" class="user-delete-button"> Delete User </a><?php
         echo '</div>';
       }
     }
   }
 
   /*
-  *
+  * Search for a particular member by name and email
   */
   public function searchMembers()
   {
@@ -254,14 +262,14 @@ public function loadUserProfile()
         echo '<div class="user_view flex" style="padding: 30px 0px; padding-bottom: 20px; border-bottom: 2px solid #acacac; width: 680px;">';
         echo '<span>'.$user->company.'</span><span>'.$user->email.'</span>'; ?>
 
-        <a href="<?php echo site_url('admin/users/delete/'.$user->id);?>" class="user-delete-button"> Delete User </a><?php
+        <a value="<?php echo $user->id;?>" class="user-delete-button"> Delete User </a><?php
         echo '</div>';
       }
     }
   }
 
   /*
-  *
+  * Load admins page - option to add new admin
   */
   public function admins()
   {
@@ -298,8 +306,12 @@ public function loadUserProfile()
     }
   }
 
+  /*
+  * Edit a user by passing a unique id
+  * @param user_id
+  */
   public function edit($user_id = NULL)
-{
+  {
   $user_id = $this->input->post('user_id') ? $this->input->post('user_id') : $user_id;
   $this->data['page_title'] = 'Edit user';
   $this->load->library('form_validation');
@@ -368,7 +380,8 @@ public function loadUserProfile()
   }
 
   /*
-  *
+  * Delete a member by passing their unique id
+  * @param string user_id
   */
   public function delete($user_id = NULL)
   {
@@ -386,7 +399,7 @@ public function loadUserProfile()
 
 
 /*
-*
+* Display reports of each user - total amount time spent
 */
 public function reports()
 {
@@ -396,7 +409,7 @@ public function reports()
 }
 
 /*
-*
+* Load more report on request to view more user reports
 */
 public function loadReports()
 {
@@ -456,7 +469,8 @@ public function loadReports()
 
 
   /*
-  *
+  * Create a downloable csv file
+  * Using PHPExcel extended library to create this funtionality
   */
   public function exportReportCSV()
   {
@@ -480,57 +494,46 @@ public function loadReports()
     // Create the worksheet
     $objPHPExcel->setActiveSheetIndex(0);
 
-    $objPHPExcel->getActiveSheet()->setCellValue('A1', "BigDataCorridor Report");
-    $objPHPExcel->getActiveSheet()->setCellValue('A3', $getDate);
-    $objPHPExcel->getActiveSheet()->setCellValue('A5', "Navigate through the worksheet to see each user activity");
-    //set bold
-    $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
-    $objPHPExcel->getActiveSheet()->getStyle('A3')->getFont()->setBold(true);
-    $objPHPExcel->getActiveSheet()->getStyle('A5')->getFont()->setBold(true);
-    //set font size
-    $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(28);
-    $objPHPExcel->getActiveSheet()->getStyle('A3')->getFont()->setSize(16);
-    $objPHPExcel->getActiveSheet()->getStyle('A5')->getFont()->setSize(16);
-  /* ->setCellValue('B1', "Email")
-   ->setCellValue('C1', "Company")
-   ->setCellValue('D1', "Total Time");
-
-   $objPHPExcel->getActiveSheet()->setCellValue('A4', "Date")
-  ->setCellValue('B4', "Time in")
-  ->setCellValue('C4', "Time out")
-  ->setCellValue('D4', "Time spent");
-  */
+     $objPHPExcel->getActiveSheet()->setCellValue('A1', "BigDataCorridor Report");
+     $objPHPExcel->getActiveSheet()->setCellValue('A3', $getDate);
+     $objPHPExcel->getActiveSheet()->setCellValue('A5', "Navigate through the worksheet to see each user activity");
+     //set bold
+     $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+     $objPHPExcel->getActiveSheet()->getStyle('A3')->getFont()->setBold(true);
+     $objPHPExcel->getActiveSheet()->getStyle('A5')->getFont()->setBold(true);
+     //set font size
+     $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(28);
+     $objPHPExcel->getActiveSheet()->getStyle('A3')->getFont()->setSize(16);
+     $objPHPExcel->getActiveSheet()->getStyle('A5')->getFont()->setSize(16);
 
     $result = $this->ion_auth->usersProfile(2)->result_array();
     $logged =  $this->ion_auth->activityDetails()->result_array();
     $dataArray= array();
     $countRes = sizeof($result);
-    //for($i=0;$i <=$countRes;$i++)
-  //  {
+
       foreach($result as $row) {
         $sumTotal = null;
         $new_date = array();
-      //$uid = $row['id'];
 
-
-      //{
-      	$tn = $row['user_full_name'];
+        if(!empty($row['user_full_name'])){
+      	   $tn = $row['user_full_name'];
+        }
+        else {
+          $tn = 'New User';
+        }
         $dataArray= array();
       	$objWorksheet = new PHPExcel_Worksheet($objPHPExcel);
       	$objPHPExcel->addSheet($objWorksheet);
       	$objWorksheet->setTitle(''. $tn);
-      	//$uid = $row['id'];
-    //  }
-         $row_array['user_full_name'] = $row['user_full_name'];
-         $row_array['email'] = $row['email'];
-         $row_array['company'] = $row['company'];
+        $row_array['user_full_name'] = $row['user_full_name'];
+        $row_array['email'] = $row['email'];
+        $row_array['company'] = $row['company'];
          //iterate over times
          $i = 2;
          foreach($logged as $log ){
            $dataSes = array();
            $total = null;
        if ($row['id'] == $log['user_id']) {
-        // if($log['last_seen'] != $log['logged_in'] && isset($log['last_seen'])){
            $loggedout = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$log['last_seen']));
            $loggedin = DateTime::createFromFormat('Y-m-d H:i:s',date('Y-m-d H:i:s',$log['logged_in']));
            $total =  $loggedout->diff($loggedin);
@@ -540,7 +543,7 @@ public function loadReports()
             $total->i,
             $total->s
            );
-           $datainfo['date'] = date('d/m/YY',$log['logged_in']);
+           $datainfo['date'] = date('d/m/Y',$log['logged_in']);
            $datainfo['time in'] = date('H:i:s',$log['logged_in']);
            $datainfo['time out'] =date('H:i:s',$log['last_seen']);
            $datainfo['time spent'] = $sumTotal;
@@ -551,9 +554,9 @@ public function loadReports()
 
            array_push($new_date, $sumTotal);
           //}
+          $i++;
          }
           $row_array['id'] = $this->addTime($new_date);
-          $i++;
          }
          array_push($dataArray,$row_array);
 
@@ -571,18 +574,15 @@ public function loadReports()
          $objWorksheet->fromArray($dataArray, NULL, 'A2');
 
      }
-    //}
 
-    //$objPHPExcel->getActiveSheet()->fromArray($dataArray, NULL, 'A2');
-
-    // Save Excel 2007 file
-    #echo date('H:i:s') . " Write to Excel2007 format\n";
+    // Save Excel file
+    #echo date('H:i:s') . " Write to Excel format\n";
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
     ob_end_clean();
     // We'll be outputting an excel file
     header('Content-type: application/vnd.ms-excel');
     // It will be called file.xls
-    header('Content-Disposition: attachment; filename="test_'.$currentdate.'.xls"');
+    header('Content-Disposition: attachment; filename="Report_'.$currentdate.'.xls"');
     $objWriter->save('php://output');
     //SaveViaTempFile($objWriter);
     Exit;
@@ -590,7 +590,10 @@ public function loadReports()
 
 
   /*
+  * Return a string of times added together in
+  * 00:00:00 format
   *
+  * @param string times
   */
    protected function addTime($times) {
    $seconds = 0;
@@ -610,7 +613,8 @@ public function loadReports()
 
 
   /*
-  *
+  * Created a downloable pdf form of user reports
+  * Using external library tcpdf to create user reports
   */
   public function exportReportPDF()
   {
@@ -663,7 +667,7 @@ public function loadReports()
     // ---------------------------------------------------------
 
     // set font
-    $pdf->SetFont('helvetica', '', 12);
+    $pdf->SetFont('helvetica', '', 10);
     // remove default header
     $pdf->setPrintHeader(false);
     //remove default footer
@@ -714,8 +718,8 @@ public function loadReports()
       $pdf->Ln(10);
 
       $html_info = '<h1>'.$row['company'].'</h1><table><tr>
-                    <th style="font-size:12px;font-weight:bold;color:#8ba5c3;">Name: <span style="color:black;">'.$row['user_full_name'].'</span></th>
-                    <th style="font-size:12px;font-weight:bold;color:#8ba5c3;">Email: <span style="color:black;">'.$row['email'].'</span></th>';
+                    <th style="font-size:12px;font-weight:bold;color:#797f8d;">Name: <span style="color:black;">'.$row['user_full_name'].'</span></th>
+                    <th style="font-size:12px;font-weight:bold;color:#797f8d;">Email: <span style="color:black;">'.$row['email'].'</span></th>';
       $table_info = '<h1></h1><table style="border:1px solid #000; padding:6px;">';
       $table_info .= '<tr> <th style="border:1px solid #000; padding:6px; font-weight: bold; width: 150px;">
                       Date</th> <th style="border:1px solid #000; padding:6px;font-weight: bold; width: 150px;">Time in</th><th
@@ -745,7 +749,7 @@ public function loadReports()
 
       $table_info .= '</table>';
 
-      $html_info .=  '<th style="font-size:12px;font-weight:bold;color:#8ba5c3;text-align:center;">Total time: <span style="color:black;">'.$this->addTime($new_date).'</span></th></tr></table>';
+      $html_info .=  '<th style="font-size:12px;font-weight:bold;color:#797f8d;text-align:center;">Total time: <span style="color:black;">'.$this->addTime($new_date).'</span></th></tr></table>';
 
       // output the HTML content
       $pdf->writeHTML($html_info, true, false, true, false, '');

@@ -14,7 +14,7 @@
           var string = $('#search').val();
           if(string == '')
           {
-            $('#ajax_data').html('<ul><li>Please type some words in the search box.</li> </ul>');
+            $('#ajax_data').html('<ul><li>Please search for name, email or company.</li> </ul>');
           }
           else {
               $.ajax({
@@ -62,9 +62,9 @@
             <h1>Users Profile </h1>
             <form method="post" id="search_userp" class="admin-search">
                 <input type="text" name="search" id="search" placeholder="Search for users"/>
-                <input type="submit" value="Search" id="submit_search" class="btn"/>
+                <input type="submit" value="Search" id="submit_search" class="btn admin-search-btn"/>
             </form>
-            <button class="clear_data" style="display:none;">Clear results </button>
+            <!-- <button class="clear_data" style="display:none;">Clear results </button> -->
         </div>
     </div>
     <div class="wrapper">
@@ -138,7 +138,7 @@
                     ?>
             </div>
         </div>
-        <button class="btn" data-val="1" id="load_more"> Load more.. <img id="loader" style="display:none;" src="<?php echo base_url('assets/img/loader.gif');?>"/>
+        <button class="load-more-btn" data-val="1" id="load_more"> Load more.. <img id="loader" style="display:none;" src="<?php echo base_url('assets/img/loader.gif');?>"/>
         </button>
     </div>
 </div>

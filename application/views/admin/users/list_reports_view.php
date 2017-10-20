@@ -47,7 +47,7 @@ var scroll  = function(){
         <div class="flex"> <span style="font-weight: bold; margin-top: 50px; width: 250px;">Name</span> <span style="font-weight: bold; margin-top: 50px; width: 250px;">Email</span><span style="font-weight: bold; margin-top: 50px; width: 250px;">Company</span><span style="font-weight: bold; margin-top: 50px; width: 250px;">Total Time</span></div>
         <div id="ajax_data">
         <?php
-        if(isset($users))
+        if(!empty($users))
         {
           function addTime($times) {
             $seconds = 0;
@@ -99,7 +99,7 @@ var scroll  = function(){
         ?>
       </div>
         </div>
-        <button class="btn" data-val="1" id="load_more"> Load more.. <img id="loader" style="display:none;" src="<?php echo base_url('assets/img/loader.gif');?>"/>
+        <button class="load-more-btn" data-val="1" id="load_more"> Load more.. <img id="loader" style="display:none;" src="<?php echo base_url('assets/img/loader.gif');?>"/>
         </button>
         </div>
     </section>

@@ -1,28 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <script type="text/javascript">
     $(document).ready(function(){
-        //ajax request to upload and add image into input tag
-        $('#form_upload').on('submit', function(e){
-          e.preventDefault();
-          if($('#userfile').val() == '')
-          {
-            alert("Please select an image");
-          }
-          else {
-              $.ajax({
-                url:"<?php echo base_url();?>help/display_upload",
-                method:"post",
-                data: new FormData(this),
-                contentType:false,
-                cache:false,
-                processData:false,
-                success: function(data){
-                  //$('#uploaded_image').html(data);
-                  $(data).appendTo('#uploaded_image');
-                }
-              });
-          }
-      });
+        //uncheck all ticked boxes
+        $('#submit_form input[type=checkbox]').attr('checked',false);
+
       //setup before functions
       var typingTimer;                //timer identifier
       var doneTypingInterval = 1000;  //time in ms (1 seconds)
@@ -32,6 +13,7 @@
           if ($('#search_sum').val()) {
               typingTimer = setTimeout(doneTyping, doneTypingInterval);
               $('#search_sum').addClass('loading');
+              $('#jax_req').empty();
           }
       });
       //search through faq form for an summary related to this input
@@ -50,22 +32,25 @@
               $('#search_sum').removeClass('loading');
             }
           else {
-            var info ='<h3>Do these help?</h3>',strdata;
-            for(var i = 0;i<data.length;i++){
-              strdata = data[i];
-              info += '<ul class="enquiry-faq"><li class="faq-topic"><a href="#">'+
-                strdata.name + '</a></li><li><a href="#" class="faq-title">'+ strdata.title + '</a><span class="faq-edits"><span class="enquiry-more">'+ "&#43;" +'</span></li><li class="faq-text">'+
-                strdata.text+'</span></li></li></ul>'
-            }
+            $('#jax_req').append('<h3>Do these help?</h3>');
+            $.each(data, function (key, value) {
+              var list = $('<ul class="front-faq"></ul>');
+              $('#jax_req').append(list);
+              list.append('<li class="faq-topic"><a>' + key + '</a></li>');
+              $.each(value, function (index, Obj) {
+                list.append('<div class="faq-row-container"><li style="margin-top: 20px;"><a class="faq-title">'
+                  + Obj.title + '</a><span class="faq-edits"><span class="front-faq-more fa fa-plus"></span></span></li><li class="faq-text">' + Obj.text +
+                '</li></div>');
+              });
+            });
             $('#search_sum').removeClass('loading');
-            $('#jax_req').html(info);
           }
           }
         });
       }
 
         // disable submit button until you have selected a topic
-       $('input:checkbox').on('change', function() {
+    $(document).on('change', 'input:checkbox', function(event){
            if($(this).is(':checked')) {
                $(this).closest('.form_post').find('input:submit').prop('disabled', false);
            }
@@ -73,6 +58,17 @@
                $(this).closest('.form_post').find('input:submit').prop('disabled', true);
            }
        })
+
+       //check if user choose an image
+       var imageFile = document.getElementById('userfiles');
+       imageFile.onchange = function () {
+         var input = this.files[0];
+         if (input) {
+            document.getElementById("upload_btn").style.visibility = "visible";
+          } else {
+            document.getElementById("upload_btn").style.visibility = "hidden";
+        }
+      };
     });
     //remove image after uploading it
     $(document).on('click', '.del_img', function(event){
@@ -89,6 +85,39 @@
           }
         });
     });
+
+    //ajax request to upload and add image into input tag
+    function uploadForm(){
+      var formDa = new FormData($('#submit_form')[0]);
+      document.getElementById("up_load").style.visibility = "visible";
+      if($('#userfiles').val() == '')
+      {
+        swal({
+           title: "No Image found!",
+           text: "Please select an image",
+           type: "warning",
+           confirmButtonText: 'Close',
+           showCancelButton: false
+         })
+         document.getElementById("up_load").style.visibility = "hidden";
+      }
+      else {
+          $.ajax({
+            url:"<?php echo base_url();?>help/display_upload",
+            method:"post",
+            data: formDa,
+            contentType:false,
+            cache:false,
+            processData:false,
+            success: function(data){
+              //$('#uploaded_image').html(data);
+              $(data).appendTo('#uploaded_image');
+              document.getElementById("upload_btn").style.visibility = "hidden";
+              document.getElementById("up_load").style.visibility = "hidden";
+            }
+          });
+      }
+    }
 </script>
 <div class="container">
 <section class="faq-form-title">
@@ -99,8 +128,8 @@
 </section>
 <section class="faq-form">
     <div class="wrapper">
-        <div><?php echo $this->session->flashdata('message');?></div>
-        <?php echo form_open('',array('class'=>'form_post form-horizontal'));?>
+        <div class="contact-msg"><?php echo $this->session->flashdata('message');?></div>
+        <?php echo form_open('',array('enctype'=>'multipart/form-data','id'=>'submit_form','class'=>'form_post form-horizontal'));?>
         <h3> Select topic </h3>
         <?php if(isset($category)) {
             foreach($category as $cat)
@@ -132,16 +161,17 @@
             <div class="form_upload">
                 <?php
                     echo form_error('userfile');
-                    echo form_upload('userfile','','form="form_upload" id="userfile" class="choose-file" data-multiple-caption="{count} files selected" multiple');
-                    echo form_label('Choose file','userfile','','for="userfile"'); ?>
-                <input type="submit" class="upload-btn" form="form_upload" value="+ Upload Attachment" >
+                    echo form_upload('userfiles[]','','id="userfiles"  class="choose-file" accept="image/x-png,image/gif,image/jpeg" data-multiple-caption="{count} files selected" multiple');
+                    echo form_label('Choose Image','userfiles','','for="userfiles"'); ?>
+                <button type="button"  style="visibility:hidden;" class="upload-btn" id="upload_btn" onclick="uploadForm()"  value="+ Upload Attachment" >+ Upload Attachment </button>
+                <img id="up_load" style="width:20px;visibility:hidden;" src="<?php echo base_url();?>assets/img/loader.gif">
             </div>
         <div id="jax_req">
             <!-- Ajax request here to display faqs -->
         </div>
         <?php echo form_submit('submit', 'Send', 'disabled class="btn faq-send" style="width:350px;"');?>
         <?php echo form_close();?>
-        <form enctype="multipart/form-data" method="post" id="form_upload"></form>
+        <!-- <form enctype="multipart/form-data" method="post" id="form_upload"></form> -->
         <div class="faq_req"> <a href="<?php echo base_url('help'); ?>"> Go back to FAQs </a></div>
     </div>
 </section>
