@@ -12,7 +12,7 @@
 
   $(document).on('click', '.user-delete-button', function(event){
     var uid = $(this).attr('value');
-    var Urlink = '<?php echo site_url('admin/users/delete/');?>'+uid;
+    var Urlink = '<?php echo site_url('admin/users/deleteAdmin/');?>'+uid;
     //alert(uid);
     swal({
             title: "Delete user",
@@ -23,7 +23,6 @@
             confirmButtonText: "Delete user",
             cancelButtonText: "Cancel"
         }).then(function() {
-          alert(uid);
              location.href = Urlink;
         }, function(dismiss) {
            if (dismiss === 'cancel') {

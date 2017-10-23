@@ -117,7 +117,7 @@ class Help extends Public_Controller{
         $this->email->clear(TRUE);
 
         $this->email->from('test@gmail.com');
-        $this->email->to($u_email);
+        $this->email->to(implode(', ',$u_email));
         if(!empty($images)){
           foreach($images as $img){
             $image_path = set_realpath('assets/upload/attachments/');

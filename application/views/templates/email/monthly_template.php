@@ -8,11 +8,11 @@
 <body>
 <div style="background: #ec5210;width:700px;height:20px;margin: 0 auto;">
 </div>
-<header style="width: 700px;background: #0e1d33;padding: 1.3rem 0;margin: 0 auto;">
+<div style="width: 700px;background: #0e1d33;padding: 1.3rem 0;margin: 0 auto;">
   <div style="width: 35%;text-align: center;margin-left: 35%;">
     <img style="width: 60%;" src="<?php echo base_url(); ?>/assets/img/logo.png">
   </div>
-</header>
+</div>
 <!-- section of sign in -->
 <section style="width:700px;margin: 0 auto;padding: 60px 0px 50px 0px;color: #0e1d34;background: #f6f6f6;">
   <!-- wrapper for text -->

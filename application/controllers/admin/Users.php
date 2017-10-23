@@ -297,7 +297,7 @@ public function loadUserProfile()
       $additional_data = array(
         'first_name' => $this->input->post('first_name'),
         'last_name' => $this->input->post('last_name'),
-        'company' => null
+        'company' => 'Admin'
       );
 
       $this->ion_auth->register_admin($username, $password, $email, $additional_data, $group_ids);
@@ -395,6 +395,24 @@ public function loadUserProfile()
     $this->session->set_flashdata('message',$this->ion_auth->messages());
    }
    redirect('admin/users/members','refresh');
+  }
+
+  /*
+  * Delete a member by passing their unique id
+  * @param string user_id
+  */
+  public function deleteAdmin($user_id = NULL)
+  {
+    if(is_null($user_id))
+  {
+    $this->session->set_flashdata('message','There\'s no user to delete');
+  }
+    else
+  {
+    $this->ion_auth->delete_user($user_id);
+    $this->session->set_flashdata('message',$this->ion_auth->messages());
+   }
+   redirect('admin/users/admins','refresh');
   }
 
 

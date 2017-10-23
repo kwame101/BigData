@@ -41,18 +41,23 @@ class Support_desk_model extends CI_Model
   public function retrieveFaq($limit, $offset)
   {
     $this->db->limit($limit, $offset);
-    $this->db->select('*');
+    $this->db->select('faq.id,category.name,faq.text,faq.title');
     $this->db->from('faq');
     $this->db->join('faq_category','faq.id=faq_category.faq_id','left');
     $this->db->join('category','faq_category.cat_id =category.id','left');
-    $this->db->order_by('created_on', 'desc');
+    $this->db->order_by('faq.created_on', 'desc');
     $query=$this->db->get();
 
     if($query->num_rows() > 0) {
-            foreach($query->result() as $row) {
-                $data[] = $row;
+          $category = array();
+          $result = $query->result_array();
+            foreach($result as $row){
+            if(!array_key_exists($row['name'], $category)){
+              $category[$row['name']] = array();
             }
-            return $data;
+            $category[$row['name']][] = $row;
+          }
+          return $category;
         }
         return false;
   }
@@ -199,6 +204,39 @@ class Support_desk_model extends CI_Model
 
   }
 
+  /**
+  * Search for faq results based on value just for Admins
+  * @return string data value if found else false
+  *
+  * @param string values
+  */
+  public function searchAdminFaqResult($values)
+  {
+    $this->db->select('category.name,faq.title,faq.text,faq.id');
+    $this->db->from('faq');
+    $this->db->join('faq_category','faq.id=faq_category.faq_id','left');
+    $this->db->join('category','faq_category.cat_id =category.id','left');
+    $this->db->where('MATCH (category.name) AGAINST ("'.$values.'" IN BOOLEAN MODE)', NULL, false);
+    $this->db->or_where('MATCH (faq.title) AGAINST ("'.$values.'" IN BOOLEAN MODE)', NULL, false);
+    $this->db->or_where('MATCH (faq.text) AGAINST ("'.$values.'" IN BOOLEAN MODE)', NULL, false);
+    $this->db->order_by('faq.created_on', 'desc');
+    $query=$this->db->get();
+
+    if($query->num_rows() > 0) {
+          $category = array();
+          $result = $query->result_array();
+          foreach($result as $row){
+          if(!array_key_exists($row['name'], $category)){
+            $category[$row['name']] = array();
+          }
+            $category[$row['name']][] = $row;
+          }
+            return $category;
+        }
+        return false;
+
+  }
+
   /*
   * Update a colum in faq table
   *
@@ -214,9 +252,20 @@ class Support_desk_model extends CI_Model
     $this->db->where('id',$faq_id);
     $this->db->update('faq');
 
-    $this->db->set('cat_id',$cat_id);
     $this->db->where('faq_id',$faq_id);
-    $this->db->update('faq_category');
+    $query = $this->db->get('faq_category');
+    if($query->num_rows() > 0 ){
+        $this->db->set('cat_id',$cat_id);
+        $this->db->where('faq_id',$faq_id);
+        $this->db->update('faq_category');
+    }
+    else{
+      $data = array(
+        'cat_id' => $cat_id,
+        'faq_id' => $faq_id
+      );
+      $this->db->insert('faq_category',$data);
+    }
   }
 
   /*
@@ -299,6 +348,15 @@ class Support_desk_model extends CI_Model
     $this->db->update('category',$data);
   }
 
+  /*
+  * Remove a topic
+  */
+  public function removeTopic($topic_id)
+  {
+    $this->db->where('id',$topic_id);
+    $this->db->delete('category');
+  }
+
   /**
   * Search for multiple topics with an array of values
   * @return string query
@@ -354,7 +412,7 @@ class Support_desk_model extends CI_Model
   {
     $this->db->select('CONCAT_WS(" ",users.first_name,users.last_name) as full_name,
     GROUP_CONCAT(DISTINCT CONCAT("<div>",category.name,"</div>") SEPARATOR " ") as category_name,
-    GROUP_CONCAT(DISTINCT CONCAT("<div>",category.email,"</div>") SEPARATOR " ") as category_email,
+    GROUP_CONCAT(DISTINCT CONCAT("<span>",category.email, "</span>") SEPARATOR " ") as category_email,
     enquiry.id,enquiry.summary,enquiry.created_on,enquiry.status');
     $this->db->from('enquiry');
     $this->db->join('enquiry_topic','enquiry.id=enquiry_topic.enq_id','left');
@@ -381,7 +439,7 @@ class Support_desk_model extends CI_Model
     {
       $this->db->select('CONCAT_WS(" ",uid.first_name,uid.last_name) as user_full_name,
       GROUP_CONCAT(DISTINCT CONCAT("<div>",category.name,"</div>") SEPARATOR " ") as category_name,
-      GROUP_CONCAT(DISTINCT CONCAT("<div>",category.email,"</div>") SEPARATOR " ") as category_email,
+      GROUP_CONCAT(DISTINCT CONCAT("<span>",category.email,"</span>") SEPARATOR " ") as category_email,
       CONCAT_WS(" ",rid.first_name,rid.last_name) as res_full_name,rid.email,
       GROUP_CONCAT(DISTINCT image_attachment.image SEPARATOR ",") as images,enquiry.*');
       $this->db->from('enquiry');
@@ -394,10 +452,12 @@ class Support_desk_model extends CI_Model
       $this->db->order_by('created_on', 'desc');
       //$this->db->group_by('enquiry.id');
       $query=$this->db->get();
-      if($query->num_rows() != 1) {
-            return false;
+      if($query->num_rows() === 1) {
+            return $query->row();
         }
-        return $query->row();
+        else {
+          return false;
+      }
     }
 
     /*

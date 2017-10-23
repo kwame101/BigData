@@ -1,7 +1,34 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
+<script type="text/javascript">
+window.goBack = function (e){
+    var defaultLocation = "<?php echo base_url();?>admin/support/faq";
+    var oldHash = window.location.hash;
+    history.back(); // Try to go back
+    var newHash = window.location.hash;
+    if(
+        newHash === oldHash &&
+        (typeof(document.referrer) !== "string" || document.referrer  === "")
+    ){
+        window.setTimeout(function(){
+            // redirect to default location
+            window.location.href = defaultLocation;
+        },1000); // set timeout in ms
+    }
+    if(e){
+        if(e.preventDefault)
+            e.preventDefault();
+        if(e.preventPropagation)
+            e.preventPropagation();
+    }
+    return false; // stop event propagation and browser default event
+}
+
+</script>
 <div class="container" style="background-color: #f9f9f9;">
    <div class="wrapper faq-header-title">
       <h1>Edit Faq</h1>
+
+      <a href="#" onclick="goBack();">&lt; back </a>
    </div>
    <div class="addFaq-form">
        <div class="wrapper">

@@ -44,7 +44,9 @@
                       </span>
                       <span class="topic_email">
                           <div class="bold-text title14">For:</div>
-                          <div class="text13 enquiry-for-container"><?php echo $enq['category_email'];?></div>
+                          <div class="text13 enquiry-for-container"><?php
+                          $email =str_replace(',', '</span><br/><span >', $enq['category_email']);
+                          echo $email;?></div>
                       </span>
                       <span style="width: auto; text-align: center;font-weight:bold;">
                           <div class="bold-text title14"><?php echo ucfirst($enq['status']),'</div>';

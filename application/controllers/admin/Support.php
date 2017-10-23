@@ -68,7 +68,6 @@ class Support extends Admin_Controller
       $page = ($this->uri->segment(4)) ? ($this->uri->segment(4) * $config["per_page"]) - $config["per_page"] : 0;
       $this->data["faq_info"] = $this->Support_desk_model->retrieveFaq($config["per_page"], $page);
       $this->data["paginate"] = $this->pagination->create_links();
-
       $this->load->helper('form');
       $this->render('admin/faq/add_faq_view');
   }
@@ -125,6 +124,17 @@ class Support extends Admin_Controller
   }
 
   /*
+  * Search for an faq
+  * Ajax call to search and return faq details in json form
+  */
+  public function searchFaqs()
+  {
+    $values = $this->input->post('search');
+    $rows = $this->Support_desk_model->searchAdminFaqResult($values);
+    echo json_encode($rows);
+  }
+
+  /*
   * Create a topic
   * On sucessful create load user back onto
   * the same page displaying all created topics
@@ -149,6 +159,23 @@ class Support extends Admin_Controller
       $this->Support_desk_model->create_category($group_name, $group_description);
       redirect('admin/support/topic','refresh');
     }
+  }
+
+  /*
+  * Delete a topic by passing its id
+  */
+  public function deleteTopic($topic_id = NULL)
+  {
+      if(is_null($topic_id))
+    {
+      $this->session->set_flashdata('message','<div class="error_mg" style="padding-top: 20px;">There\'s no topic to delete</div>');
+    }
+      else
+    {
+      $this->Support_desk_model->removeTopic($topic_id);
+      $this->session->set_flashdata('message','<div class="success_mg" style="padding-top: 20px;">Topic was successfully deleted</div>');
+     }
+     redirect('admin/support/topic','refresh');
   }
 
   /*
@@ -232,10 +259,15 @@ class Support extends Admin_Controller
    * Display each enquiry with an id
    * @param enq_id is the enquiry id that is sent to be displayed
    */
-   public function display($enq_id = null)
+   public function display($enq_id = NULL)
    {
-      $this->data['enq_info'] = $this->Support_desk_model->retrieveEnquiryById($enq_id);
-      $this->render('admin/faq/faq_enquiry_id_view');
+     if(is_null($enq_id)){
+          redirect('admin/support/enquiry','refresh');
+      }
+      else{
+        $this->data['enq_info'] = $this->Support_desk_model->retrieveEnquiryById($enq_id);
+        $this->render('admin/faq/faq_enquiry_id_view');
+      }
    }
 
    /*

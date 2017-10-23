@@ -25,7 +25,9 @@
                   $.each(data, function (key, value) {
                     var list = $('<ul class="front-faq"></ul>');
                     $('#topic_view').append(list);
-                    list.append('<li class="faq-topic"><a>' + key + '</a></li>');
+                    if(key != ''){
+                      list.append('<li class="faq-topic"><a>' + key + '</a></li>');
+                    }
                     $.each(value, function (index, Obj) {
                       list.append('<div class="faq-row-container"><li style="margin-top: 20px;"><a class="faq-title">'
                         + Obj.title + '</a><span class="faq-edits"><span class="front-faq-more fa fa-plus"></span></span></li><li class="faq-text">' + Obj.text +
@@ -72,10 +74,11 @@
             {
                 foreach ($cat_info as $cat => $faq_info){ ?>
          <ul class="front-faq">
+           <?php if(!empty($cat)){ ?>
             <li class="faq-topic">
                <a> <?php echo $cat; ?> </a>
             </li>
-            <?php
+          <?php }
             foreach ($faq_info as $faq) { ?>
             <div class="faq-row-container">
                 <li style="margin-top: 20px;">

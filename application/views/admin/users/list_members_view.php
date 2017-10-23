@@ -25,7 +25,7 @@
         var string = $('#search').val();
         if(string == '')
         {
-          $('#ajax_data').html('<ul><li>Please search for company or email</li> </ul>');
+          $('#ajax_data').html('<ul class="helpdeskSearchError"><li>Please search for company or email</li> </ul>');
         }
         else {
             $.ajax({
