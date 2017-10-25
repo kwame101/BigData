@@ -48,7 +48,7 @@
                           $email =str_replace(',', '</span><br/><span >', $enq['category_email']);
                           echo $email;?></div>
                       </span>
-                      <span style="width: auto; text-align: center;font-weight:bold;">
+                      <span style="width: auto; text-align: center;font-weight:bold;padding-left:20px;">
                           <div class="bold-text title14"><?php echo ucfirst($enq['status']),'</div>';
                       $stat = $enq['status'];
                       if($stat == 'open'){

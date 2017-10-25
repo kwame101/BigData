@@ -64,9 +64,15 @@ class Support extends Admin_Controller
       $config["num_links"] = round($choice);
 
       $this->pagination->initialize($config);
-
-      $page = ($this->uri->segment(4)) ? ($this->uri->segment(4) * $config["per_page"]) - $config["per_page"] : 0;
+      if($this->uri->segment(4) == '' || is_numeric($this->uri->segment(4))){
+        $page = ($this->uri->segment(4)) ? ($this->uri->segment(4) * $config["per_page"]) - $config["per_page"] : 0;
+       } else {
+        redirect('admin/support/faq','refresh');
+      }
       $this->data["faq_info"] = $this->Support_desk_model->retrieveFaq($config["per_page"], $page);
+      if(!$this->data["faq_info"]){
+        redirect('admin/support/faq','refresh');
+      }
       $this->data["paginate"] = $this->pagination->create_links();
       $this->load->helper('form');
       $this->render('admin/faq/add_faq_view');
@@ -164,8 +170,9 @@ class Support extends Admin_Controller
   /*
   * Delete a topic by passing its id
   */
-  public function deleteTopic($topic_id = NULL)
+  public function deleteTopic()
   {
+      $topic_id = $this->input->post('topic_id');
       if(is_null($topic_id))
     {
       $this->session->set_flashdata('message','<div class="error_mg" style="padding-top: 20px;">There\'s no topic to delete</div>');

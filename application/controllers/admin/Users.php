@@ -277,6 +277,7 @@ public function loadUserProfile()
     $this->load->library('form_validation');
     $this->form_validation->set_rules('first_name','First name','trim');
     $this->form_validation->set_rules('last_name','Last name','trim');
+    $this->form_validation->set_rules('company','Company','trim|required');
     $this->form_validation->set_rules('email','Email','trim|required|valid_email|is_unique[users.email]');
     $this->form_validation->set_rules('password','Password','required');
     $this->form_validation->set_rules('password_confirm','Password confirmation','required|matches[password]');
@@ -297,7 +298,7 @@ public function loadUserProfile()
       $additional_data = array(
         'first_name' => $this->input->post('first_name'),
         'last_name' => $this->input->post('last_name'),
-        'company' => 'Admin'
+        'company' => $this->input->post('company')
       );
 
       $this->ion_auth->register_admin($username, $password, $email, $additional_data, $group_ids);

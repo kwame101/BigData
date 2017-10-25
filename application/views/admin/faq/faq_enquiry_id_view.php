@@ -136,7 +136,7 @@ window.goBack = function (e){
                 </div>
             </div>
             <div class="enquiry-info-states">
-                <div><span class="bold-text title14" style="display: block; margin-bottom: 10px;"> Assigned to:</span>
+                <div><span class="bold-text title14" style="display: block; margin-bottom: 10px;"> Assigned by:</span>
                     <div class="enquiry-asigned text12">
                     <?php
                   if($enq_info->res_full_name == null && $enq_info->email == null){

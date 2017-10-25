@@ -122,10 +122,10 @@
         <div class="textcolumn">
             <div class="textcolumn-title">
                 <img src="<?php echo base_url(); ?>assets/img/question-mark-icon.png" />
-                <h2>Getting More Assist</h2>
+                <h2>Getting More Help</h2>
                 <div class="clearFix"></div>
             </div>
-            <p>Need more assist of using Power BI? You can contact the Big Data Corridor support below.
+            <p>Need more assistance to use Power BI? You can contact the Big Data Corridor support below.
               </p>
               <div class="get-in-touch">
                 <a href="<?php echo site_url('help/contact'); ?>" target="_parent" style="margin-top:30px;" > Get in touch </a>

@@ -58,6 +58,10 @@
                 echo form_input('last_name',set_value('last_name'),'class="form-control" placeholder="Last name"');
                 ?>
               </div>
+              <div class="form-group">
+                <?php echo form_error('company');?>
+                <?php echo form_input('company','','class="form-control" placeholder="Company Name"');?>
+              </div>
                 <div class="form-group">
                   <?php echo form_error('email');?>
                   <?php echo form_input('email','','class="form-control" placeholder="Email"');?>

@@ -1964,7 +1964,49 @@ video {
 {
     font-weight: 700;
     color: #ec5210;
+
 }
+
+/* 404 error page */
+.head-error-text{
+  font-family: Montserrat,sans-serif;
+  font-weight: 700;
+  color:#fff;
+  line-height:1.25;
+  font-size:60px;
+}
+
+.orange-error-text p
+{
+    font-weight: 700;
+    color: #ec5210;
+    font-family: Montserrat,sans-serif;
+    font-size: 24px;
+}
+
+.content-404-text
+  {
+    padding: 100px 0;
+    margin-bottom: 50px;
+   }
+.content-404-text h2 a{
+  font-family: WhitneyHTF-Bold,sans-serif;
+}
+.content-404-text h2{
+  color: #a3a3a3;
+  display: block;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #9c9c9c;
+}
+ .content-404-text a{
+   color: #ec5210;
+ }
+.inner-text-info{
+  padding: 0 2%;
+}
+
+
+/* end 404 here */
 
 form.form-horizontal {
     border: 1px solid #d6d6d6;
@@ -2061,16 +2103,17 @@ button.btn:hover, .clear_data:hover, .clear_res:hover {
 }
 
 input.form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #bfbfbf;
+  color: #bdbcbc;
 }
 input.form-control::-moz-placeholder { /* Firefox 19+ */
-  color: #bfbfbf;
+  color: #bdbcbc;
 }
 input.form-control:-ms-input-placeholder { /* IE 10+ */
-  color: #bfbfbf;
+  color: #bdbcbc;
 }
-input.form-control:-moz-placeholder { /* Firefox 18- */
-  color: #bfbfbf;
+input.form-control:-moz-placeholder { /* Firefox 18- #bfbfbf*/
+  color: #bdbcbc;
+
 }
 
 textarea.form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -3614,6 +3657,7 @@ li.faq-text {
 .cat-email {
     width: 50%;
     word-break: break-all;
+    font-size: 12px;
 }
 
 .email-des{

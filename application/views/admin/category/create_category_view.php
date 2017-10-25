@@ -1,8 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <script type="text/javascript">
 $(document).on('click', '.topic-delete-button', function(event){
-  var uid = $(this).attr('value');
-  var Urlink = '<?php echo site_url('admin/support/deleteTopic/');?>'+uid;
+  var tid = $(this).children('.delete-value').attr('value');
   swal({
           title: "Delete topic",
           text: "Are you sure you want to delete this topic?",
@@ -11,15 +10,21 @@ $(document).on('click', '.topic-delete-button', function(event){
           confirmButtonColor: "#ec5310",
           confirmButtonText: "Delete topic",
           cancelButtonText: "Cancel"
-      }).then(function() {
-           location.href = Urlink;
+      }).then( function (isConfirm){
+        $.ajax({
+          url: '<?php echo site_url('admin/support/deleteTopic/');?>',
+          type:"Post",
+          data: {topic_id:tid}
+          }).done(function(response){
+            $(document).ajaxStop(function() { location.reload(true); });
+          });
       }, function(dismiss) {
-         if (dismiss === 'cancel') {
-           //do nothing if cancel
-         }
-         else {
-           throw dismiss;
-         }
+           if (dismiss === 'cancel') {
+             //do nothing if cancel
+           }
+           else {
+             throw dismiss;
+           }
       });
 });
 </script>
@@ -64,7 +69,7 @@ $(document).on('click', '.topic-delete-button', function(event){
                       echo '<span class="cat-name">'.$cat->name.'</span><span class="cat-email"><span class="email-des">'
                       .$email.
                       '</span></span><span class="cat-edits">'?> <a href="<?php echo site_url('admin/support/editTopic/'.$cat->id)?>">Edit</a>
-                        <span class="topic-delete-button"><a value="<?php echo $cat->id?>">X</a></span>
+                        <span class="topic-delete-button"><a class="delete-value" value="<?php echo $cat->id?>">X</a></span>
                       </span>
             <?php  echo '</div>';
                 }
