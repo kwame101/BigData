@@ -32,15 +32,14 @@
               method:"post",
               data:{'session_key':key},
               success: function(data){
-                if(data == 'timeout'){
-                  location.reload();
-                }
+              //  if(data == 'timeout'){
+              //    location.reload();
+              //  }
              }
            });
          }, 10000); // refresh every 10000 milliseconds(10s)
 
          var awayCallback = function(){
-         console.log(new Date().toTimeString() + ": away");
          document.body.style.opacity = 0.5;
           $.ajax({
             url:"<?php echo base_url();?>admin/user/logout",
@@ -56,40 +55,28 @@
                }).then(function() {
                  // Redirect the user
                  location.href = '<?php echo site_url('/user');?>';
-               });
+               }, function(dismiss) {
+                  if (dismiss === 'cancel') {
+                    location.href = '<?php echo site_url('/user');?>';
+                  }
+                  else {
+                    throw dismiss;
+                  }
+               }).catch(swal.noop);
             }
         });
        };
-       //test purposes
        var awayBackCallback = function(){
-         console.log(new Date().toTimeString() + ": back");
-          document.body.style.opacity = 1;
-       };
-       var onVisibleCallback = function(){
-         console.log(new Date().toTimeString() + ": now looking at page");
-       };
-       var onHiddenCallback = function(){
-         console.log(new Date().toTimeString() + ": not looking at page");
-       };
-       //this is one way of using it.
-       /*
-       var idle = new Idle();
-       idle.onAway = awayCallback;
-       idle.onAwayBack = awayBackCallback;
-       idle.setAwayTimeout(2000);
-       idle.start();
-       */
-       //this is another way of using it
+         document.body.style.opacity = 1;
+      };
+       //idle timer
        var idle = new Idle({
-         onHidden: onHiddenCallback,
-         onVisible: onVisibleCallback,
          onAway: awayCallback,
          onAwayBack: awayBackCallback,
          awayTimeout: 300000 //away with 5 mins of inactivity
        }).start();
        <?php } ?>
       </script>
-
     </head>
     <body>
     <div id="top_bar" class="navbar_fixed">
@@ -125,7 +112,7 @@
                             ?>
                             <li><a href="<?php echo site_url('/dashboard');?>">Dashboard</a></li>
                             <li class="button orange"><a href="<?php echo site_url('/help');?>">Help Desk</a></li>
-                            <?php if($this->ion_auth->in_group('admin')){ ?>
+                            <?php if($this->ion_auth->in_group('master')){ ?>
                             <li><a href="<?php echo site_url('/admin');?>">Admin dashboard</a></li>
                           <?php } else { ?>
                             <li class="button white"><a href="<?php echo site_url('user/logout');?>">Sign Out</a></li>
@@ -178,7 +165,7 @@
                                       ?>
                                       <li><a href="<?php echo site_url('/dashboard');?>">Dashboard</a></li>
                                       <li class="button orange"><a href="<?php echo site_url('/help');?>">Help Desk</a></li>
-                                      <?php if($this->ion_auth->in_group('admin')){ ?>
+                                      <?php if($this->ion_auth->in_group('master')){ ?>
                                       <li><a href="<?php echo site_url('/admin');?>">Admin dashboard</a></li>
                                     <?php } else { ?>
                                       <li><a href="<?php echo site_url('user/logout');?>">Sign Out</a></li>

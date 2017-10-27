@@ -2313,6 +2313,31 @@ class Ion_auth_model extends CI_Model
 		}
 	}
 
+	/**
+	* Check if user is master or member
+	* @return true if user is admin
+	* @return false if user is not admin
+	*/
+	public function userAccess($identity)
+	{
+		$this->db->select('users_groups.group_id');
+		$this->db->from('users');
+		$this->db->join('users_groups','users.id=users_groups.user_id','left');
+		$this->db->where('users.email',$identity);
+		$this->db->group_start();
+		$this->db->where('users_groups.group_id',2);
+		$this->db->or_where('users_groups.group_id',3);
+		$this->db->group_end();
+		$query = $this->db->get();
+		if($query->num_rows() > 0)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	protected function _filter_data($table, $data)
 	{
 		$filtered_data = array();

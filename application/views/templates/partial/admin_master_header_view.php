@@ -29,6 +29,7 @@
                               <?php
                               if($this->ion_auth->logged_in()) {
                               ?>
+                                <li><a href="<?php echo base_url();?>assets/docs/admin_guide.pdf" target="_blank" class="blue-button">Admin Guide</a></li>
                                 <li><a href="<?php echo site_url('admin/users')?>">Users</a></li>
                                 <li><a href="<?php echo site_url('admin/users/members');?>">Members</a></li>
                                 <li class="drop-down">
@@ -36,6 +37,7 @@
                                   <ul>
                                   <li><a href="<?php echo site_url('admin/user/settings');?>">Change Password</a></li>
                                   <li><a href="<?php echo site_url('admin/users/admins');?>">Add Admin</a></li>
+                                  <li><a href="<?php echo site_url('admin/user/guide');?>">BDC Guide</a></li>
                                 </ul></li>
                                 <li><a href="<?php echo site_url('admin/users/reports');?>">Report</a></li>
                                 <li class="drop-down">
@@ -45,7 +47,9 @@
                                   <li><a href="<?php echo site_url('admin/support/faq')?>">Add FAQs</a></li>
                                  </ul></li>
                                 <li><a href="<?php echo site_url('admin/support/enquiry');?>">Enquires</a></li>
+                                <?php if($this->ion_auth->in_group('master')){ ?>
                                 <li class="button orange"><a href="<?php echo site_url('/help');?>">Help Desk</a></li>
+                              <?php } ?>
                                 <li class="button white"><a href="<?php echo site_url('admin/user/logout');?>">Sign Out</a></li>
                               <?php } else { ?>
                                 <li class="button orange"><a href="<?php echo site_url('/help');?>">Help Desk</a></li>
@@ -94,8 +98,9 @@
     						    	<div class="c-12 column">
                                         <div class="navwrap mobile">
                                             <ul id="menu" class="main menu mobile">
+                                              <?php if($this->ion_auth->in_group('master')){ ?>
                                                 <li class="button orange"><a href="<?php echo site_url('/help');?>">Help Desk</a></li>
-                                                <?php
+                                                <?php }
                                                 if($this->ion_auth->logged_in()) {
                                                 ?>
                                                 <li class="button white"><a href="<?php echo site_url('admin/user/logout');?>">Sign Out</a></li>
@@ -120,6 +125,7 @@
                                             <li><a href="<?php echo site_url('admin/users/members');?>">Members</a></li>
                                               <li><a href="<?php echo site_url('admin/user/settings');?>">Change Password</a></li>
                                               <li><a href="<?php echo site_url('admin/users/admins');?>">Add Admin</a></li>
+                                              <li><a href="<?php echo site_url('admin/user/guide');?>">BDC Guide</a></li>
                                             <li><a href="<?php echo site_url('admin/users/reports');?>">Report</a></li>
                                               <li><a href="<?php echo site_url('admin/support/topic')?>">Add Topic</a></li>
                                               <li><a href="<?php echo site_url('admin/support/faq')?>">Add FAQs</a></li>

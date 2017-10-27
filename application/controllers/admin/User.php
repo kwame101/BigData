@@ -156,6 +156,22 @@ class User extends MY_Controller
   				redirect('admin/user/settings', 'refresh');
   			}
   		}
-}
+  }
+
+  public function guide()
+  {
+    if(!$this->ion_auth->logged_in())
+    {
+      redirect('admin/user/login','refresh');
+    }
+
+    //if user is not admin
+    if(!$this->ion_auth->in_group('admin'))
+    {
+      redirect('dashboard','refresh');
+    }
+
+    $this->render('admin/user/admin_guide_upload_view','admin_master');
+  }
 
 }

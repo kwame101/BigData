@@ -90,7 +90,7 @@ class Password extends My_Controller{
   				// if there were no errors
           $this->load->library('email');
 
-          $this->email->from('test@gmail.com');
+          $this->email->from('noreply@bigdatacorridor.com');
           $this->email->to($forgotten['identity']);
 
           $msg_info = array(
@@ -124,7 +124,7 @@ class Password extends My_Controller{
     */
     public function reset_password($code = NULL)
     {
-      if (!$code)
+      if (is_null($code))
       {
         show_404();
       }
@@ -183,7 +183,7 @@ class Password extends My_Controller{
               // if there were no errors
               $this->load->library('email');
 
-              $this->email->from('test@gmail.com');
+              $this->email->from('noreply@bigdatacorridor.com');
               $this->email->to($identity);
 
               $msg_info = array(

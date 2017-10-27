@@ -110,13 +110,36 @@ class Help extends Public_Controller{
         //submit an email to each selected topic
         $topic_email = $this->Support_desk_model->getTopicEmail($topics)->result_array();
 
+        //get logged in user email & name
+        $luser_email = $this->ion_auth->user()->row()->email;
+        $sender_name = $this->ion_auth->user()->row()->first_name.' '.$this->ion_auth->user()->row()->last_name;
+
         $this->load->library('email');
         $this->load->helper('path');
+        //send email to general email
+        $this->email->from($luser_email, $sender_name);
+        $this->email->to('helpdesk@bigdatacorridor.com');
+        if(!empty($images)){
+          foreach($images as $img){
+            $image_path = set_realpath('assets/upload/attachments/');
+            $this->email->attach($image_path.$img);
+          }
+        }
+        $msg_info = array(
+          'summary' => $summary,
+          'message' => $message,
+        );
+        $this->email->subject('New Enquiry');
+        $content = $this->load->view('templates/email/enquiry_template.php',$msg_info,TRUE);
+        $this->email->message($content);
+        $this->email->send();
+
+        //send email for each topic selected
         foreach($topic_email as $u_email){
         //clear any previous email content
         $this->email->clear(TRUE);
 
-        $this->email->from('test@gmail.com');
+        $this->email->from($luser_email, $sender_name);
         $this->email->to(implode(', ',$u_email));
         if(!empty($images)){
           foreach($images as $img){

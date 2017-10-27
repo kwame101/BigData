@@ -9,10 +9,9 @@ $(document).ready(function () {
         $("iframe").attr("src", $(this).attr('href'));
         $(".link").fadeOut(100);
         $(".iframe").fadeIn(100);
-        //$(".iframe").show();
     });
     $(document).on('click', '.fclose', function(event){
-        $(this).parent().fadeOut(100);
+        $(this).closest('.iframe').fadeOut(100);
         $(".link").fadeIn(100);
         document.getElementById('close_bar').style.display = 'none';
         document.body.style.overflow = 'visible';
@@ -63,10 +62,7 @@ $(document).ready(function () {
         </div>
     </div>
     <div class="iframe" style="background:#fff;">
-    <?php  //iframe style
-          //style="position:fixed; top:0px; left:0px; bottom:0px; right:0px; width:100%;
-          //height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" ?>
-          <span id="close_bar" style="display:none;" class="fclose">Back to Dashboard</span>
+          <span id="close_bar" style="display:none;" class="fclose-bar"><div class="close-bar-btn"><a target="_parent" href="<?php echo site_url('/help');?>">Help Desk</a></div> <a class="fclose"> Back to Dashboard</a></span>
         <iframe src="" >
             <p>Your browser does not support iframes.</p>
         </iframe>

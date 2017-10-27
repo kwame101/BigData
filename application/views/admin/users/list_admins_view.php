@@ -13,7 +13,7 @@
   $(document).on('click', '.user-delete-button', function(event){
     var uid = $(this).attr('value');
     var Urlink = '<?php echo site_url('admin/users/deleteAdmin/');?>'+uid;
-    //alert(uid);
+    <?php if($this->ion_auth->in_group('master')){ ?>
     swal({
             title: "Delete user",
             text: "Are you sure you want to delete this user?",
@@ -31,7 +31,16 @@
            else {
              throw dismiss;
            }
-        });
+        }).catch(swal.noop);
+      <?php } else { ?>
+        swal({
+                title: "Oops",
+                text: "You dont have permission to complete this action",
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#ec5310",
+            }).catch(swal.noop);
+            <?php } ?>
   });
   </script>
     <div class="wrapper members-title">

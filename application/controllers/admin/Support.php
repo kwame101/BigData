@@ -16,6 +16,7 @@ class Support extends Admin_Controller
   {
     parent::__construct();
     $this->load->model('Support_desk_model');
+    $this->load->helper(array('url','form'));
     $this->load->library("pagination");
     if(!$this->ion_auth->in_group('admin'))
     {
@@ -286,6 +287,51 @@ class Support extends Admin_Controller
      $enq_id = $this->input->post('enquiryid');
      $value = $this->input->post('status');
      $this->Support_desk_model->updateStatus($enq_id,$value);
+   }
+
+   /*
+   * Upload user guide - overwrite it in docs folder
+   */
+   public function uploadUserGuide()
+   {
+     if(isset($_FILES['userpdf']['name']))
+    {
+      $config['upload_path'] = './assets/docs/';
+      $config['allowed_types'] = 'pdf';
+      $config['file_name'] = 'user_guide';
+      $config['overwrite'] = TRUE;
+
+      $this->load->library('upload',$config);
+      if($this->upload->do_upload('userpdf')){
+        echo '<span class="success_mg">User guide pdf was successfully uploaded</span>';
+        }
+      else{
+        echo '<span class="error_mg">There seem to be a problem, please try again</span>';
+      }
+    }
+   }
+
+   /*
+   * Upload user guide - overwrite it in docs folder
+   */
+   public function uploadAdminGuide()
+   {
+
+       if(isset($_FILES['adminpdf']['name']))
+      {
+        $config['upload_path'] = './assets/docs/';
+        $config['allowed_types'] = 'pdf';
+        $config['file_name'] = 'admin_guide';
+        $config['overwrite'] = TRUE;
+
+        $this->load->library('upload',$config);
+        if($this->upload->do_upload('adminpdf')){
+          echo '<span class="success_mg">Admin guide was successfully uploaded</span>';
+          }
+        else{
+          echo '<span class="error_mg">There seem to be a problem, please try again</span>';
+        }
+      }
    }
 
 }

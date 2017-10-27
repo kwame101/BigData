@@ -39,6 +39,8 @@ class User extends My_Controller {
 		if ($this->form_validation->run() == true)
 		{
 			// check to see if the user is logging in
+      $userAccess = $this->ion_auth->userAccess($this->input->post('identity'));
+      if($userAccess) {
 			// check for "remember me"
 			$remember = (bool) $this->input->post('remember');
 			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
@@ -65,6 +67,11 @@ class User extends My_Controller {
 				$this->session->set_flashdata('message', '<div class="error_mg">'.$this->ion_auth->errors().'</div>');
 				redirect('user/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
+       }
+      else {
+        $this->session->set_flashdata('message', '<div class="error_mg">The information you have entered is incorrect. Please try again</div>');
+        redirect('user/login', 'refresh');
+      }
 		}
 		else
 		{
@@ -114,8 +121,10 @@ class User extends My_Controller {
               $diff = $time_n - $lastseen;
               //if diff btwn that > 5 mins log user out.
               if($diff > 300){
-                echo 'timeout';
-                $this->logout();
+              //  echo 'timeout';
+                $this->ion_auth->logout();
+                $this->session->set_flashdata('message', '<div class="error_mg">Your login session has expired. Please try to login again</div>');
+                redirect('user/login', 'refresh');
               }
               else {
                   $this->ion_auth->update_user_activity($session_key);

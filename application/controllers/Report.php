@@ -12,15 +12,8 @@ class Report extends My_Controller{
     {
       parent::__construct();
       is_cli() OR show_404();
-      ///usr/bin/php56-cli  /home/sites/brisng.com/public_html/bigdata/index.php report/index
-      ///usr/bin/php7-cli  /home/sites/brisng.com/public_html/bigdata/index.php report/monthlyEmail
     }
-
-    public function test()
-    {
-      echo 'test';
-    }
-
+    
     /*
     * Send an email every month using cli funcs
     */
@@ -31,7 +24,7 @@ class Report extends My_Controller{
         if(!empty($getRecent)){
             $sent_d = $getRecent->sent_on;
           }
-        $cur_t = strtotime("-5 minutes");
+        $cur_t = strtotime("-1 month");
         if(!$getRecent || $cur_t > $sent_d) {
         $getDate = date("l, jS F, Y");
         $pdf = $this->savePDF();
@@ -39,8 +32,8 @@ class Report extends My_Controller{
         //email submit
         $this->load->library('email');
         $this->load->helper('path');
-        $this->email->from('test@gmail.com');
-        $this->email->to('Kwame@studio14online.co.uk','tester');
+        $this->email->from('noreply@bigdatacorridor.com');
+        $this->email->to('Fiona.Ollerenshaw@birmingham.gov.uk');
         $pdf_path = set_realpath('assets/tmp_email/');
         $this->email->attach($pdf_path.$pdf);
         $msg_info = array(
@@ -57,7 +50,6 @@ class Report extends My_Controller{
         echo 'complete sent';
       }
       echo 'complete still in cool out mode';
-
     }
 
     /*
